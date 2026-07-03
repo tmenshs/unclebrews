@@ -656,6 +656,64 @@ body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--brew-cre
 </head>
 <body>
 
+  <body>
+
+<div id="ub-menu-btn" style="position:fixed;top:16px;left:16px;z-index:1001;background:#fff;width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.15);cursor:pointer;">
+  <div style="width:22px;">
+    <div style="height:3px;background:#3d1c08;margin-bottom:5px;border-radius:2px;"></div>
+    <div style="height:3px;background:#3d1c08;margin-bottom:5px;border-radius:2px;"></div>
+    <div style="height:3px;background:#3d1c08;border-radius:2px;"></div>
+  </div>
+</div>
+
+<div id="ub-menu-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:999;"></div>
+
+<div id="ub-sidebar" style="position:fixed;top:0;left:-280px;width:260px;height:100%;background:#fdf6ec;z-index:1000;transition:left .3s ease;box-shadow:2px 0 12px rgba(0,0,0,.2);padding:70px 20px 20px;overflow-y:auto;">
+
+  <input type="text" placeholder="🔍 Search..." style="width:100%;padding:10px 12px;border-radius:20px;border:1px solid #ccc;margin-bottom:24px;font-size:14px;">
+
+  <a href="#" style="display:block;padding:12px 8px;color:#3d1c08;text-decoration:none;font-weight:600;font-size:15px;border-bottom:1px solid #e8d9c5;">🏠 Home</a>
+
+  <div>
+    <div id="ub-contact-toggle" style="display:flex;justify-content:space-between;align-items:center;padding:12px 8px;color:#3d1c08;font-weight:600;font-size:15px;border-bottom:1px solid #e8d9c5;cursor:pointer;">
+      <span>📞 Contact Us</span>
+      <span id="ub-contact-arrow" style="transition:transform .2s;">▾</span>
+    </div>
+    <div id="ub-contact-dropdown" style="display:none;padding-left:20px;">
+      <a href="#franchise" style="display:block;padding:10px 8px;color:#6b3a2a;text-decoration:none;font-size:14px;">🤝 Franchise</a>
+    </div>
+  </div>
+
+  <a href="https://m.me/YOUR_PAGE_USERNAME" target="_blank" style="display:block;padding:12px 8px;color:#3d1c08;text-decoration:none;font-weight:600;font-size:15px;border-bottom:1px solid #e8d9c5;">💬 Chat on Messenger</a>
+
+  <a href="https://facebook.com/YOUR_PAGE_USERNAME" target="_blank" style="display:block;padding:12px 8px;color:#3d1c08;text-decoration:none;font-weight:600;font-size:15px;">📘 Facebook Page</a>
+
+</div>
+
+<script>
+  var ubMenuBtn = document.getElementById('ub-menu-btn');
+  var ubSidebar = document.getElementById('ub-sidebar');
+  var ubOverlay = document.getElementById('ub-menu-overlay');
+  var ubContactToggle = document.getElementById('ub-contact-toggle');
+  var ubContactDropdown = document.getElementById('ub-contact-dropdown');
+  var ubContactArrow = document.getElementById('ub-contact-arrow');
+
+  ubMenuBtn.addEventListener('click', function(){
+    ubSidebar.style.left = '0';
+    ubOverlay.style.display = 'block';
+  });
+  ubOverlay.addEventListener('click', function(){
+    ubSidebar.style.left = '-280px';
+    ubOverlay.style.display = 'none';
+  });
+  ubContactToggle.addEventListener('click', function(){
+    var isOpen = ubContactDropdown.style.display === 'block';
+    ubContactDropdown.style.display = isOpen ? 'none' : 'block';
+    ubContactArrow.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+  });
+</script>
+
+<!-- everything else that was already in your body (hero section, etc.) continues below, untouched -->
 <!-- ══════════════ SECTION 1: HERO ══════════════ -->
 <section class="hero">
   <div class="hero-bg-anim"></div>
