@@ -1786,5 +1786,34 @@ function endCall() {
   renderFab(); renderCart(); loadMenu();
 })();
 </script>
+
+  <footer style="background:#3d1c08;color:#fff;text-align:center;padding:24px 16px;font-size:13px;">
+  <p>© Copyright 2026 Uncle Brew. All Rights Reserved. Established in 2012.</p>
+  <p style="margin-top:6px;">
+    <a href="#" onclick="document.getElementById('ub-terms-modal').style.display='flex';return false;" style="color:#e8a020;text-decoration:underline;margin-right:14px;">Terms of Service</a>
+    <a href="#" onclick="document.getElementById('ub-privacy-modal').style.display='flex';return false;" style="color:#e8a020;text-decoration:underline;">Privacy Policy</a>
+  </p>
+</footer>
+
+<div id="ub-terms-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:999;align-items:center;justify-content:center;padding:20px;">
+  <div style="background:#fff;max-width:480px;width:100%;max-height:80vh;overflow-y:auto;border-radius:16px;padding:28px;position:relative;">
+    <button onclick="document.getElementById('ub-terms-modal').style.display='none';" style="position:absolute;top:14px;right:16px;background:none;border:none;font-size:22px;cursor:pointer;">×</button>
+    <h2 style="margin-bottom:14px;color:#3d1c08;">Terms of Service</h2>
+    <p style="font-size:14px;line-height:1.6;color:#444;">
+      By using Uncle Brew's website and ordering services, you agree to order responsibly and provide accurate information. Prices, menu items, and availability may change without notice. We are not liable for delays caused by traffic, weather, or events beyond our control. Misuse of our ordering system, including fraudulent orders, may result in refusal of service. We may update these Terms at any time; continued use means you accept the changes.
+    </p>
+  </div>
+</div>
+
+<div id="ub-privacy-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:999;align-items:center;justify-content:center;padding:20px;">
+  <div style="background:#fff;max-width:480px;width:100%;max-height:80vh;overflow-y:auto;border-radius:16px;padding:28px;position:relative;">
+    <button onclick="document.getElementById('ub-privacy-modal').style.display='none';" style="position:absolute;top:14px;right:16px;background:none;border:none;font-size:22px;cursor:pointer;">×</button>
+    <h2 style="margin-bottom:14px;color:#3d1c08;">Privacy Policy</h2>
+    <p style="font-size:14px;line-height:1.6;color:#444;">
+      Uncle Brew collects only what's needed to process your order — your name, contact number, and delivery address. We use this solely to prepare, deliver, and track your order, and to notify our team via Telegram. We never sell or share your data with third parties. Location data (if shared) is used only to help your rider find you. You may request that we delete your order history at any time.
+    </p>
+  </div>
+</div>
+  
 </body>
 </html>
