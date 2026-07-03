@@ -1265,7 +1265,7 @@ body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--brew-cre
     <div class="qb-rider-login">
       <div class="qb-ricon">🛵</div>
       <p style="font-size:13px;color:#555555;margin-bottom:14px">Enter your rider PIN to view active orders.</p>
-      <input id="qb-rider-pin" class="qb-pin-input" type="password" inputmode="numeric" maxlength="6" placeholder="••••">
+      <input id="qb-rider-pin" class="qb-pin-input" type="password" maxlength="20" placeholder="PIN">
       <div class="qb-error" id="qb-rider-login-error" style="text-align:center;margin-top:8px"></div>
       <button class="qb-btn-primary" id="qb-rider-login-btn">Log In →</button>
     </div>
