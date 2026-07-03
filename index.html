@@ -682,25 +682,64 @@ body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--brew-cre
 
 <div id="ub-menu-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:999;"></div>
 
-<div id="ub-sidebar" style="position:fixed;top:0;left:-280px;width:260px;height:100%;background:#fff9fb;z-index:1000;transition:left .3s ease;box-shadow:2px 0 12px rgba(0,0,0,.2);padding:70px 20px 20px;overflow-y:auto;box-sizing:border-box;">
+<div id="ub-sidebar" style="position:fixed;top:0;left:-280px;width:270px;height:100%;background:#fffbfc;z-index:1000;transition:left .3s ease;box-shadow:2px 0 20px rgba(0,0,0,.15);padding:70px 18px 20px;overflow-y:auto;box-sizing:border-box;font-family:Arial, Helvetica, sans-serif;">
 
-  <input type="text" placeholder="🔍 Search..." style="width:100%;padding:10px 12px;border-radius:20px;border:1px solid #ffd6e3;margin-bottom:24px;font-size:14px;box-sizing:border-box;">
+  <input type="text" placeholder="Search..." style="width:100%;padding:11px 14px;border-radius:20px;border:1px solid #ffd6e3;margin-bottom:22px;font-size:14px;box-sizing:border-box;background:#fff;">
 
-  <a href="#" style="display:block;padding:12px 8px;color:#c2185b;text-decoration:none;font-weight:600;font-size:15px;border-bottom:1px solid #ffe0eb;">🏠 Home</a>
+  <a href="https://tmenshs.github.io/unclebrews/" style="display:flex;align-items:center;gap:12px;padding:12px 10px;color:#3a2530;text-decoration:none;font-weight:600;font-size:14.5px;border-bottom:1px solid #f5e2ea;border-radius:8px;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c2185b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9 21v-6h6v6"/></svg>
+    Home
+  </a>
+
+  <a href="#qb-root" style="display:flex;align-items:center;gap:12px;padding:12px 10px;color:#3a2530;text-decoration:none;font-weight:600;font-size:14.5px;border-bottom:1px solid #f5e2ea;border-radius:8px;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c2185b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+    Menu
+  </a>
+
+  <a href="https://tmenshs.github.io/unclebrews/locations" style="display:flex;align-items:center;gap:12px;padding:12px 10px;color:#3a2530;text-decoration:none;font-weight:600;font-size:14.5px;border-bottom:1px solid #f5e2ea;border-radius:8px;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c2185b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.5 7-11.5A7 7 0 0 0 5 9.5C5 14.5 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.3"/></svg>
+    Locations
+  </a>
+
+  <a href="https://tmenshs.github.io/unclebrews/our-story" style="display:flex;align-items:center;gap:12px;padding:12px 10px;color:#3a2530;text-decoration:none;font-weight:600;font-size:14.5px;border-bottom:1px solid #f5e2ea;border-radius:8px;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c2185b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5v-15z"/><path d="M4 19a2.5 2.5 0 0 1 2.5-2.5H20"/></svg>
+    Our story
+  </a>
+
+  <a href="https://tmenshs.github.io/unclebrews/faq" style="display:flex;align-items:center;gap:12px;padding:12px 10px;color:#3a2530;text-decoration:none;font-weight:600;font-size:14.5px;border-bottom:1px solid #f5e2ea;border-radius:8px;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c2185b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.1 9a2.9 2.9 0 0 1 5.6 1c0 2-2.7 2-2.7 4"/><line x1="12" y1="17.2" x2="12" y2="17.2"/></svg>
+    FAQ
+  </a>
 
   <div>
-    <div id="ub-contact-toggle" style="display:flex;justify-content:space-between;align-items:center;padding:12px 8px;color:#c2185b;font-weight:600;font-size:15px;border-bottom:1px solid #ffe0eb;cursor:pointer;">
-      <span>📞 Contact Us</span>
-      <span id="ub-contact-arrow" style="transition:transform .2s;">▾</span>
+    <div id="ub-contact-toggle" style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 10px;color:#3a2530;font-weight:600;font-size:14.5px;border-bottom:1px solid #f5e2ea;cursor:pointer;border-radius:8px;">
+      <span style="display:flex;align-items:center;gap:12px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c2185b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .7 2.9a2 2 0 0 1-.4 2.2L8 10.2a16 16 0 0 0 6 6l1.4-1.4a2 2 0 0 1 2.2-.4c.9.4 1.9.6 2.9.7a2 2 0 0 1 1.7 2z"/></svg>
+        Contact Us
+      </span>
+      <svg id="ub-contact-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#c2185b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="transition:transform .2s;"><polyline points="6 9 12 15 18 9"/></svg>
     </div>
-    <div id="ub-contact-dropdown" style="display:none;padding-left:20px;">
-      <a href="#franchise" style="display:block;padding:10px 8px;color:#8a5a68;text-decoration:none;font-size:14px;">🤝 Franchise</a>
+    <div id="ub-contact-dropdown" style="display:none;padding-left:30px;">
+      <a href="#franchise" style="display:flex;align-items:center;gap:10px;padding:10px 8px;color:#8a5a68;text-decoration:none;font-size:13.5px;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8a5a68" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 20v-2a4 4 0 0 0-3-3.9"/><path d="M16 3.1a4 4 0 0 1 0 7.8"/></svg>
+        Franchise
+      </a>
     </div>
   </div>
 
-  <a href="https://m.me/YOUR_PAGE_USERNAME" target="_blank" style="display:block;padding:12px 8px;color:#c2185b;text-decoration:none;font-weight:600;font-size:15px;border-bottom:1px solid #ffe0eb;">💬 Chat on Messenger</a>
+  <a href="https://m.me/1025453833986836" target="_blank" style="display:flex;align-items:center;gap:12px;padding:12px 10px;color:#3a2530;text-decoration:none;font-weight:600;font-size:14.5px;border-bottom:1px solid #f5e2ea;border-radius:8px;">
+    <span style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#00c6ff,#0068ff);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><path d="M12 2C6.5 2 2 6.1 2 11.2c0 2.9 1.5 5.5 3.8 7.2V22l3.5-1.9c.9.2 1.8.4 2.7.4 5.5 0 10-4.1 10-9.3S17.5 2 12 2zm1 12.5-2.6-2.8-5 2.8 5.5-5.9 2.6 2.8 5-2.8-5.5 5.9z"/></svg>
+    </span>
+    Chat on Messenger
+  </a>
 
-  <a href="https://facebook.com/YOUR_PAGE_USERNAME" target="_blank" style="display:block;padding:12px 8px;color:#c2185b;text-decoration:none;font-weight:600;font-size:15px;">📘 Facebook Page</a>
+  <a href="https://facebook.com/1025453833986836" target="_blank" style="display:flex;align-items:center;gap:12px;padding:12px 10px;color:#3a2530;text-decoration:none;font-weight:600;font-size:14.5px;border-radius:8px;">
+    <span style="width:26px;height:26px;border-radius:50%;background:#1877f2;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="#fff"><path d="M13.5 21v-8h2.7l.4-3.1h-3.1V7.9c0-.9.3-1.5 1.6-1.5h1.6V3.6C15.9 3.5 15 3.4 13.9 3.4c-2.3 0-3.9 1.4-3.9 4v2.5H7.3V13H10v8h3.5z"/></svg>
+    </span>
+    Facebook Page
+  </a>
 
 </div>
 
@@ -723,9 +762,8 @@ body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--brew-cre
   ubContactToggle.addEventListener('click', function(){
     var isOpen = ubContactDropdown.style.display === 'block';
     ubContactDropdown.style.display = isOpen ? 'none' : 'block';
-    ubContactArrow.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+    ubContactArrow.style.transform = isOpen ? 'rotate(180deg)' : 'rotate(0deg)';
   });
-</script>
 </script>
 
 <!-- everything else that was already in your body (hero section, etc.) continues below, untouched -->
@@ -1905,7 +1943,7 @@ function endCall() {
 
     <div style="background:#fff;border-radius:8px;width:260px;overflow:hidden;box-shadow:0 4px 16px rgba(226,19,110,0.10);">
       <div class="lb-thumb" style="width:100%;height:180px;background:#fafafa;cursor:pointer;overflow:hidden;">
-        <img src="IMAGE_URL_1" style="width:100%;height:100%;object-fit:contain;display:block;">
+        <img src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=400&h=300&fit=crop" style="width:100%;height:100%;object-fit:contain;display:block;">
       </div>
       <div style="padding:20px;">
         <h3 style="color:#222;font-size:16px;margin-bottom:8px;">Delicious and Refreshing</h3>
@@ -1945,6 +1983,7 @@ function endCall() {
   <img id="lb-image" src="" style="max-width:90vw;max-height:90vh;object-fit:contain;border-radius:6px;box-shadow:0 10px 40px rgba(0,0,0,0.5);">
 </div>
 
+<!-- Lightbox script (kept separate from footer/menu markup so it can't be corrupted by stray text) -->
 <script>
 (function(){
   var overlay = document.getElementById('lb-overlay');
@@ -1971,9 +2010,8 @@ function endCall() {
     if (e.key === 'Escape') closeLb();
   });
 })();
-
-Footer follow us on
 </script>
+
  <footer style="background:#fff5f7;border-top:1px solid #ffd6e3;padding:50px 20px 30px;">
   <div style="max-width:1000px;margin:0 auto;display:flex;flex-wrap:wrap;gap:40px;justify-content:space-between;">
 
@@ -1991,33 +2029,33 @@ Footer follow us on
     <div style="min-width:140px;">
       <h4 style="color:#c2185b;font-size:14px;margin-bottom:14px;">Quick Links</h4>
       <div style="display:flex;flex-direction:column;gap:10px;">
-        <a href="#" style="color:#6b4550;font-size:13px;text-decoration:none;">Home</a>
-        <a href="#" style="color:#6b4550;font-size:13px;text-decoration:none;">Menu</a>
-        <a href="#" style="color:#6b4550;font-size:13px;text-decoration:none;">Locations</a>
-        <a href="#" style="color:#6b4550;font-size:13px;text-decoration:none;">Our story</a>
-        <a href="#" style="color:#6b4550;font-size:13px;text-decoration:none;">News</a>
+        <a href="https://tmenshs.github.io/unclebrews/" style="color:#6b4550;font-size:13px;text-decoration:none;">Home</a>
+        <a href="#qb-root" style="color:#6b4550;font-size:13px;text-decoration:none;">Menu</a>
+        <a href="https://tmenshs.github.io/unclebrews/locations" style="color:#6b4550;font-size:13px;text-decoration:none;">Locations</a>
+        <a href="https://tmenshs.github.io/unclebrews/our-story" style="color:#6b4550;font-size:13px;text-decoration:none;">Our story</a>
+        <a href="#franchise" style="color:#6b4550;font-size:13px;text-decoration:none;">Franchise</a>
       </div>
     </div>
 
     <div style="min-width:160px;">
       <h4 style="color:#c2185b;font-size:14px;margin-bottom:14px;">Information</h4>
       <div style="display:flex;flex-direction:column;gap:10px;">
-        <a href="#" style="color:#6b4550;font-size:13px;text-decoration:none;">FAQ</a>
-        <a href="#" style="color:#6b4550;font-size:13px;text-decoration:none;">Privacy Notice</a>
-        <a href="#" style="color:#6b4550;font-size:13px;text-decoration:none;">Terms &amp; Conditions</a>
+        <a href="https://tmenshs.github.io/unclebrews/faq" style="color:#6b4550;font-size:13px;text-decoration:none;">FAQ</a>
+        <a href="#" onclick="document.getElementById('ub-privacy-modal').style.display='flex';return false;" style="color:#6b4550;font-size:13px;text-decoration:none;">Privacy Notice</a>
+        <a href="#" onclick="document.getElementById('ub-terms-modal').style.display='flex';return false;" style="color:#6b4550;font-size:13px;text-decoration:none;">Terms &amp; Conditions</a>
       </div>
     </div>
 
     <div style="min-width:140px;">
       <h4 style="color:#c2185b;font-size:14px;margin-bottom:14px;">Follow us on</h4>
       <div style="display:flex;gap:10px;">
-        <a href="#" style="width:30px;height:30px;border-radius:50%;background:#e2136e;display:flex;align-items:center;justify-content:center;text-decoration:none;">
+        <a href="https://facebook.com/1025453833986836" target="_blank" style="width:30px;height:30px;border-radius:50%;background:#e2136e;display:flex;align-items:center;justify-content:center;text-decoration:none;">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="#fff"><path d="M13.5 21v-8h2.7l.4-3.1h-3.1V7.9c0-.9.3-1.5 1.6-1.5h1.6V3.6C15.9 3.5 15 3.4 13.9 3.4c-2.3 0-3.9 1.4-3.9 4v2.5H7.3V13H10v8h3.5z"/></svg>
         </a>
         <a href="#" style="width:30px;height:30px;border-radius:50%;background:#e2136e;display:flex;align-items:center;justify-content:center;text-decoration:none;">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="#fff"><path d="M22 5.9c-.7.3-1.5.6-2.3.7.8-.5 1.5-1.3 1.8-2.3-.8.5-1.6.8-2.5 1a4 4 0 0 0-6.8 3.6A11.3 11.3 0 0 1 3.9 4.9a4 4 0 0 0 1.2 5.3c-.6 0-1.2-.2-1.7-.5v.1c0 1.9 1.4 3.5 3.2 3.9-.6.1-1.2.2-1.8.1.5 1.6 2 2.7 3.7 2.8A8 8 0 0 1 2 18.4a11.3 11.3 0 0 0 6.1 1.8c7.3 0 11.3-6 11.3-11.3v-.5c.8-.6 1.4-1.3 1.9-2.1z"/></svg>
         </a>
-        <a href="#" style="width:30px;height:30px;border-radius:50%;background:#e2136e;display:flex;align-items:center;justify-content:center;text-decoration:none;">
+        <a href="https://m.me/1025453833986836" target="_blank" style="width:30px;height:30px;border-radius:50%;background:#e2136e;display:flex;align-items:center;justify-content:center;text-decoration:none;">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="#fff"><path d="M21.6 7.2s-.2-1.5-.8-2.1c-.8-.8-1.7-.8-2.1-.9C15.8 4 12 4 12 4h0s-3.8 0-6.7.2c-.4 0-1.3.1-2.1.9-.6.6-.8 2.1-.8 2.1S2.2 9 2.2 10.7v1.6c0 1.7.2 3.5.2 3.5s.2 1.5.8 2.1c.8.8 1.9.8 2.4.9 1.7.2 7.4.2 7.4.2s3.8 0 6.7-.2c.4 0 1.3-.1 2.1-.9.6-.6.8-2.1.8-2.1s.2-1.7.2-3.5v-1.6c0-1.7-.2-3.5-.2-3.5zM9.9 14.6V8.9l5.4 2.8-5.4 2.9z"/></svg>
         </a>
         <a href="#" style="width:30px;height:30px;border-radius:50%;background:#e2136e;display:flex;align-items:center;justify-content:center;text-decoration:none;">
@@ -2059,6 +2097,6 @@ Footer follow us on
     </p>
   </div>
 </div>
-  
+
 </body>
 </html>
