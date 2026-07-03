@@ -1,0 +1,1790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Quix Brew — Combined Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --brew-brown:#6b3a2a;--brew-cream:#fdf6ec;
+  --brew-gold:#e8a020;--brew-pink:#ff6b9d;
+  --white:#ffffff;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--brew-cream);color:#222;}
+
+/* ── HERO ── */
+.hero{
+  position:relative;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:flex-start;
+  text-align:center;
+  overflow:hidden;
+  padding:52px 0 28px;
+  min-height:600px;
+}
+
+.hero-bg-anim{position:absolute;inset:0;z-index:1;animation:dayCycle 24s linear infinite;}
+@keyframes dayCycle{
+  0%   {background:linear-gradient(180deg,#f5820a 0%,#f7a830 30%,#ffd27a 60%,#fff3d0 100%);}
+  18%  {background:linear-gradient(180deg,#1a78c8 0%,#42aee0 32%,#7fd0f5 60%,#fff9e8 100%);}
+  45%  {background:linear-gradient(180deg,#0a5fb8 0%,#1a90e0 30%,#4abff5 58%,#b0e8ff 80%,#fffaea 100%);}
+  75%  {background:linear-gradient(180deg,#0a5fb8 0%,#1a90e0 30%,#4abff5 58%,#b0e8ff 80%,#fffaea 100%);}
+  90%  {background:linear-gradient(180deg,#d47a10 0%,#eba830 28%,#f7d070 58%,#fff0c0 100%);}
+  100% {background:linear-gradient(180deg,#f5820a 0%,#f5820a 0%,#f7a830 30%,#ffd27a 60%,#fff3d0 100%);}
+}
+
+.hero-sun{
+  position:absolute;
+  width:78px;height:78px;
+  border-radius:50%;
+  z-index:3;pointer-events:none;
+  animation:sunRise 24s linear infinite;
+}
+@keyframes sunRise{
+  0%   {bottom:10%;left:12%;background:radial-gradient(circle,#ffb300 0%,#ffdd57 50%,#fff5b0 75%,transparent 90%);}
+  20%  {bottom:30%;left:28%;background:radial-gradient(circle,#ffe066 0%,#fff176 50%,#fffde4 75%,transparent 90%);}
+  50%  {bottom:52%;left:46%;background:radial-gradient(circle,#fffde4 0%,#fff176 45%,#ffd54f 70%,transparent 90%);}
+  80%  {bottom:52%;left:46%;background:radial-gradient(circle,#fffde4 0%,#fff176 45%,#ffd54f 70%,transparent 90%);}
+  92%  {bottom:22%;left:70%;background:radial-gradient(circle,#ffcc44 0%,#ffdd57 50%,#ffe9a0 75%,transparent 90%);}
+  100% {bottom:10%;left:12%;background:radial-gradient(circle,#ffb300 0%,#ffdd57 50%,#fff5b0 75%,transparent 90%);}
+}
+
+.cloud{position:absolute;pointer-events:none;z-index:4;}
+.cloud-1{width:260px;top:9%;left:5%;animation:driftRight 36s ease-in-out infinite,cloudTint 24s linear infinite;}
+.cloud-2{width:310px;top:15%;left:54%;opacity:.78;animation:driftLeft 44s ease-in-out infinite,cloudTint 24s linear infinite;}
+.cloud-3{width:190px;top:28%;left:30%;opacity:.62;animation:driftRight 30s ease-in-out infinite reverse,cloudTint 24s linear infinite;}
+@keyframes driftRight{0%,100%{transform:translateX(0);}50%{transform:translateX(20px);}}
+@keyframes driftLeft{0%,100%{transform:translateX(0);}50%{transform:translateX(-24px);}}
+@keyframes cloudTint{
+  0%  {filter:brightness(.88) sepia(.2);}
+  20% {filter:brightness(.95);}
+  50% {filter:brightness(1);}
+  85% {filter:brightness(1);}
+  100%{filter:brightness(.88) sepia(.2);}
+}
+
+.hero-plane{position:absolute;top:16%;left:0;z-index:8;pointer-events:none;width:280px;animation:planefly 9s linear infinite;}
+@keyframes planefly{0%{transform:translateX(-320px);}100%{transform:translateX(110vw);}}
+
+.steam{position:absolute;z-index:4;pointer-events:none;animation:steamRise 3.2s ease-in-out infinite;}
+.steam-1{left:42%;bottom:44%;width:18px;animation-delay:0s;}
+.steam-2{left:50%;bottom:44%;width:14px;animation-delay:.8s;}
+.steam-3{left:58%;bottom:44%;width:16px;animation-delay:1.6s;}
+@keyframes steamRise{
+  0%{opacity:0;transform:translateY(0) scaleX(1);}
+  20%{opacity:.65;}
+  60%{opacity:.3;transform:translateY(-26px) scaleX(1.4);}
+  100%{opacity:0;transform:translateY(-50px) scaleX(.7);}
+}
+
+.shop-scene{
+  position:absolute;left:0;bottom:0;
+  width:100%;height:54%;min-height:210px;
+  z-index:5;pointer-events:none;
+  animation:shopTint 24s linear infinite;
+}
+@keyframes shopTint{
+  0%  {filter:brightness(.82) saturate(.9) sepia(.1);}
+  20% {filter:brightness(.92) saturate(1);}
+  50% {filter:brightness(1);}
+  85% {filter:brightness(1);}
+  95% {filter:brightness(.85) sepia(.08);}
+  100%{filter:brightness(.82) saturate(.9) sepia(.1);}
+}
+.shop-scene .glow-window{animation:windowGlow 3.2s ease-in-out infinite;}
+.shop-scene .glow-window:nth-child(2n){animation-delay:.6s;}
+.shop-scene .glow-window:nth-child(3n){animation-delay:1.1s;}
+@keyframes windowGlow{0%,100%{opacity:.82;}50%{opacity:1;filter:drop-shadow(0 0 8px #ffe082);}}
+.open-sign{animation:openBlink 1.8s ease-in-out infinite;}
+@keyframes openBlink{0%,100%{opacity:1;}45%{opacity:.6;}50%{opacity:1;}55%{opacity:.7;}}
+.awning-group{animation:awningFloat 4s ease-in-out infinite;transform-origin:500px 60px;}
+@keyframes awningFloat{0%,100%{transform:scaleY(1);}50%{transform:scaleY(1.018);}}
+.cup-group{animation:cupBob 2.8s ease-in-out infinite;}
+@keyframes cupBob{0%,100%{transform:translateY(0);}50%{transform:translateY(-5px);}}
+.sway-anim{
+  animation-name:personSway;animation-timing-function:ease-in-out;animation-iteration-count:infinite;
+  transform-box:fill-box;transform-origin:50% 100%;
+  transform:translate(var(--tx,0px),var(--ty,0px)) scale(var(--s,1));
+}
+@keyframes personSway{
+  0%,100%{transform:translate(var(--tx,0px),var(--ty,0px)) scale(var(--s,1)) rotate(0deg);}
+  50%{transform:translate(var(--tx,0px),var(--ty,0px)) scale(var(--s,1)) rotate(1.6deg);}
+}
+.sparkle{animation:sparklePop 2.2s ease-in-out infinite;}
+.sparkle:nth-child(2){animation-delay:.4s;}
+.sparkle:nth-child(3){animation-delay:.8s;}
+@keyframes sparklePop{0%,100%{opacity:0;transform:scale(.5);}40%{opacity:1;transform:scale(1.3);}70%{opacity:.6;transform:scale(1);}}
+
+.spec-1{animation:spec1 24s linear infinite;}
+.spec-2{animation:spec2 24s linear infinite;}
+.spec-3{animation:spec3 24s linear infinite;}
+.spec-4{animation:spec4 24s linear infinite;}
+@keyframes spec1{0%{opacity:1;}20%{opacity:1;}26%{opacity:0;}98%{opacity:0;}100%{opacity:1;}}
+@keyframes spec2{0%{opacity:0;}22%{opacity:0;}26%{opacity:1;}48%{opacity:1;}52%{opacity:0;}100%{opacity:0;}}
+@keyframes spec3{0%{opacity:0;}48%{opacity:0;}52%{opacity:1;}73%{opacity:1;}77%{opacity:0;}100%{opacity:0;}}
+@keyframes spec4{0%{opacity:0;}73%{opacity:0;}77%{opacity:1;}98%{opacity:1;}100%{opacity:0;}}
+.board-item text{dominant-baseline:middle;}
+
+.hero-inner{position:relative;z-index:10;padding:0 20px;width:100%;max-width:760px;margin:0 auto;}
+.eyebrow{
+  display:inline-block;color:var(--white);
+  background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.45);
+  padding:6px 18px;border-radius:30px;font-size:13px;font-weight:700;
+  letter-spacing:1.5px;margin-bottom:20px;text-transform:uppercase;
+  opacity:0;animation:eyebrowVanish 20s ease-in-out infinite;
+}
+@keyframes eyebrowVanish{
+  0%{opacity:0;transform:scale(.9);}1.5%{opacity:1;transform:scale(1);}
+  16.5%{opacity:1;}19%{opacity:0;transform:scale(1.15);}100%{opacity:0;}
+}
+.hero h2{
+  font-family:'IBM Plex Sans','Segoe UI',system-ui,Arial,sans-serif;
+  font-size:72px;color:#fff;font-weight:800;letter-spacing:1.5px;line-height:1.1;
+  text-shadow:0 4px 18px rgba(0,0,0,.35);
+  display:flex;align-items:center;justify-content:center;gap:2px;flex-wrap:wrap;
+}
+.hero h2 .letter,.heart-hand{
+  opacity:0;transform:translate(170px,70px) rotate(10deg);
+  display:inline-block;animation:letterIn 24s ease-in-out infinite;
+  will-change:transform,opacity,filter;
+}
+@keyframes letterIn{
+  0%{opacity:0;transform:translate(170px,70px) rotate(10deg);filter:blur(4px);}
+  1.25%{opacity:1;transform:translate(-14px,-6px) rotate(-4deg);filter:blur(2px);}
+  2.5%{opacity:1;transform:translate(0,0) rotate(0deg);filter:blur(0);}
+  39.17%{opacity:1;transform:translate(0,0) rotate(0deg);filter:blur(0);}
+  39.58%{opacity:1;transform:translate(-10px,0) rotate(-8deg);filter:blur(1px);}
+  40%{opacity:1;transform:translate(-40px,0) rotate(8deg);filter:blur(2px);}
+  40.42%{opacity:1;transform:translate(-150px,0) rotate(-6deg);filter:blur(3px);}
+  40.83%{opacity:1;transform:translate(-420px,0) rotate(0deg);filter:blur(4px);}
+  43.33%{opacity:1;transform:translate(-340px,-30px) rotate(0deg);filter:blur(1px);}
+  45.83%{opacity:1;transform:translate(-260px,0) rotate(0deg);filter:blur(0);}
+  48.33%{opacity:1;transform:translate(-180px,-25px) rotate(0deg);filter:blur(1px);}
+  50.83%{opacity:1;transform:translate(-100px,0) rotate(0deg);filter:blur(0);}
+  52.5%{opacity:1;transform:translate(-30px,-12px) rotate(0deg);filter:blur(0);}
+  53.33%{opacity:1;transform:translate(0,0) rotate(0deg);filter:blur(0);}
+  65.83%{opacity:1;transform:translate(0,0) rotate(0deg);filter:blur(0);}
+  70%{opacity:1;transform:translate(0,-3px) rotate(-3deg);filter:blur(0);}
+  74%{opacity:1;transform:translate(0,2px) rotate(3deg);filter:blur(0);}
+  78%{opacity:1;transform:translate(0,-3px) rotate(-3deg);filter:blur(0);}
+  82%{opacity:1;transform:translate(0,2px) rotate(3deg);filter:blur(0);}
+  86%{opacity:1;transform:translate(0,-2px) rotate(-2deg);filter:blur(0);}
+  90%{opacity:1;transform:translate(0,1px) rotate(2deg);filter:blur(0);}
+  94%,100%{opacity:1;transform:translate(0,0) rotate(0deg);filter:blur(0);}
+}
+.hero h2 .space{width:10px;}
+.heart-hand{width:100px;height:100px;margin:0 4px;filter:drop-shadow(0 4px 12px rgba(0,0,0,.3));}
+.hero p.sub{
+  margin-top:14px;color:#fff8e8;font-size:18px;font-weight:500;
+  max-width:560px;margin-left:auto;margin-right:auto;
+  opacity:0;text-shadow:0 2px 8px rgba(0,0,0,.4);
+  animation:taglineDown 20s ease-in-out infinite;
+}
+@keyframes taglineDown{
+  0%,77.5%{opacity:0;transform:translateY(-14px);}
+  80%{opacity:1;transform:translateY(0);}
+  95%{opacity:1;}97.5%{opacity:0;transform:translateY(28px);}100%{opacity:0;}
+}
+
+@media(max-width:880px){
+  .hero h2{font-size:40px;}
+  .heart-hand{width:58px;height:58px;}
+  .hero p.sub{font-size:15px;}
+}
+@media(max-width:640px){
+  .hero{min-height:580px;padding:40px 0 20px;}
+  .hero h2{font-size:34px;}
+  .heart-hand{width:48px;height:48px;}
+  .hero p.sub{font-size:14px;margin-top:10px;}
+  .eyebrow{font-size:11px;padding:5px 14px;margin-bottom:14px;}
+  .hero-plane{width:180px;top:20%;}
+  .cloud-1{width:160px;}
+  .cloud-2{width:200px;}
+  .cloud-3{width:130px;}
+  .shop-scene{height:46%;min-height:170px;}
+  .steam-1,.steam-2,.steam-3{display:none;}
+}
+@media(max-width:400px){
+  .hero{min-height:520px;padding:36px 0 16px;}
+  .hero h2{font-size:28px;}
+  .heart-hand{width:40px;height:40px;}
+  .shop-scene{height:42%;min-height:150px;}
+}
+@media(prefers-reduced-motion:reduce){
+  .hero-bg-anim,.hero-sun,.hero-plane,.hero-glow,
+  .cloud-1,.cloud-2,.cloud-3,.eyebrow,
+  .hero h2 .letter,.heart-hand,.hero p.sub{
+    animation:none !important;opacity:1 !important;transform:none !important;
+  }
+  .hero{background:linear-gradient(135deg,#2196d8 0%,#6ec3ec 55%,#fffaea 100%);}
+}
+
+/* ── WHY CAROUSEL ── */
+.why-wrap-outer{background:#0c2e44;padding:40px 0;}
+:root{--card-accent:#ffc87a;}
+.why-section{
+  position:relative;
+  width:100%;
+  max-width:780px;
+  margin:0 auto;
+  padding:0 24px;
+  transition:max-width .3s ease;
+}
+@media(min-width:881px){.why-section{max-width:980px;}}
+
+.carousel-wrapper{
+  position:relative;
+  width:100%;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 12px 40px rgba(0,20,40,.4);
+  animation:floatCarousel 4s ease-in-out infinite;
+}
+@keyframes floatCarousel{0%,100%{transform:translateY(0);}50%{transform:translateY(-5px);}}
+
+.carousel-track{
+  display:flex;
+  transition:transform .75s cubic-bezier(.33,.1,.22,1);
+  will-change:transform;
+}
+
+.card{
+  position:relative;
+  flex:0 0 100%;
+  min-width:0;
+  overflow:hidden;
+  background:#1a0a05;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.card-photo-wrap{
+  position:relative;
+  width:100%;
+  aspect-ratio:16/11;
+  background:#1a0a05;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.card-photo{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center center;
+  display:block;
+  filter:brightness(.62);
+  transition:filter .6s ease,transform .6s ease;
+}
+.card:hover .card-photo{filter:brightness(.5);transform:scale(1.03);}
+
+.card-overlay{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  padding:1.4rem 1.7rem;
+  background:linear-gradient(to top,rgba(30,10,3,.97) 0%,rgba(15,5,1,.65) 55%,rgba(0,0,0,.08) 100%);
+  pointer-events:none;
+}
+.ov-title{
+  font-size:clamp(1rem,2vw,1.3rem);
+  font-weight:700;
+  color:var(--card-accent);
+  letter-spacing:.4px;
+  line-height:1.2;
+  transition:transform .35s ease;
+}
+.ov-divider{
+  width:40px;
+  height:2px;
+  background:linear-gradient(90deg,rgba(255,200,120,.9),transparent);
+  margin-top:8px;
+  border-radius:2px;
+}
+.ov-reveal{
+  max-height:0;
+  opacity:0;
+  overflow:hidden;
+  transition:max-height .4s ease,opacity .3s ease .05s,margin-top .4s ease;
+}
+.card:hover .ov-reveal,
+.card:focus-within .ov-reveal,
+.card.is-open .ov-reveal{
+  max-height:220px;
+  opacity:1;
+  margin-top:9px;
+}
+.ov-text{
+  color:rgba(255,255,255,.9);
+  font-size:clamp(.78rem,1.1vw,.92rem);
+  line-height:1.55;
+  max-width:620px;
+}
+.ov-readmore{
+  pointer-events:auto;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  margin-top:12px;
+  padding:7px 16px;
+  font-size:.78rem;
+  font-weight:700;
+  letter-spacing:.4px;
+  color:#3d1c08;
+  background:var(--card-accent);
+  border:none;
+  border-radius:30px;
+  cursor:pointer;
+  transition:background .2s ease,transform .2s ease;
+}
+.ov-readmore:hover{background:#fff;transform:translateY(-1px);}
+.ov-readmore:active{transform:translateY(0);}
+.ov-readmore svg{width:13px;height:13px;flex-shrink:0;transition:transform .2s ease;}
+.ov-readmore:hover svg{transform:translateX(2px);}
+
+.ov-hint{
+  pointer-events:none;
+  margin-top:8px;
+  font-size:.68rem;
+  font-weight:600;
+  letter-spacing:.6px;
+  text-transform:uppercase;
+  color:rgba(255,200,120,.85);
+  opacity:1;
+  transition:opacity .25s ease;
+}
+.ov-hint::before{content:"Tap to read more";}
+@media(hover:hover) and (pointer:fine){.ov-hint::before{content:"Hover to read more";}}
+.card:hover .ov-hint,
+.card:focus-within .ov-hint,
+.card.is-open .ov-hint{opacity:0;height:0;margin-top:0;}
+
+@media(min-width:881px){
+  .carousel-track{gap:12px;}
+  .card{flex:0 0 calc((100% - 24px) / 3);border-radius:10px;}
+  .card-photo-wrap{border-radius:10px;}
+  .card-overlay{padding:1.1rem 1.3rem;}
+  .ov-title{font-size:1.02rem;}
+  .card:hover .ov-reveal,
+  .card:focus-within .ov-reveal,
+  .card.is-open .ov-reveal{max-height:160px;}
+}
+
+.carousel-btn{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  z-index:20;
+  background:rgba(60,20,5,.55);
+  border:2px solid rgba(255,200,120,.55);
+  border-radius:50%;
+  width:46px;
+  height:46px;
+  cursor:pointer;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  transition:background .25s,transform .25s,border-color .25s;
+  user-select:none;
+  flex-shrink:0;
+}
+.carousel-btn:hover{background:rgba(180,80,20,.75);border-color:rgba(255,200,120,.9);transform:translateY(-50%) scale(1.12);}
+.carousel-btn:active{transform:translateY(-50%) scale(.96);}
+.prev-btn{left:12px;}
+.next-btn{right:12px;}
+
+.carousel-progress{
+  position:absolute;
+  bottom:0;
+  left:0;
+  height:3px;
+  background:linear-gradient(90deg,rgba(255,200,120,.9),rgba(230,130,40,.7));
+  border-radius:0 2px 2px 0;
+  width:0;
+  z-index:15;
+}
+@keyframes progressFill{from{width:0}to{width:100%}}
+
+.carousel-dots{display:flex;justify-content:center;gap:9px;margin-top:11px;}
+.dot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:rgba(255,255,255,.28);
+  cursor:pointer;
+  transition:background .3s,transform .3s,width .3s;
+  border:1.5px solid rgba(255,255,255,.2);
+}
+.dot.active{background:var(--card-accent);border-color:var(--card-accent);transform:scale(1.4);width:22px;border-radius:4px;}
+
+.slide-counter{
+  position:absolute;
+  top:12px;
+  right:16px;
+  z-index:20;
+  font-size:.72rem;
+  font-weight:700;
+  color:rgba(255,255,255,.65);
+  letter-spacing:1px;
+  background:rgba(0,0,0,.35);
+  padding:3px 10px;
+  border-radius:20px;
+  backdrop-filter:blur(6px);
+  pointer-events:none;
+}
+
+@media(max-width:640px){
+  .why-section{max-width:100%;margin-top:14px;padding:0 12px;}
+  .carousel-btn{width:36px;height:36px;}
+  .ov-title{font-size:.95rem;}
+  .card-overlay{padding:1rem 1.1rem;}
+  .ov-readmore{padding:6px 14px;font-size:.74rem;}
+}
+@media(prefers-reduced-motion:reduce){
+  .carousel-wrapper{animation:none !important;}
+}
+
+/* ── QUIX BREW ORDERING WIDGET ── */
+#qb-root{
+  --taro:#E8315A;--taro2:#C41F45;--caramel:#E8315A;--ink:#1A1A1A;
+  --line:rgba(0,0,0,0.10);--red:#C0392B;--green:#2D8653;
+  --gray:#F8F8F8;--cream2:#F5F5F5;--cream:#FFFFFF;
+}
+#qb-root{font-family:'Plus Jakarta Sans',sans-serif;color:var(--ink);background:var(--cream);border-radius:20px;padding:28px 20px 40px;max-width:980px;margin:0 auto;position:relative}
+#qb-root h1,#qb-root h2,#qb-root h3,#qb-root h4{font-family:'Fraunces',Georgia,serif;font-weight:700}
+.qb-head{text-align:center;margin-bottom:24px;position:relative}
+.qb-eyebrow{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--taro2);border:1.5px solid var(--taro);border-radius:100px;padding:4px 12px;display:inline-block;margin-bottom:10px}
+.qb-head h1{font-size:28px;color:#1A1A1A;line-height:1.2}
+.qb-head p{font-size:13px;color:#555555;margin-top:6px}
+.qb-menu-wrap{position:absolute;top:0;right:0;z-index:20}
+.qb-menu-dot{background:none;border:none;cursor:pointer;font-size:20px;color:#555555;padding:6px 10px;border-radius:8px;line-height:1}
+.qb-menu-dot:hover{background:var(--cream2);color:#1A1A1A}
+.qb-menu-pop{position:absolute;top:36px;right:0;background:var(--cream);border:1.5px solid var(--line);border-radius:12px;box-shadow:0 10px 28px rgba(0,0,0,.12);min-width:190px;display:none;overflow:hidden;text-align:left}
+.qb-menu-pop.show{display:block}
+.qb-menu-pop button{display:flex;align-items:center;gap:8px;width:100%;background:none;border:none;padding:11px 14px;font-size:13px;cursor:pointer;color:#1A1A1A;font-family:'Plus Jakarta Sans',sans-serif;text-align:left}
+.qb-menu-pop button:hover{background:var(--cream2)}
+.qb-menu-pop hr{border:none;border-top:1px solid var(--line)}
+.qb-track-lookup{text-align:center;padding:10px 0}
+.qb-track-lookup .qb-ricon{font-size:36px;margin-bottom:8px}
+.qb-timeline{display:flex;justify-content:space-between;margin:18px 0 22px;position:relative}
+.qb-timeline::before{content:'';position:absolute;top:14px;left:6%;right:6%;height:2px;background:var(--line);z-index:0}
+.qb-tl-step{flex:1;text-align:center;position:relative;z-index:1}
+.qb-tl-dot{width:28px;height:28px;border-radius:50%;background:var(--cream);border:2px solid var(--line);display:flex;align-items:center;justify-content:center;margin:0 auto 6px;font-size:13px;color:#555555;transition:all .2s}
+.qb-tl-step.done .qb-tl-dot{background:var(--green);border-color:var(--green);color:#fff}
+.qb-tl-step.active .qb-tl-dot{background:var(--taro);border-color:var(--taro);color:#fff}
+.qb-tl-label{font-size:9px;color:#555555;font-family:'Space Mono',monospace;text-transform:uppercase;letter-spacing:.03em}
+.qb-tl-step.done .qb-tl-label,.qb-tl-step.active .qb-tl-label{color:#1A1A1A;font-weight:700}
+.qb-track-order-card{background:var(--gray);border-radius:14px;padding:16px;margin-bottom:14px}
+.qb-track-order-card .qb-to-no{font-family:'Space Mono',monospace;font-weight:700;color:var(--taro2);font-size:13px;margin-bottom:4px}
+.qb-track-order-card .qb-to-items{font-size:12px;color:#555555;line-height:1.6}
+.qb-addr-map{margin:14px 0;border-radius:14px;overflow:hidden;border:1.5px solid var(--line);box-shadow:0 4px 16px rgba(0,0,0,.08);display:none}
+.qb-addr-map-label{background:var(--gray);padding:8px 12px;font-size:11px;font-weight:700;color:#555555;font-family:'Space Mono',monospace;text-transform:uppercase;letter-spacing:.04em;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.qb-addr-map iframe{display:block}
+.qb-pin-box{background:var(--gray);border-radius:14px;padding:14px;margin:14px 0}
+.qb-pin-box h4{font-size:13px;color:#1A1A1A;margin-bottom:4px}
+.qb-pin-box p{font-size:11.5px;color:#555555;line-height:1.6;margin-bottom:10px}
+.qb-pin-btn{width:100%;background:#1A1A1A;color:#fff;border:none;border-radius:11px;padding:12px 0;font-size:13px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:background .15s;display:flex;align-items:center;justify-content:center;gap:8px}
+.qb-pin-btn:hover{background:#000}
+.qb-pin-btn:disabled{background:#C9C2B8;cursor:not-allowed}
+.qb-pin-btn.sharing{background:var(--green)}
+.qb-pin-btn.sharing:hover{background:#236e44}
+.qb-pin-status{font-size:11.5px;margin-top:8px;text-align:center}
+.qb-pin-status.ok{color:var(--green);font-weight:700}
+.qb-pin-status.err{color:var(--red)}
+.qb-live-badge{font-size:9px;font-weight:700;background:var(--green);color:#fff;border-radius:100px;padding:2px 8px;font-family:'Space Mono',monospace;letter-spacing:.04em;white-space:nowrap}
+.qb-live-badge.stale{background:#C9C2B8}
+.qb-status{text-align:center;padding:40px 0;font-size:14px;color:#555555}
+.qb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:14px}
+.qb-card{background:var(--cream);border:1.5px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .15s}
+.qb-card:hover{box-shadow:0 8px 22px rgba(62,39,18,.12)}
+.qb-card-img-wrap{width:100%;height:150px;background:linear-gradient(145deg,#fdf6ec 0%,#f5efe4 100%);display:flex;align-items:center;justify-content:center;overflow:hidden;padding:6px}
+.qb-card-img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;border-radius:8px;transition:transform .25s ease}
+.qb-card:hover .qb-card-img{transform:scale(1.04)}
+.qb-card-body{padding:12px 12px 14px;display:flex;flex-direction:column;gap:6px;flex:1}
+.qb-card-cat{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--taro2)}
+.qb-card-name{font-family:'Fraunces',serif;font-size:15px;color:#1A1A1A}
+.qb-card-desc{font-size:11px;color:#555555;line-height:1.5}
+.qb-card-price{font-family:'Space Mono',monospace;font-size:13px;color:var(--caramel);font-weight:700}
+.qb-card-btn{margin-top:auto;background:var(--taro);color:#fff;border:none;border-radius:100px;padding:9px 0;font-weight:700;font-size:12px;cursor:pointer;transition:background .15s;font-family:'Plus Jakarta Sans',sans-serif}
+.qb-card-btn:hover{background:var(--taro2)}
+.qb-fab{position:fixed;right:16px;bottom:16px;z-index:9000;background:#1A1A1A;color:var(--cream);border:none;border-radius:100px;padding:13px 18px;font-family:'Space Mono',monospace;font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 10px 28px rgba(30,19,10,.4);display:none;align-items:center;gap:8px}
+.qb-fab.show{display:flex}
+.qb-overlay{position:fixed;inset:0;background:rgba(30,19,10,.5);z-index:9500;display:none}
+.qb-overlay.show{display:block}
+.qb-panel{position:fixed;right:0;top:0;height:100vh;height:100dvh;width:min(400px,100vw);background:var(--cream);z-index:9600;transform:translateX(110%);transition:transform .25s ease;overflow:hidden;box-shadow:-12px 0 36px rgba(0,0,0,.18);display:flex;flex-direction:column}
+.qb-panel.show{transform:translateX(0)}
+.qb-panel-head{padding:18px 18px 14px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;background:var(--cream);flex-shrink:0}
+.qb-panel-head h2{font-size:18px;color:#1A1A1A;flex:1}
+.qb-back-btn,.qb-close-btn{background:none;border:none;cursor:pointer;font-size:18px;color:#1A1A1A;padding:4px;border-radius:6px;line-height:1}
+.qb-panel-body{padding:16px 18px 30px;flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.qb-prod-modal{position:fixed;inset:0;z-index:10000;display:none;align-items:flex-end;justify-content:center}
+.qb-prod-modal.show{display:flex}
+.qb-prod-backdrop{position:absolute;inset:0;background:rgba(30,19,10,.5)}
+.qb-prod-sheet{position:relative;background:var(--cream);border-radius:22px 22px 0 0;width:min(420px,100vw);max-height:88vh;max-height:88dvh;overflow:hidden;padding:0;box-shadow:0 -12px 40px rgba(0,0,0,.2);display:flex;flex-direction:column}
+.qb-prod-img-wrap{width:100%;height:130px;background:linear-gradient(145deg,#fdf6ec 0%,#f5efe4 100%);display:flex;align-items:center;justify-content:center;border-radius:22px 22px 0 0;overflow:hidden;padding:10px;flex-shrink:0}
+.qb-prod-img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;border-radius:12px}
+.qb-prod-info{padding:18px 20px 0}
+.qb-prod-info h3{font-size:20px;color:#1A1A1A}
+.qb-prod-info .qb-prod-price{font-family:'Space Mono',monospace;color:var(--caramel);font-size:15px;font-weight:700;margin-top:4px}
+.qb-prod-info p{font-size:13px;color:#555555;margin-top:6px;line-height:1.6}
+.qb-section{padding:14px 20px 0}
+.qb-section-label{font-size:12px;font-weight:700;color:#1A1A1A;letter-spacing:.04em;margin-bottom:10px;text-transform:uppercase}
+.qb-pills{display:flex;gap:8px;flex-wrap:wrap}
+.qb-pill{border:1.5px solid var(--line);background:var(--cream);border-radius:100px;padding:7px 18px;font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;color:#555555;font-family:'Plus Jakarta Sans',sans-serif}
+.qb-pill.sel{border-color:var(--taro);background:var(--taro);color:#fff}
+.qb-slider-row{display:flex;align-items:center;gap:12px}
+.qb-slider-row input[type=range]{flex:1;accent-color:var(--taro);cursor:pointer}
+.qb-slider-val{font-family:'Space Mono',monospace;font-size:13px;font-weight:700;color:var(--taro2);min-width:38px;text-align:right}
+.qb-qty-row{display:flex;align-items:center;gap:12px;justify-content:center;margin-top:4px}
+.qb-qty-btn{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--line);background:var(--cream);cursor:pointer;font-size:18px;font-weight:700;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.qb-qty-btn:hover{border-color:var(--taro);color:var(--taro)}
+.qb-qty-num{font-family:'Space Mono',monospace;font-size:18px;font-weight:700;min-width:28px;text-align:center}
+.qb-modal-scroll{overflow-y:auto;flex:1;min-height:0;padding-bottom:8px}
+.qb-modal-footer{background:var(--cream);padding:12px 20px calc(12px + env(safe-area-inset-bottom));box-shadow:0 -8px 16px rgba(0,0,0,.08);flex-shrink:0}
+.qb-modal-atc{width:100%;margin:0;background:var(--taro);color:#fff;border:none;border-radius:14px;padding:15px 0;font-size:15px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:background .15s}
+.qb-modal-atc:hover{background:var(--taro2)}
+.qb-cart-item{display:flex;align-items:flex-start;gap:10px;padding:12px 0;border-bottom:1px dashed var(--line)}
+.qb-cart-item-info{flex:1;min-width:0}
+.qb-cart-item-name{font-family:'Fraunces',serif;font-size:14px;color:#1A1A1A}
+.qb-cart-item-sub{font-size:11px;color:#555555;margin-top:2px}
+.qb-cart-item-price{font-family:'Space Mono',monospace;font-size:13px;font-weight:700;color:var(--caramel);white-space:nowrap;margin-top:2px}
+.qb-cart-qty{display:flex;align-items:center;gap:6px;margin-top:6px}
+.qb-cart-qty button{width:24px;height:24px;border-radius:50%;border:1px solid var(--line);background:var(--cream);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1}
+.qb-cart-qty span{font-family:'Space Mono',monospace;font-size:13px;font-weight:700;min-width:20px;text-align:center}
+.qb-empty-cart{text-align:center;padding:32px 0;font-size:13px;color:#555555}
+.qb-summary-row{display:flex;justify-content:space-between;font-size:13px;padding:5px 0;color:#555555}
+.qb-summary-row.total{font-size:15px;font-weight:700;color:#1A1A1A;padding-top:10px;border-top:1.5px solid var(--line);margin-top:6px}
+.qb-summary-row.total span:last-child{color:var(--taro2)}
+.qb-topup-notice{background:#FFF3CD;border:1px solid #F0C040;border-radius:10px;padding:10px 12px;font-size:12px;color:#7A5C00;margin-top:10px}
+.qb-field{margin-bottom:14px}
+.qb-field label{display:block;font-size:12px;font-weight:600;color:#555555;margin-bottom:5px;text-transform:uppercase;letter-spacing:.04em}
+.qb-field input,.qb-field textarea,.qb-field select{width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;font-size:13px;font-family:'Plus Jakarta Sans',sans-serif;background:var(--cream);color:var(--ink);outline:none;transition:border-color .15s}
+.qb-field input:focus,.qb-field textarea:focus{border-color:var(--taro)}
+.qb-radio-group{display:flex;flex-direction:column;gap:8px}
+.qb-radio-opt{display:flex;align-items:center;gap:10px;border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;cursor:pointer;transition:border-color .15s;background:var(--cream)}
+.qb-radio-opt.sel{border-color:var(--taro);background:#F3EEFF}
+.qb-radio-opt input{accent-color:var(--taro)}
+.qb-radio-opt-info{flex:1}
+.qb-radio-opt-title{font-size:13px;font-weight:600;color:#1A1A1A}
+.qb-radio-opt-sub{font-size:11px;color:#555555}
+.qb-badge-default{font-size:9px;background:var(--taro);color:#fff;border-radius:100px;padding:2px 7px;margin-left:6px;font-family:'Space Mono',monospace;letter-spacing:.06em}
+.qb-btn-primary{width:100%;background:var(--taro);color:#fff;border:none;border-radius:12px;padding:14px 0;font-size:14px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:background .15s;margin-top:8px}
+.qb-btn-primary:hover{background:var(--taro2)}
+.qb-btn-primary:disabled{background:#C9C2B8;cursor:not-allowed}
+.qb-btn-ghost{width:100%;background:transparent;color:#555555;border:1.5px solid var(--line);border-radius:12px;padding:12px 0;font-size:13px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all .15s;margin-top:6px}
+.qb-btn-ghost:hover{border-color:var(--taro);color:var(--taro)}
+.qb-error{color:var(--red);font-size:12px;margin-top:6px}
+.qb-gcash-screen{text-align:center;padding:4px 0}
+.qb-gcash-logo{font-family:'Fraunces',serif;font-size:28px;color:#0070B8;font-weight:700;margin-bottom:4px}
+.qb-gcash-icon{font-size:48px;margin-bottom:12px}
+.qb-gcash-num{font-family:'Space Mono',monospace;font-size:26px;font-weight:700;color:#1A1A1A;letter-spacing:.06em;margin:8px 0 2px}
+.qb-gcash-name{font-size:13px;color:#555555;margin-bottom:16px}
+.qb-gcash-amount{background:var(--gray);border-radius:12px;padding:14px;margin-bottom:16px}
+.qb-gcash-amount .label{font-size:11px;color:#555555;text-transform:uppercase;letter-spacing:.06em}
+.qb-gcash-amount .val{font-family:'Space Mono',monospace;font-size:22px;font-weight:700;color:var(--taro2);margin-top:4px}
+.qb-note-box{background:#fff8e6;border:1px solid #f0c040;border-radius:10px;padding:12px 14px;text-align:left;margin-bottom:16px}
+.qb-note-box h4{font-size:13px;color:#1A1A1A;margin-bottom:6px}
+.qb-note-box p{font-size:12px;color:#555555;line-height:1.6}
+.qb-tracker-link{display:block;background:var(--taro);color:#fff;border-radius:12px;padding:13px;text-decoration:none;font-weight:700;font-size:14px;margin-bottom:10px;transition:background .15s;font-family:'Plus Jakarta Sans',sans-serif;text-align:center}
+.qb-tracker-link:hover{background:var(--taro2)}
+.qb-tracker-link.qb-disabled{background:#C9C2B8;cursor:not-allowed;pointer-events:none}
+.qb-steps{display:flex;gap:0;margin-bottom:18px}
+.qb-step{flex:1;text-align:center;font-family:'Space Mono',monospace;font-size:10px;color:#555555;padding-bottom:8px;border-bottom:2px solid var(--line);transition:all .2s}
+.qb-step.active{color:var(--taro2);border-bottom-color:var(--taro)}
+.qb-step.done{color:var(--green);border-bottom-color:var(--green)}
+.qb-panel-footer{padding:14px 18px 20px;border-top:1px solid var(--line);background:var(--cream);flex-shrink:0}
+.qb-div{border:none;border-top:1px dashed var(--line);margin:16px 0}
+.qb-success-banner{background:#E8F5EE;border:1.5px solid var(--green);border-radius:14px;padding:16px;text-align:center;margin-bottom:18px}
+.qb-success-banner .qb-sb-icon{font-size:30px;margin-bottom:4px}
+.qb-success-banner h3{font-size:16px;color:#1a5c38;margin-bottom:4px}
+.qb-success-banner p{font-size:12px;color:#2D8653}
+.qb-success-banner .qb-sb-track{font-family:'Space Mono',monospace;font-weight:700;font-size:14px;color:#1A1A1A;background:#fff;border-radius:8px;padding:6px 12px;display:inline-block;margin-top:8px;border:1px solid var(--green)}
+.qb-copy-row{display:flex;align-items:center;justify-content:center;gap:10px;margin:8px 0 2px}
+.qb-copy-btn{background:var(--cream);border:1.5px solid var(--taro);color:var(--taro2);border-radius:8px;padding:6px 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all .15s}
+.qb-copy-btn:hover{background:var(--taro);color:#fff}
+.qb-copy-btn.copied{background:var(--green);border-color:var(--green);color:#fff}
+.qb-messenger-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;background:#0084FF;color:#fff;border:none;border-radius:12px;padding:14px 0;font-size:14px;font-weight:700;cursor:pointer;text-decoration:none;font-family:'Plus Jakarta Sans',sans-serif;transition:background .15s;margin-top:6px}
+.qb-messenger-btn:hover{background:#006fd6}
+.qb-rider-login{text-align:center;padding:20px 0}
+.qb-rider-login .qb-ricon{font-size:40px;margin-bottom:10px}
+.qb-pin-input{width:100%;text-align:center;letter-spacing:.5em;font-family:'Space Mono',monospace;font-size:22px;padding:14px 0}
+.qb-rider-refresh-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.qb-rider-refresh-row .qb-rlabel{font-size:11px;color:#555555;font-family:'Space Mono',monospace}
+.qb-rider-refresh-btn{background:none;border:1.5px solid var(--line);border-radius:100px;padding:6px 12px;font-size:11px;cursor:pointer;color:#555555;font-family:'Plus Jakarta Sans',sans-serif}
+.qb-rider-refresh-btn:hover{border-color:var(--taro);color:var(--taro)}
+.qb-rorder-card{border:1.5px solid var(--line);border-radius:14px;padding:14px;margin-bottom:14px;background:var(--cream)}
+.qb-rorder-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
+.qb-rorder-no{font-family:'Space Mono',monospace;font-weight:700;font-size:13px;color:var(--taro2)}
+.qb-rorder-status{font-size:10px;font-weight:700;padding:3px 9px;border-radius:100px;background:var(--cream2);color:#555555;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap}
+.qb-rorder-name{font-family:'Fraunces',serif;font-size:15px;color:#1A1A1A;margin-bottom:2px}
+.qb-rorder-line{font-size:12px;color:#555555;margin-bottom:2px;line-height:1.5}
+.qb-rorder-line strong{color:#1A1A1A}
+.qb-rorder-items{font-size:12px;color:#555555;margin:6px 0;line-height:1.5;background:var(--gray);border-radius:8px;padding:8px 10px}
+.qb-rorder-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.qb-rstatus-btn{flex:1;min-width:90px;border:1.5px solid var(--line);background:var(--cream);border-radius:9px;padding:8px 4px;font-size:11px;font-weight:700;cursor:pointer;color:#555555;font-family:'Plus Jakarta Sans',sans-serif;transition:all .15s}
+.qb-rstatus-btn:hover{border-color:var(--taro);color:var(--taro)}
+.qb-rstatus-btn.active{background:var(--taro);border-color:var(--taro);color:#fff}
+.qb-rlink-row{display:flex;gap:6px;margin-top:10px}
+.qb-rlink-row input{flex:1;padding:8px 10px;border:1.5px solid var(--line);border-radius:9px;font-size:12px;font-family:'Plus Jakarta Sans',sans-serif}
+.qb-rlink-save{background:#1A1A1A;color:#fff;border:none;border-radius:9px;padding:0 14px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif}
+.qb-rlink-save:hover{background:#000}
+.qb-rgetlink-btn{display:inline-block;font-size:11px;color:var(--taro2);text-decoration:underline;margin-top:6px;cursor:pointer}
+.qb-rempty{text-align:center;padding:40px 0;font-size:13px;color:#555555}
+.qb-rnav-row{display:flex;gap:6px;margin-top:10px}
+.qb-rnav-btn{flex:1;background:var(--taro);color:#fff;border:none;border-radius:9px;padding:9px 4px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:6px}
+.qb-rnav-btn:hover{background:var(--taro2)}
+.qb-rnav-btn.qb-disabled{background:#C9C2B8;cursor:not-allowed;pointer-events:none}
+.qb-rshare-btn{flex:1;border:1.5px solid var(--green);background:var(--cream);color:var(--green);border-radius:9px;padding:9px 4px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;display:flex;align-items:center;justify-content:center;gap:6px}
+.qb-rshare-btn.sharing{background:var(--green);color:#fff}
+@media(max-width:480px){
+  .qb-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .qb-card-img-wrap{height:120px}
+  .qb-prod-img-wrap{height:130px}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════ SECTION 1: HERO ══════════════ -->
+<section class="hero">
+  <div class="hero-bg-anim"></div>
+  <div class="hero-sun"></div>
+  <svg class="cloud cloud-1" viewBox="0 0 300 60" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20 48 C6 48,0 40,0 32 C0 24,8 18,18 19 C20 10,30 4,42 5 C52-2,70-1,80 6 C92 3,108 8,112 18 C124 16,140 22,142 32 C144 42,136 48,126 48 Z" fill="#fff"/>
+    <path d="M150 50 C138 50,132 43,133 36 C134 29,142 25,150 26 C153 18,163 13,173 15 C183 9,198 11,205 18 C216 16,230 21,231 30 C233 39,225 46,215 46 Z" fill="#fff" opacity=".85"/>
+  </svg>
+  <svg class="cloud cloud-2" viewBox="0 0 300 60" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20 48 C6 48,0 40,0 32 C0 24,8 18,18 19 C20 10,30 4,42 5 C52-2,70-1,80 6 C92 3,108 8,112 18 C124 16,140 22,142 32 C144 42,136 48,126 48 Z" fill="#fff"/>
+    <path d="M150 50 C138 50,132 43,133 36 C134 29,142 25,150 26 C153 18,163 13,173 15 C183 9,198 11,205 18 C216 16,230 21,231 30 C233 39,225 46,215 46 Z" fill="#fff" opacity=".85"/>
+  </svg>
+  <svg class="cloud cloud-3" viewBox="0 0 300 60" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20 48 C6 48,0 40,0 32 C0 24,8 18,18 19 C20 10,30 4,42 5 C52-2,70-1,80 6 C92 3,108 8,112 18 C124 16,140 22,142 32 C144 42,136 48,126 48 Z" fill="#fff"/>
+  </svg>
+  <svg class="hero-plane" viewBox="0 0 300 90" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="148" cy="45" rx="118" ry="18" fill="#f0f4ff"/>
+    <path d="M266 45 Q295 45,296 45 Q285 39,266 38 Z" fill="#d0d8f0"/>
+    <path d="M266 45 Q295 45,296 45 Q285 51,266 52 Z" fill="#c8d0e8"/>
+    <path d="M38 44 L28 10 L52 38 Z" fill="#3a7fd4"/>
+    <path d="M40 45 L10 36 L36 42 Z" fill="#5a9fe4"/>
+    <path d="M40 47 L10 56 L36 50 Z" fill="#5a9fe4"/>
+    <path d="M180 44 L145 8  L100 38 Z" fill="#3a7fd4"/>
+    <path d="M180 46 L145 82 L100 52 Z" fill="#5a9fe4"/>
+    <rect x="110" y="37" width="10" height="7" rx="3" fill="#a8d8ff" opacity=".9"/>
+    <rect x="127" y="37" width="10" height="7" rx="3" fill="#a8d8ff" opacity=".9"/>
+    <rect x="144" y="37" width="10" height="7" rx="3" fill="#c8eaff" opacity=".9"/>
+    <rect x="161" y="37" width="10" height="7" rx="3" fill="#a8d8ff" opacity=".9"/>
+    <rect x="178" y="38" width="9"  height="6" rx="3" fill="#a8d8ff" opacity=".8"/>
+    <ellipse cx="136" cy="53" rx="16" ry="7" fill="#c8d0e8"/>
+    <ellipse cx="136" cy="53" rx="10" ry="5" fill="#9aa8c8"/>
+    <ellipse cx="254" cy="40" rx="10" ry="6" fill="#7ec8ff" opacity=".85"/>
+    <text x="148" y="50" text-anchor="middle" font-family="'IBM Plex Sans',Arial,sans-serif" font-size="13" font-weight="800" fill="#1a4fa0" letter-spacing="1.5">UNCLE BREW</text>
+    <line x1="28" y1="45" x2="-20" y2="45" stroke="rgba(255,255,255,.55)" stroke-width="3" stroke-dasharray="8 6"/>
+  </svg>
+  <svg class="steam steam-1" viewBox="0 0 20 60" xmlns="http://www.w3.org/2000/svg">
+    <path d="M10 55 C14 45,6 38,10 28 C14 18,6 10,10 0" stroke="rgba(255,255,255,.45)" stroke-width="3" fill="none" stroke-linecap="round"/>
+  </svg>
+  <svg class="steam steam-2" viewBox="0 0 20 60" xmlns="http://www.w3.org/2000/svg">
+    <path d="M10 55 C14 45,6 38,10 28 C14 18,6 10,10 0" stroke="rgba(255,255,255,.35)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  </svg>
+  <svg class="steam steam-3" viewBox="0 0 20 60" xmlns="http://www.w3.org/2000/svg">
+    <path d="M10 55 C14 45,6 38,10 28 C14 18,6 10,10 0" stroke="rgba(255,255,255,.4)" stroke-width="2" fill="none" stroke-linecap="round"/>
+  </svg>
+  <svg class="shop-scene" viewBox="0 0 1000 270" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="500" cy="265" rx="490" ry="10" fill="rgba(0,0,0,0.15)"/>
+    <path d="M46 260 C40 224,52 190,40 154 C34 130,44 108,58 92" stroke="#7a4a28" stroke-width="10" fill="none" stroke-linecap="round"/>
+    <g fill="#2e7d32">
+      <path d="M58 92 C34 82,12 88,-6 106 C14 100,34 100,58 104 Z"/>
+      <path d="M58 92 C38 68,20 56,0 56 C18 68,34 80,58 100 Z"/>
+      <path d="M58 92 C54 62,60 40,76 24 C68 48,68 70,64 96 Z"/>
+      <path d="M58 92 C76 70,98 62,116 66 C98 74,80 84,62 100 Z"/>
+      <path d="M58 92 C80 96,100 110,108 128 C90 114,72 104,56 100 Z"/>
+    </g>
+    <circle cx="52" cy="96" r="6" fill="#6b4423"/>
+    <circle cx="63" cy="100" r="6" fill="#5c3a1e"/>
+    <path d="M968 260 L970 168" stroke="#6b4423" stroke-width="9" fill="none" stroke-linecap="round"/>
+    <ellipse cx="968" cy="138" rx="56" ry="46" fill="#2e7d32"/>
+    <ellipse cx="938" cy="118" rx="34" ry="30" fill="#357a38"/>
+    <ellipse cx="996" cy="126" rx="32" ry="28" fill="#357a38"/>
+    <ellipse cx="964" cy="106" rx="30" ry="26" fill="#3f8b43"/>
+    <circle cx="942" cy="128" r="4" fill="#c1272d"/>
+    <circle cx="957" cy="112" r="4" fill="#a81f24"/>
+    <circle cx="975" cy="133" r="4" fill="#c1272d"/>
+    <circle cx="988" cy="115" r="4" fill="#a81f24"/>
+    <circle cx="968" cy="150" r="4" fill="#c1272d"/>
+    <rect x="280" y="55" width="440" height="205" fill="#3a2415"/>
+    <rect x="80"  y="98"  width="210" height="162" fill="#2e1c10"/>
+    <rect x="710" y="98"  width="210" height="162" fill="#332012"/>
+    <path d="M80 98 L64 108 L64 254 L80 260 Z" fill="#1c1108" opacity=".85"/>
+    <path d="M920 98 L936 108 L936 254 L920 260 Z" fill="#1c1108" opacity=".85"/>
+    <path d="M270 54 L730 54 L744 36 L284 36 Z" fill="#161010"/>
+    <rect x="72"  y="94" width="218" height="8" rx="2" fill="#140c05"/>
+    <rect x="710" y="94" width="218" height="8" rx="2" fill="#140c05"/>
+    <g class="awning-group">
+      <rect x="270" y="54" width="460" height="38" rx="4" fill="#161616"/>
+      <text x="500" y="79" text-anchor="middle" font-family="'IBM Plex Sans',Georgia,serif" font-size="24" font-weight="800" fill="#ffcf7a" letter-spacing="2">UNCLE BREW</text>
+      <rect x="270" y="88" width="460" height="4" fill="#e8a020"/>
+    </g>
+    <rect x="396" y="96" width="208" height="60" rx="6" fill="#1a1a1a"/>
+    <rect x="399" y="99" width="202" height="54" rx="4" fill="#232e2e"/>
+    <rect x="401" y="101" width="198" height="50" rx="3" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <g class="board-item spec-1">
+      <text x="500" y="117" text-anchor="middle" font-family="Arial,sans-serif" font-size="8" font-weight="700" fill="#ffd54f" letter-spacing=".8">MORNING SPECIAL</text>
+      <text x="500" y="128" text-anchor="middle" font-family="Arial,sans-serif" font-size="8.5" fill="#fff" letter-spacing=".4">Brown Sugar Milk Tea</text>
+      <text x="500" y="139" text-anchor="middle" font-family="Arial,sans-serif" font-size="7.5" fill="#ffd54f">Buy 1 Get 1  |  7-9 AM</text>
+    </g>
+    <g class="board-item spec-2">
+      <text x="500" y="117" text-anchor="middle" font-family="Arial,sans-serif" font-size="8" font-weight="700" fill="#80deea" letter-spacing=".8">BRUNCH SIP</text>
+      <text x="500" y="128" text-anchor="middle" font-family="Arial,sans-serif" font-size="8.5" fill="#fff" letter-spacing=".4">Taro Classic + Cookie</text>
+      <text x="500" y="139" text-anchor="middle" font-family="Arial,sans-serif" font-size="7.5" fill="#80deea">Combo Deal  |  9-12 NN</text>
+    </g>
+    <g class="board-item spec-3">
+      <text x="500" y="117" text-anchor="middle" font-family="Arial,sans-serif" font-size="8" font-weight="700" fill="#a5d6a7" letter-spacing=".8">NOON REFRESH</text>
+      <text x="500" y="128" text-anchor="middle" font-family="Arial,sans-serif" font-size="8.5" fill="#fff" letter-spacing=".4">Wintermelon Slush</text>
+      <text x="500" y="139" text-anchor="middle" font-family="Arial,sans-serif" font-size="7.5" fill="#a5d6a7">Extra Pearls FREE  |  12-3 PM</text>
+    </g>
+    <g class="board-item spec-4">
+      <text x="500" y="117" text-anchor="middle" font-family="Arial,sans-serif" font-size="8" font-weight="700" fill="#ff8a65" letter-spacing=".8">AFTERNOON PICK-ME-UP</text>
+      <text x="500" y="128" text-anchor="middle" font-family="Arial,sans-serif" font-size="8.5" fill="#fff" letter-spacing=".4">Salted Caramel Latte</text>
+      <text x="500" y="139" text-anchor="middle" font-family="Arial,sans-serif" font-size="7.5" fill="#ff8a65">20% Off  |  3-6 PM</text>
+    </g>
+    <rect class="glow-window" x="305" y="98" width="90" height="110" rx="4" fill="#fff2c2" opacity=".88"/>
+    <rect x="305" y="98" width="90" height="110" rx="4" fill="none" stroke="#0f0a06" stroke-width="3.5"/>
+    <path d="M312 105 L330 98 L318 208 L307 204 Z" fill="#fff" opacity=".13"/>
+    <rect class="glow-window" x="605" y="98" width="90" height="110" rx="4" fill="#fff2c2" opacity=".88"/>
+    <rect x="605" y="98" width="90" height="110" rx="4" fill="none" stroke="#0f0a06" stroke-width="3.5"/>
+    <path d="M612 105 L630 98 L618 208 L607 204 Z" fill="#fff" opacity=".13"/>
+    <g opacity=".92">
+      <ellipse cx="360" cy="182" rx="22" ry="6" fill="#6b4423"/>
+      <rect x="357" y="162" width="7" height="20" fill="#5c3a1e"/>
+      <rect x="348" y="172" width="8" height="8" rx="2" fill="#ffe082"/>
+      <rect x="368" y="172" width="8" height="8" rx="2" fill="#f48fb1"/>
+      <circle cx="345" cy="152" r="9" fill="#f5c5a0"/>
+      <path d="M336 150 Q345 139,355 150 L355 146 Q345 135,336 146 Z" fill="#3e2723"/>
+      <rect x="334" y="159" width="22" height="24" rx="7" fill="#4a7c59"/>
+      <line x1="343" y1="166" x2="353" y2="173" stroke="#f5c5a0" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="382" cy="150" r="9" fill="#e8b080"/>
+      <path d="M373 148 Q382 136,391 148 L391 144 Q382 132,373 144 Z" fill="#2e1a0a"/>
+      <rect x="372" y="158" width="22" height="24" rx="7" fill="#8a4a2c"/>
+      <line x1="380" y1="165" x2="371" y2="173" stroke="#e8b080" stroke-width="4" stroke-linecap="round"/>
+    </g>
+    <g class="cup-group">
+      <rect x="640" y="118" width="20" height="34" rx="3" fill="#ffe082"/>
+      <rect x="642" y="116" width="16" height="6" rx="2" fill="#ffd54f"/>
+      <ellipse cx="650" cy="116" rx="8" ry="3.5" fill="#fff9c4"/>
+      <line x1="650" y1="110" x2="650" y2="104" stroke="#5d4037" stroke-width="2.5" stroke-linecap="round"/>
+      <circle cx="645" cy="145" r="2.8" fill="#6d4c41" opacity=".7"/>
+      <circle cx="650" cy="148" r="2.8" fill="#4e342e" opacity=".7"/>
+      <circle cx="655" cy="145" r="2.8" fill="#5d4037" opacity=".7"/>
+    </g>
+    <rect class="glow-window" x="100" y="126" width="72" height="62" rx="3" fill="#fff2c2" opacity=".8"/>
+    <rect x="100" y="126" width="72" height="62" rx="3" fill="none" stroke="#0f0a06" stroke-width="3"/>
+    <rect class="glow-window" x="190" y="126" width="72" height="62" rx="3" fill="#fff2c2" opacity=".8"/>
+    <rect x="190" y="126" width="72" height="62" rx="3" fill="none" stroke="#0f0a06" stroke-width="3"/>
+    <rect class="glow-window" x="738" y="126" width="72" height="62" rx="3" fill="#fff2c2" opacity=".8"/>
+    <rect x="738" y="126" width="72" height="62" rx="3" fill="none" stroke="#0f0a06" stroke-width="3"/>
+    <rect class="glow-window" x="828" y="126" width="72" height="62" rx="3" fill="#fff2c2" opacity=".8"/>
+    <rect x="828" y="126" width="72" height="62" rx="3" fill="none" stroke="#0f0a06" stroke-width="3"/>
+    <rect x="447" y="158" width="106" height="102" rx="2" fill="#101010" opacity=".85"/>
+    <rect x="450" y="161" width="46"  height="96" rx="1" fill="#3fb6f2" opacity=".16"/>
+    <rect x="504" y="161" width="46"  height="96" rx="1" fill="#3fb6f2" opacity=".16"/>
+    <rect x="497" y="161" width="6" height="96" fill="#e8a020"/>
+    <circle cx="494" cy="210" r="4" fill="#e8a020"/>
+    <circle cx="506" cy="210" r="4" fill="#e8a020"/>
+    <g class="open-sign">
+      <rect x="308" y="133" width="60" height="24" rx="5" fill="#22aa44"/>
+      <text x="338" y="150" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" font-weight="800" fill="#fff" letter-spacing="1">OPEN</text>
+    </g>
+    <path d="M136 260 L152 200 L168 260 Z" fill="#3a2820"/>
+    <path d="M140 260 L154 210 L168 260 Z" fill="#5c3a28"/>
+    <rect x="138" y="200" width="32" height="38" rx="2" fill="#232e2e"/>
+    <text x="154" y="214" text-anchor="middle" font-family="Arial,sans-serif" font-size="6.5" font-weight="700" fill="#ffd54f">TODAY'S</text>
+    <text x="154" y="224" text-anchor="middle" font-family="Arial,sans-serif" font-size="6" fill="#fff">Milk Tea</text>
+    <text x="154" y="233" text-anchor="middle" font-family="Arial,sans-serif" font-size="6" fill="#fff">Boba  Slush</text>
+    <g class="person-l sway-anim" style="animation-duration:3.2s;animation-delay:0s;--tx:208px;--ty:258px;--s:1.15;">
+      <ellipse cx="0" cy="10" rx="17" ry="4" fill="rgba(0,0,0,.18)"/>
+      <rect x="-10" y="-30" width="8" height="30" rx="3" fill="#4a4a68"/>
+      <rect x="2" y="-30" width="8" height="30" rx="3" fill="#4a4a68"/>
+      <ellipse cx="-6" cy="2" rx="6" ry="3" fill="#2b2b3d"/>
+      <ellipse cx="6" cy="2" rx="6" ry="3" fill="#2b2b3d"/>
+      <path d="M-14 -34 Q0 -24,14 -34 L12 -46 Q0 -40,-12 -46 Z" fill="#e05a86"/>
+      <rect x="-13" y="-64" width="26" height="30" rx="9" fill="#ff6b9d"/>
+      <path d="M11 -60 Q19 -52,17 -42" stroke="#f5c5a0" stroke-width="7" fill="none" stroke-linecap="round"/>
+      <path d="M-11 -60 Q-16 -48,-13 -36" stroke="#f5c5a0" stroke-width="7" fill="none" stroke-linecap="round"/>
+      <rect x="-4" y="-72" width="8" height="9" fill="#f0bd94"/>
+      <circle cx="0" cy="-80" r="10" fill="#f5c5a0"/>
+      <path d="M-10 -84 Q0 -95,10 -84 Q10 -76,7 -72 L7 -80 Q0 -87,-7 -80 L-7 -72 Q-10 -76,-10 -84 Z" fill="#3e2723"/>
+      <path d="M8 -82 Q16 -78,14 -64 Q12 -58,9 -60 Q13 -70,8 -78 Z" fill="#3e2723"/>
+      <circle cx="-3.5" cy="-80" r="1.1" fill="#2b2b2b"/>
+      <circle cx="3.5" cy="-80" r="1.1" fill="#2b2b2b"/>
+      <path d="M-3 -75.5 Q0 -74,3 -75.5" stroke="#a85a3a" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+      <rect x="14" y="-46" width="9" height="15" rx="2" fill="#dff3ff" stroke="#9fd8ea" stroke-width="1"/>
+      <line x1="18.5" y1="-52" x2="18.5" y2="-58" stroke="#6b4423" stroke-width="1.6" stroke-linecap="round"/>
+      <g class="sparkle">
+        <line x1="-22" y1="-96" x2="-22" y2="-103" stroke="#ffd54f" stroke-width="2" stroke-linecap="round"/>
+        <line x1="-26" y1="-99.5" x2="-18" y2="-99.5" stroke="#ffd54f" stroke-width="2" stroke-linecap="round"/>
+      </g>
+    </g>
+    <g>
+      <g class="sway-anim" style="animation-duration:3.6s;animation-delay:.2s;--tx:522px;--ty:259px;--s:1.05;">
+        <ellipse cx="0" cy="9" rx="15" ry="3.6" fill="rgba(0,0,0,.18)"/>
+        <rect x="-9" y="-27" width="8" height="27" rx="3" fill="#37474f"/>
+        <rect x="2" y="-27" width="8" height="27" rx="3" fill="#455a64"/>
+        <ellipse cx="-5" cy="1" rx="5.5" ry="2.8" fill="#1c1c1c"/>
+        <ellipse cx="6" cy="1" rx="5.5" ry="2.8" fill="#1c1c1c"/>
+        <rect x="-13" y="-59" width="26" height="34" rx="8" fill="#1a6090"/>
+        <path d="M11 -55 Q17 -46,13 -34" stroke="#e8b080" stroke-width="6.5" fill="none" stroke-linecap="round"/>
+        <path d="M-11 -55 Q-15 -44,-11 -32" stroke="#e8b080" stroke-width="6.5" fill="none" stroke-linecap="round"/>
+        <rect x="9" y="-38" width="6" height="10" rx="1.5" fill="#222" opacity=".9"/>
+        <rect x="-4" y="-67" width="8" height="9" fill="#d9a069"/>
+        <circle cx="0" cy="-75" r="9.5" fill="#e8b080"/>
+        <path d="M-9.5 -78 Q0 -88,9.5 -78 Q9.5 -70,7 -68 L7 -76 Q0 -82,-7 -76 L-7 -68 Q-9.5 -70,-9.5 -78 Z" fill="#2e1a0a"/>
+        <circle cx="-3.3" cy="-75" r="1" fill="#2b2b2b"/>
+        <circle cx="3.3" cy="-75" r="1" fill="#2b2b2b"/>
+        <path d="M-3 -70.5 Q0 -69.3,3 -70.5" stroke="#8a4a2c" stroke-width="1" fill="none" stroke-linecap="round"/>
+      </g>
+      <g class="sway-anim" style="animation-duration:3.9s;animation-delay:.6s;--tx:562px;--ty:257px;--s:.97;">
+        <ellipse cx="0" cy="9" rx="14" ry="3.4" fill="rgba(0,0,0,.17)"/>
+        <rect x="-9" y="-26" width="8" height="26" rx="3" fill="#5c4a75"/>
+        <rect x="2" y="-26" width="8" height="26" rx="3" fill="#5c4a75"/>
+        <ellipse cx="-5" cy="0.5" rx="5.3" ry="2.6" fill="#2b2b3d"/>
+        <ellipse cx="6" cy="0.5" rx="5.3" ry="2.6" fill="#2b2b3d"/>
+        <rect x="-12" y="-57" width="24" height="32" rx="8" fill="#f4a83c"/>
+        <path d="M10 -53 Q17 -46,16 -37" stroke="#c98552" stroke-width="6.2" fill="none" stroke-linecap="round"/>
+        <path d="M-10 -53 Q-14 -42,-11 -30" stroke="#c98552" stroke-width="6.2" fill="none" stroke-linecap="round"/>
+        <path d="M14 -46 L20 -46 L20 -34 L14 -34 Z" fill="#6b3a2a"/>
+        <path d="M15 -50 Q17 -55,19 -50" stroke="#6b3a2a" stroke-width="1.6" fill="none"/>
+        <rect x="-4" y="-65" width="8" height="8" fill="#b5713f"/>
+        <circle cx="0" cy="-73" r="9.2" fill="#c98552"/>
+        <path d="M-9 -76 Q-11 -60,-6 -54 Q-9 -64,-8 -76 Z" fill="#1c1c1c"/>
+        <path d="M9 -76 Q11 -60,6 -54 Q9 -64,8 -76 Z" fill="#1c1c1c"/>
+        <path d="M-9 -76 Q0 -85,9 -76 Q9 -80,0 -83 Q-9 -80,-9 -76 Z" fill="#1c1c1c"/>
+        <circle cx="-3.2" cy="-73" r="1" fill="#2b2b2b"/>
+        <circle cx="3.2" cy="-73" r="1" fill="#2b2b2b"/>
+        <path d="M-3 -68.5 Q0 -67.3,3 -68.5" stroke="#7a3f1f" stroke-width="1" fill="none" stroke-linecap="round"/>
+      </g>
+      <g class="sway-anim" style="animation-duration:3.4s;animation-delay:1s;--tx:600px;--ty:255px;--s:.88;">
+        <ellipse cx="0" cy="9" rx="13" ry="3.2" fill="rgba(0,0,0,.16)"/>
+        <rect x="-8" y="-24" width="7" height="24" rx="3" fill="#333"/>
+        <rect x="1" y="-24" width="7" height="24" rx="3" fill="#333"/>
+        <ellipse cx="-4.5" cy="1" rx="5.2" ry="2.6" fill="#ffffff"/>
+        <ellipse cx="5" cy="1" rx="5.2" ry="2.6" fill="#ffffff"/>
+        <path d="M-9.5 1 L0.5 1" stroke="#ff6b9d" stroke-width="1.2"/>
+        <path d="M-11 -28 Q0 -20,11 -28 L9.5 -38 Q0 -33,-9.5 -38 Z" fill="#37474f"/>
+        <rect x="-11.5" y="-53" width="23" height="27" rx="9" fill="#8e5fd9"/>
+        <path d="M-6 -53 Q0 -47,6 -53" stroke="#7248b8" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+        <path d="M-11 -50 L-11 -30" stroke="#5a3aa0" stroke-width="3" stroke-linecap="round"/>
+        <path d="M10 -49 Q16 -42,14 -33" stroke="#f0bd94" stroke-width="5.8" fill="none" stroke-linecap="round"/>
+        <path d="M-10 -49 Q-14 -40,-11 -30" stroke="#f0bd94" stroke-width="5.8" fill="none" stroke-linecap="round"/>
+        <rect x="11" y="-37" width="5.5" height="9" rx="1.3" fill="#222"/>
+        <rect x="-3.5" y="-61" width="7" height="8" fill="#f0bd94"/>
+        <circle cx="0" cy="-68" r="8.6" fill="#f0bd94"/>
+        <path d="M-8 -72 Q0 -81,8 -72 Q8 -65,5.5 -63 L5.5 -70 Q0 -76,-5.5 -70 L-5.5 -63 Q-8 -65,-8 -72 Z" fill="#4a2e1a"/>
+        <path d="M0 -80 Q10 -80,9 -68 Q8 -60,5 -62 Q9 -70,3 -79 Z" fill="#4a2e1a"/>
+        <circle cx="-3" cy="-68" r=".95" fill="#2b2b2b"/>
+        <circle cx="3" cy="-68" r=".95" fill="#2b2b2b"/>
+        <path d="M-2.6 -63.8 Q0 -62.6,2.6 -63.8" stroke="#c06b46" stroke-width="1" fill="none" stroke-linecap="round"/>
+        <circle cx="-5.5" cy="-65.5" r="1.4" fill="#ff9eb5" opacity=".55"/>
+        <circle cx="5.5" cy="-65.5" r="1.4" fill="#ff9eb5" opacity=".55"/>
+      </g>
+      <g class="sway-anim" style="animation-duration:3.7s;animation-delay:1.4s;--tx:636px;--ty:254px;--s:.82;">
+        <ellipse cx="0" cy="9" rx="13" ry="3.2" fill="rgba(0,0,0,.16)"/>
+        <rect x="-9" y="-22" width="8" height="20" rx="3" fill="#5d7a52"/>
+        <rect x="1" y="-22" width="8" height="20" rx="3" fill="#5d7a52"/>
+        <rect x="-9.5" y="-2" width="9" height="4" rx="1.5" fill="#ececec"/>
+        <rect x="0.5" y="-2" width="9" height="4" rx="1.5" fill="#ececec"/>
+        <path d="M-11 -30 Q0 -23,11 -30 L10 -40 Q0 -35,-10 -40 Z" fill="#4a4a4a"/>
+        <rect x="-13" y="-56" width="26" height="28" rx="10" fill="#e05a4a"/>
+        <path d="M-7 -56 Q0 -49,7 -56" stroke="#c0402f" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+        <path d="M9 -53 L9 -31" stroke="#8a2f22" stroke-width="3" stroke-linecap="round"/>
+        <path d="M-11 -51 Q-16 -42,-13 -33" stroke="#e8b080" stroke-width="6.4" fill="none" stroke-linecap="round"/>
+        <path d="M11 -51 Q16 -42,13 -33" stroke="#e8b080" stroke-width="6.4" fill="none" stroke-linecap="round"/>
+        <rect x="-4" y="-64" width="8" height="9" fill="#e8b080"/>
+        <circle cx="0" cy="-72" r="9.4" fill="#e8b080"/>
+        <path d="M-9.4 -73 Q0 -83,9.4 -73 Q9.4 -68,7 -67 Q7 -74,0 -77 Q-7 -74,-7 -67 Q-9.4 -68,-9.4 -73 Z" fill="#2e1a0a"/>
+        <path d="M-9.5 -76 Q0 -86,9.5 -76 Q9.5 -80,0 -82 Q-9.5 -80,-9.5 -76 Z" fill="#1b3a63"/>
+        <path d="M2 -78 Q13 -78,13 -73 Q9 -74,2 -75 Z" fill="#16294a"/>
+        <circle cx="-3.2" cy="-71" r="1" fill="#2b2b2b"/>
+        <circle cx="3.2" cy="-71" r="1" fill="#2b2b2b"/>
+        <path d="M-2.8 -66.8 Q0 -65.4,2.8 -66.8" stroke="#a0501a" stroke-width="1" fill="none" stroke-linecap="round"/>
+        <g class="sparkle">
+          <line x1="24" y1="-88" x2="24" y2="-95" stroke="#ffd54f" stroke-width="2" stroke-linecap="round"/>
+          <line x1="20" y1="-91.5" x2="28" y2="-91.5" stroke="#ffd54f" stroke-width="2" stroke-linecap="round"/>
+        </g>
+      </g>
+    </g>
+    <g class="person-r sway-anim" style="animation-duration:3.5s;animation-delay:.4s;--tx:797px;--ty:258px;--s:1.15;">
+      <ellipse cx="0" cy="10" rx="17" ry="4" fill="rgba(0,0,0,.18)"/>
+      <rect x="-10" y="-30" width="8" height="30" rx="3" fill="#2f2f38"/>
+      <rect x="2" y="-30" width="8" height="30" rx="3" fill="#2f2f38"/>
+      <ellipse cx="-6" cy="2" rx="6" ry="3" fill="#161616"/>
+      <ellipse cx="6" cy="2" rx="6" ry="3" fill="#161616"/>
+      <rect x="-14" y="-63" width="28" height="33" rx="9" fill="#ab47bc"/>
+      <path d="M11 -59 Q18 -50,15 -38" stroke="#f5c5a0" stroke-width="7" fill="none" stroke-linecap="round"/>
+      <path d="M-11 -59 Q-16 -49,-13 -37" stroke="#f5c5a0" stroke-width="7" fill="none" stroke-linecap="round"/>
+      <rect x="12" y="-42" width="7" height="12" rx="2" fill="#222"/>
+      <rect x="-4" y="-71" width="8" height="9" fill="#f0bd94"/>
+      <circle cx="0" cy="-79" r="10" fill="#f5c5a0"/>
+      <path d="M-10 -83 Q0 -93,10 -83 Q10 -75,7 -73 L7 -80 Q0 -86,-7 -80 L-7 -73 Q-10 -75,-10 -83 Z" fill="#3e2723"/>
+      <path d="M9 -80 Q15 -76,12 -66" fill="#3e2723"/>
+      <circle cx="-3.5" cy="-79" r="1.1" fill="#2b2b2b"/>
+      <circle cx="3.5" cy="-79" r="1.1" fill="#2b2b2b"/>
+      <path d="M-3 -74.5 Q0 -73,3 -74.5" stroke="#a85a3a" stroke-width="1.1" fill="none" stroke-linecap="round"/>
+      <g class="sparkle">
+        <line x1="22" y1="-92" x2="22" y2="-99" stroke="#ffd54f" stroke-width="2" stroke-linecap="round"/>
+        <line x1="18" y1="-95.5" x2="26" y2="-95.5" stroke="#ffd54f" stroke-width="2" stroke-linecap="round"/>
+      </g>
+    </g>
+    <rect x="0" y="258" width="1000" height="12" fill="#2a0e04" opacity=".35"/>
+  </svg>
+  <div class="hero-inner">
+    <span class="eyebrow">Now Open &mdash; Serving Daily</span>
+    <h2>
+      <svg class="heart-hand letter" style="animation-delay:3.80s" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <path d="M50 30 C44 18,28 18,24 30 C21 39,27 46,36 52 L50 64 L64 52 C73 46,79 39,76 30 C72 18,56 18,50 30 Z" fill="#ff6b81" stroke="#fff" stroke-width="3"/>
+        <path d="M30 55 L20 78 C18 84,24 88,28 84 L36 68" fill="#ffd9b3" stroke="#fff" stroke-width="3"/>
+        <path d="M70 55 L80 78 C82 84,76 88,72 84 L64 68" fill="#ffd9b3" stroke="#fff" stroke-width="3"/>
+      </svg>
+      <span class="letter space" style="animation-delay:3.94s"></span>
+      <span class="letter" style="animation-delay:4.08s">U</span>
+      <span class="letter" style="animation-delay:4.22s">n</span>
+      <span class="letter" style="animation-delay:4.36s">c</span>
+      <span class="letter" style="animation-delay:4.50s">l</span>
+      <span class="letter" style="animation-delay:4.64s">e</span>
+      <span class="letter space" style="animation-delay:4.78s"></span>
+      <span class="letter" style="animation-delay:4.92s">B</span>
+      <span class="letter" style="animation-delay:5.06s">r</span>
+      <span class="letter" style="animation-delay:5.20s">e</span>
+      <span class="letter" style="animation-delay:5.34s">w</span>
+    </h2>
+    <p class="sub">Your favorite milk tea stop — crafted with love, brewed with care, every single day.</p>
+  </div>
+</section>
+
+<!-- ══════════════ SECTION 2: WHY CAROUSEL ══════════════ -->
+<div class="why-wrap-outer">
+  <div class="why-section" id="whySection"></div>
+</div>
+
+<!-- ══════════════ SECTION 3: CALL TO ORDER + MESSENGER ══════════════ -->
+<div style="text-align:center;padding:20px 0;font-family:sans-serif;">
+  <div id="call-idle" style="display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;">
+    <div>
+      <button onclick="startCall()" style="
+        background:#ff4d8d;color:#fff;border:none;
+        padding:14px 32px;border-radius:99px;
+        font-size:16px;font-weight:700;cursor:pointer;
+        box-shadow:0 4px 18px rgba(255,77,141,0.35);">
+        Call to Order
+      </button>
+      <p style="color:#888;font-size:13px;margin-top:8px;">
+        Tap to video call our shop
+      </p>
+    </div>
+    <a href="https://m.me/1025453833986836" target="_blank" rel="noopener" style="
+      width:46px;height:46px;border-radius:50%;
+      background:#0099ff;display:flex;align-items:center;
+      justify-content:center;box-shadow:0 4px 14px rgba(0,153,255,0.45);
+      text-decoration:none;flex-shrink:0;">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="white">
+        <path d="M12 2C6.477 2 2 6.145 2 11.243c0 2.906 1.419 5.5 3.64 7.22V22l3.28-1.8c.875.243 1.8.373 2.758.373C17.523 20.573 22 16.427 22 11.243 22 6.145 17.523 2 12 2zm1.23 12.42l-3.1-3.3-6.05 3.3 6.64-7.05 3.17 3.3 6-3.3-6.66 7.05z"/>
+      </svg>
+    </a>
+  </div>
+  <div id="call-waiting" style="display:none;">
+    <div style="font-size:32px;margin-bottom:8px;">⏳</div>
+    <p style="font-weight:600;font-size:16px;color:#333;margin:0;">
+      Waiting for the shop to answer...
+    </p>
+    <p style="color:#888;font-size:13px;margin:6px 0 16px;">
+      Please stay on this page
+    </p>
+    <iframe
+      id="call-frame"
+      src="https://o-be.whereby.com/quix-brewcalls300ac251-43fa-41c4-98c9-624e0afd4f3c?embed&autoHideSelfView=off&skipMediaPermissionPrompt=off"
+      allow="camera *; microphone *; fullscreen *; display-capture *; autoplay *"
+      allowfullscreen
+      allowusermedia
+      style="width:100%;max-width:720px;height:500px;
+             border:none;border-radius:12px;
+             display:block;margin:0 auto;"
+    ></iframe>
+    <button onclick="endCall()" style="
+      margin-top:14px;padding:10px 28px;
+      background:#ff5f5f;color:#fff;border:none;
+      border-radius:99px;font-size:15px;
+      font-weight:700;cursor:pointer;
+      display:inline-block;">
+      End Call
+    </button>
+  </div>
+</div>
+
+<!-- ══════════════ SECTION 4: QUIX BREW ORDERING WIDGET ══════════════ -->
+<div id="qb-root">
+<div class="qb-head">
+  <div class="qb-menu-wrap">
+    <button id="qb-menu-dot" class="qb-menu-dot" title="More">⋮</button>
+    <div id="qb-menu-pop" class="qb-menu-pop">
+      <button id="qb-menu-track">📦 Track My Order</button>
+      <hr>
+      <button id="qb-menu-rider">🛵 Rider Login</button>
+    </div>
+  </div>
+  <span class="qb-eyebrow">Order Online</span>
+  <h1>🧋 Quix Brew</h1>
+  <p>Fresh milk tea, made to order · GCash or Cash</p>
+</div>
+<div id="qb-status" class="qb-status">Loading the menu…</div>
+<div id="qb-grid" class="qb-grid"></div>
+<button id="qb-fab" class="qb-fab">🛒 <span id="qb-fab-text">0 items</span></button>
+<div id="qb-overlay" class="qb-overlay"></div>
+<div id="qb-modal" class="qb-prod-modal">
+  <div class="qb-prod-backdrop" id="qb-modal-backdrop"></div>
+  <div class="qb-prod-sheet">
+    <div class="qb-prod-img-wrap"><img id="qb-m-img" class="qb-prod-img" src="" alt=""></div>
+    <div class="qb-modal-scroll">
+      <div class="qb-prod-info">
+        <h3 id="qb-m-name"></h3>
+        <div class="qb-prod-price" id="qb-m-price"></div>
+        <p id="qb-m-desc"></p>
+      </div>
+      <div class="qb-section">
+        <div class="qb-section-label">Size</div>
+        <div class="qb-pills" id="qb-m-sizes">
+          <button class="qb-pill sel" data-size="Regular" data-add="0">Regular (₱+0)</button>
+          <button class="qb-pill" data-size="Large" data-add="15">Large (₱+15)</button>
+        </div>
+      </div>
+      <div class="qb-section">
+        <div class="qb-section-label">Sugar Level</div>
+        <div class="qb-slider-row">
+          <input type="range" id="qb-sugar" min="0" max="100" step="25" value="100">
+          <div class="qb-slider-val" id="qb-sugar-val">100%</div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:#555555;margin-top:4px;font-family:'Space Mono',monospace">
+          <span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100%</span>
+        </div>
+      </div>
+      <div class="qb-section">
+        <div class="qb-section-label">Ice Level</div>
+        <div class="qb-slider-row">
+          <input type="range" id="qb-ice" min="0" max="100" step="25" value="100">
+          <div class="qb-slider-val" id="qb-ice-val">100%</div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:#555555;margin-top:4px;font-family:'Space Mono',monospace">
+          <span>No Ice</span><span>25%</span><span>50%</span><span>75%</span><span>Full</span>
+        </div>
+      </div>
+      <div class="qb-section">
+        <div class="qb-section-label">Quantity</div>
+        <div class="qb-qty-row">
+          <button class="qb-qty-btn" id="qb-m-minus">−</button>
+          <span class="qb-qty-num" id="qb-m-qty">1</span>
+          <button class="qb-qty-btn" id="qb-m-plus">+</button>
+        </div>
+      </div>
+    </div>
+    <div class="qb-modal-footer">
+      <button class="qb-modal-atc" id="qb-modal-atc">Add to Cart — <span id="qb-m-total">₱0</span></button>
+    </div>
+  </div>
+</div>
+<div id="qb-cart-panel" class="qb-panel">
+  <div class="qb-panel-head">
+    <h2>Your Cart 🛒</h2>
+    <button class="qb-close-btn" id="qb-cart-close">✕</button>
+  </div>
+  <div class="qb-panel-body">
+    <div id="qb-cart-lines"></div>
+    <hr class="qb-div">
+    <div id="qb-order-summary"></div>
+    <div id="qb-topup-notice"></div>
+  </div>
+  <div class="qb-panel-footer">
+    <button class="qb-btn-primary" id="qb-checkout-btn">Review Payment & Address →</button>
+  </div>
+</div>
+<div id="qb-checkout-panel" class="qb-panel">
+  <div class="qb-panel-head">
+    <button class="qb-back-btn" id="qb-checkout-back">←</button>
+    <h2>Contact & Payment</h2>
+    <button class="qb-close-btn" id="qb-checkout-close">✕</button>
+  </div>
+  <div class="qb-panel-body">
+    <div class="qb-steps">
+      <div class="qb-step done" id="qb-step1">Cart</div>
+      <div class="qb-step active" id="qb-step2">Details</div>
+      <div class="qb-step" id="qb-step3">Payment</div>
+    </div>
+    <div class="qb-field" style="display:flex;gap:10px">
+      <div style="flex:1"><label>First Name</label><input id="qb-fname" type="text" placeholder="Tmen"></div>
+      <div style="flex:1"><label>Last Name</label><input id="qb-lname" type="text" placeholder="Gorduiz"></div>
+    </div>
+    <div class="qb-error" id="qb-name-error" style="margin-top:-10px;margin-bottom:10px"></div>
+    <div class="qb-field">
+      <label>Contact Number</label>
+      <input id="qb-contact" type="tel" placeholder="09XX XXX XXXX">
+      <div style="font-size:11px;color:#555555;margin-top:4px">Please provide the payment number you use to pay. (Maya/GCash)</div>
+      <div class="qb-error" id="qb-contact-error"></div>
+    </div>
+    <div class="qb-field">
+      <label>Delivery Address</label>
+      <textarea id="qb-address" rows="2" placeholder="House no., street, barangay"></textarea>
+      <div class="qb-error" id="qb-address-error"></div>
+    </div>
+    <div class="qb-field">
+      <label>Delivery Option</label>
+      <div class="qb-radio-group" id="qb-delivery-opts">
+        <label class="qb-radio-opt sel">
+          <input type="radio" name="qb-delivery" value="15–20 mins" checked>
+          <div class="qb-radio-opt-info">
+            <div class="qb-radio-opt-title">Standard Delivery <span class="qb-badge-default">DEFAULT</span></div>
+            <div class="qb-radio-opt-sub">Estimated 15–20 minutes</div>
+          </div>
+        </label>
+        <label class="qb-radio-opt">
+          <input type="radio" name="qb-delivery" value="Pick-up">
+          <div class="qb-radio-opt-info">
+            <div class="qb-radio-opt-title">Pick-up</div>
+            <div class="qb-radio-opt-sub">Come to the store</div>
+          </div>
+        </label>
+      </div>
+    </div>
+    <hr class="qb-div">
+    <div class="qb-field">
+      <label>Payment Method</label>
+      <div class="qb-radio-group" id="qb-pay-opts">
+        <label class="qb-radio-opt sel">
+          <input type="radio" name="qb-pay" value="GCash" checked>
+          <div class="qb-radio-opt-info">
+            <div class="qb-radio-opt-title">GCash <span class="qb-badge-default">DEFAULT</span></div>
+            <div class="qb-radio-opt-sub">Send to 0997 990 3944</div>
+          </div>
+        </label>
+        <label class="qb-radio-opt">
+          <input type="radio" name="qb-pay" value="Cash on Delivery">
+          <div class="qb-radio-opt-info">
+            <div class="qb-radio-opt-title">Cash on Delivery</div>
+            <div class="qb-radio-opt-sub">Prepare exact amount</div>
+          </div>
+        </label>
+      </div>
+    </div>
+    <div class="qb-field">
+      <label>Note for Rider (optional)</label>
+      <textarea id="qb-rider-note" rows="2" placeholder="e.g. Leave at door, call when near, etc."></textarea>
+    </div>
+    <hr class="qb-div">
+    <div style="font-size:12px;font-weight:700;color:#555555;text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px">Order Summary</div>
+    <div id="qb-checkout-summary"></div>
+    <div class="qb-error" id="qb-checkout-error"></div>
+  </div>
+  <div class="qb-panel-footer">
+    <button class="qb-btn-primary" id="qb-pay-btn">Pay Now →</button>
+  </div>
+</div>
+<div id="qb-gcash-panel" class="qb-panel">
+  <div class="qb-panel-head">
+    <h2>Your Order</h2>
+    <button class="qb-close-btn" id="qb-gcash-close">✕</button>
+  </div>
+  <div class="qb-panel-body">
+    <div id="qb-success-banner" class="qb-success-banner" style="display:none">
+      <div class="qb-sb-icon">✅</div>
+      <h3>Order received!</h3>
+      <p>Your order is now logged in our system.</p>
+      <div class="qb-sb-track" id="qb-tracking-no"></div>
+    </div>
+    <div id="qb-submitting" style="text-align:center;padding:24px 0">
+      <div style="font-size:28px;margin-bottom:8px">⏳</div>
+      <p style="font-size:13px;color:#555555">Placing your order…</p>
+    </div>
+    <div id="qb-error" class="qb-error" style="text-align:center;margin-bottom:10px"></div>
+    <div id="qb-post-order" style="display:none">
+      <div id="qb-gcash-body">
+        <h3 style="font-size:16px;color:#1A1A1A;text-align:center;margin-bottom:10px">Make a Payment Now</h3>
+        <div class="qb-gcash-screen">
+          <div class="qb-gcash-icon">📱</div>
+          <div class="qb-gcash-logo">GCash</div>
+          <div style="font-size:13px;color:#555555;margin-bottom:4px">Send payment to:</div>
+          <div class="qb-gcash-num" id="qb-gcash-number">0997 990 3944</div>
+          <div class="qb-copy-row"><button class="qb-copy-btn" id="qb-copy-num">📋 Copy Number</button></div>
+          <div class="qb-gcash-name">Jotham Jusay</div>
+          <div class="qb-gcash-amount">
+            <div class="label">Amount to Send</div>
+            <div class="val" id="qb-gcash-total">₱0</div>
+          </div>
+        </div>
+        <div class="qb-note-box" style="background:#eaf4fb;border-color:#2980b9">
+          <h4 style="color:#1a5276">📋 How to pay</h4>
+          <p style="color:#1a3a4a;line-height:1.8">
+            <strong>1.</strong> Open your GCash app.<br>
+            <strong>2.</strong> Tap <em>Send Money</em>, enter <strong style="color:#1A1A1A">0997 990 3944</strong> (Jotham Jusay).<br>
+            <strong>3.</strong> Send the exact amount: <strong id="qb-gcash-total2">₱0</strong><br>
+            <strong>4.</strong> Screenshot your receipt and note the 13-digit reference number.<br>
+            <strong>5.</strong> Tap the button below to send it to us on Messenger so we can confirm your payment.
+          </p>
+        </div>
+        <a href="https://m.me/1025453833986836" target="_blank" class="qb-messenger-btn" id="qb-messenger-btn">
+          💬 Send Payment Proof via Messenger
+        </a>
+      </div>
+      <div id="qb-cod-body" style="display:none">
+        <div class="qb-note-box">
+          <h4>💵 Cash on Delivery</h4>
+          <p>Please prepare <strong id="qb-cod-total">₱0</strong> in exact change for the rider.</p>
+        </div>
+      </div>
+      <hr class="qb-div">
+      <div class="qb-note-box" style="margin-bottom:0">
+        <h4>🗺️ Track your Rider</h4>
+        <p style="margin-bottom:10px">See live status updates and your rider's location anytime:</p>
+        <button class="qb-tracker-link" id="qb-tracker-link" style="width:100%;border:none;cursor:pointer">📍 Open My Order Dashboard</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="qb-rider-login-panel" class="qb-panel">
+  <div class="qb-panel-head">
+    <h2>Rider Access</h2>
+    <button class="qb-close-btn" id="qb-rider-login-close">✕</button>
+  </div>
+  <div class="qb-panel-body">
+    <div class="qb-rider-login">
+      <div class="qb-ricon">🛵</div>
+      <p style="font-size:13px;color:#555555;margin-bottom:14px">Enter your rider PIN to view active orders.</p>
+      <input id="qb-rider-pin" class="qb-pin-input" type="password" inputmode="numeric" maxlength="6" placeholder="••••">
+      <div class="qb-error" id="qb-rider-login-error" style="text-align:center;margin-top:8px"></div>
+      <button class="qb-btn-primary" id="qb-rider-login-btn">Log In →</button>
+    </div>
+  </div>
+</div>
+<div id="qb-rider-dash-panel" class="qb-panel">
+  <div class="qb-panel-head">
+    <button class="qb-back-btn" id="qb-rider-logout-btn" title="Log out">←</button>
+    <h2>Rider Dashboard</h2>
+    <button class="qb-close-btn" id="qb-rider-dash-close">✕</button>
+  </div>
+  <div class="qb-panel-body">
+    <div class="qb-rider-refresh-row">
+      <span class="qb-rlabel" id="qb-rider-last-updated">Loading…</span>
+      <button class="qb-rider-refresh-btn" id="qb-rider-refresh-btn">🔄 Refresh</button>
+    </div>
+    <div id="qb-rider-orders"></div>
+  </div>
+</div>
+<div id="qb-tracker-dash-panel" class="qb-panel">
+  <div class="qb-panel-head">
+    <h2>My Order</h2>
+    <button class="qb-close-btn" id="qb-tracker-dash-close">✕</button>
+  </div>
+  <div class="qb-panel-body">
+    <div id="qb-track-lookup" class="qb-track-lookup" style="display:none">
+      <div class="qb-ricon">🔎</div>
+      <p style="font-size:13px;color:#555555;margin-bottom:14px">Enter your order number to see live status (e.g. QB-014).</p>
+      <input id="qb-track-orderno" class="qb-pin-input" style="letter-spacing:.1em;font-size:16px" type="text" placeholder="QB-001">
+      <div class="qb-error" id="qb-track-lookup-error" style="text-align:center;margin-top:8px"></div>
+      <button class="qb-btn-primary" id="qb-track-lookup-btn">Track Order →</button>
+      <button class="qb-btn-ghost" id="qb-track-back-btn" style="display:none">← Back to my order</button>
+    </div>
+    <div id="qb-track-result" style="display:none">
+      <div class="qb-track-order-card">
+        <div class="qb-to-no" id="qb-track-orderno-display"></div>
+        <div class="qb-to-items" id="qb-track-status-line">Status: ⏳ Pending</div>
+      </div>
+      <div class="qb-timeline" id="qb-track-timeline"></div>
+      <a href="#" target="_blank" class="qb-tracker-link qb-disabled" id="qb-track-map-link">📍 View Rider Location</a>
+      <div id="qb-track-map-wrap" class="qb-addr-map">
+        <div class="qb-addr-map-label"><span id="qb-track-map-label-text">📍 Delivery Address</span><span class="qb-live-badge stale" id="qb-track-live-badge" style="display:none">● LIVE</span></div>
+        <iframe id="qb-track-map-iframe" width="100%" height="220" frameborder="0" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="qb-pin-box">
+        <h4>📍 Share My Live Location</h4>
+        <p>Typed addresses can be wrong or hard to find. Turn this on and your exact location updates automatically as you move, so your rider always sees where you really are.</p>
+        <button class="qb-pin-btn" id="qb-pin-location-btn">📍 Share My Live Location</button>
+        <div class="qb-pin-status" id="qb-pin-location-status"></div>
+      </div>
+      <button class="qb-btn-ghost" id="qb-track-different-btn">Track a different order</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════ SCRIPTS ══════════════ -->
+<script>
+(function(){
+  const INTERVAL = 4000;
+  const panels = [
+    {title:'Our Signature Brews',text:"From classic brown sugar milk tea to taro, matcha, and fruit series — Uncle Brew crafts each cup with premium tea leaves and fresh ingredients, tailored to your sweetness and ice level.",img:'https://i.ibb.co/Cp9Y0HX0/The-best-Jotham-Sugar-Milk-Tea-in-town-experience-its-special-taste-by-visiting-our-address-below.png',link:'https://unclebreww.mystrikingly.com/2'},
+    {title:'Fresh Ingredients Daily',text:"We source our tea leaves, milk, and toppings fresh every morning. Our boba pearls are cooked in-house throughout the day so every cup delivers the perfect chew.",img:'https://i.ibb.co/Cp9Y0HX0/The-best-Jotham-Sugar-Milk-Tea-in-town-experience-its-special-taste-by-visiting-our-address-below.png',link:'https://unclebreww.mystrikingly.com/2'},
+    {title:'Customize Your Cup',text:"Choose your sugar level (0% – 100%), ice level (no ice to regular), and toppings — boba pearls, nata de coco, pudding, cheese foam, and more. Your perfect cup, your way.",img:'https://i.ibb.co/Cp9Y0HX0/The-best-Jotham-Sugar-Milk-Tea-in-town-experience-its-special-taste-by-visiting-our-address-below.png',link:'https://unclebreww.mystrikingly.com/2'},
+    {title:'Cozy Dine-In Space',text:"Pull up a chair! Uncle Brew's shop is designed to be your third place — a warm, relaxed spot to catch up with friends, study, or simply unwind over a great drink.",img:'https://i.ibb.co/Cp9Y0HX0/The-best-Jotham-Sugar-Milk-Tea-in-town-experience-its-special-taste-by-visiting-our-address-below.png',link:'https://unclebreww.mystrikingly.com/2'},
+    {title:'Loyalty Rewards',text:"Every purchase earns you Brew Points. Collect enough and redeem free drinks, exclusive flavors, and surprise merch. Regular customers also get early access to new seasonal flavors.",img:'https://i.ibb.co/Cp9Y0HX0/The-best-Jotham-Sugar-Milk-Tea-in-town-experience-its-special-taste-by-visiting-our-address-below.png',link:'https://unclebreww.mystrikingly.com/2'},
+    {title:'Order & Delivery',text:"Can't visit? We've got you. Order via our online menu for pick-up, or have your brew delivered right to your door. We also accept bulk orders and catering for events.",img:'https://i.ibb.co/Cp9Y0HX0/The-best-Jotham-Sugar-Milk-Tea-in-town-experience-its-special-taste-by-visiting-our-address-below.png',link:'https://unclebreww.mystrikingly.com/2'}
+  ];
+  const root = document.getElementById('whySection');
+  const wrapper = document.createElement('div');
+  wrapper.className = 'carousel-wrapper';
+  const track = document.createElement('div');
+  track.className = 'carousel-track';
+  panels.forEach((p, i) => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.setAttribute('tabindex', '0');
+    card.dataset.index = i;
+    card.innerHTML =
+      `<div class="card-photo-wrap">` +
+        `<img class="card-photo" src="${p.img}" alt="${p.title}" onerror="this.parentElement.style.background='#3d1c0a'">` +
+      `</div>` +
+      `<div class="card-overlay">` +
+        `<div class="ov-title">${p.title}</div>` +
+        `<div class="ov-divider"></div>` +
+        `<div class="ov-hint"></div>` +
+        `<div class="ov-reveal">` +
+          `<div class="ov-text">${p.text}</div>` +
+          `<button type="button" class="ov-readmore" data-index="${i}">` +
+            `Learn More` +
+            `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>` +
+          `</button>` +
+        `</div>` +
+      `</div>`;
+    track.appendChild(card);
+  });
+  track.addEventListener('click', e => {
+    const readBtn = e.target.closest('.ov-readmore');
+    if (readBtn) {
+      const idx = Number(readBtn.dataset.index);
+      const panel = panels[idx];
+      if (panel.link && panel.link !== '#') { window.open(panel.link, '_blank'); }
+      return;
+    }
+    const card = e.target.closest('.card');
+    if (!card) return;
+    const wasOpen = card.classList.contains('is-open');
+    document.querySelectorAll('.card.is-open').forEach(c => c.classList.remove('is-open'));
+    if (!wasOpen) {
+      card.classList.add('is-open');
+      clearInterval(timer);
+      progress.style.animationPlayState = 'paused';
+    } else {
+      progress.style.animationPlayState = 'running';
+      clearInterval(timer);
+      timer = setInterval(() => goTo(cur + 1), INTERVAL);
+    }
+  });
+  const progress = document.createElement('div');
+  progress.className = 'carousel-progress';
+  const counter = document.createElement('div');
+  counter.className = 'slide-counter';
+  function makeArrow(dir) {
+    const btn = document.createElement('button');
+    btn.className = `carousel-btn ${dir}-btn`;
+    btn.setAttribute('aria-label', dir === 'prev' ? 'Previous slide' : 'Next slide');
+    btn.innerHTML = dir === 'prev'
+      ? `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><polyline points="15 18 9 12 15 6"/></svg>`
+      : `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><polyline points="9 18 15 12 9 6"/></svg>`;
+    return btn;
+  }
+  const prevBtn = makeArrow('prev');
+  const nextBtn = makeArrow('next');
+  wrapper.appendChild(track);
+  wrapper.appendChild(progress);
+  wrapper.appendChild(counter);
+  wrapper.appendChild(prevBtn);
+  wrapper.appendChild(nextBtn);
+  root.appendChild(wrapper);
+  const dotsWrap = document.createElement('div');
+  dotsWrap.className = 'carousel-dots';
+  root.appendChild(dotsWrap);
+  let dotEls = [];
+  function cardsPerView(){ return window.innerWidth >= 881 ? 3 : 1; }
+  let perView = cardsPerView();
+  let pageCount = Math.ceil(panels.length / perView);
+  let cur = 0;
+  let timer = null;
+  let isAnimating = false;
+  function buildDots(){
+    dotsWrap.innerHTML = ''; dotEls = [];
+    for (let i = 0; i < pageCount; i++){
+      const d = document.createElement('div');
+      d.className = 'dot' + (i === cur ? ' active' : '');
+      d.setAttribute('aria-label', `Go to slide group ${i + 1}`);
+      d.addEventListener('click', () => goTo(i));
+      dotsWrap.appendChild(d); dotEls.push(d);
+    }
+  }
+  function updateCounter(){ counter.textContent = `${cur + 1} / ${pageCount}`; }
+  function startProgress(){
+    progress.style.animation = 'none';
+    progress.offsetWidth;
+    progress.style.animation = `progressFill ${INTERVAL}ms linear forwards`;
+  }
+  function applyTransform(){ track.style.transform = `translateX(-${cur * 100}%)`; }
+  function goTo(idx){
+    if (isAnimating) return;
+    isAnimating = true;
+    cur = ((idx % pageCount) + pageCount) % pageCount;
+    document.querySelectorAll('.card.is-open').forEach(c => c.classList.remove('is-open'));
+    applyTransform();
+    updateCounter();
+    dotEls.forEach((d, i) => d.classList.toggle('active', i === cur));
+    clearInterval(timer);
+    startProgress();
+    timer = setInterval(() => goTo(cur + 1), INTERVAL);
+    setTimeout(() => { isAnimating = false; }, 780);
+  }
+  function relayout(){
+    const newPerView = cardsPerView();
+    if (newPerView === perView) return;
+    const firstVisibleCard = cur * perView;
+    perView = newPerView;
+    pageCount = Math.ceil(panels.length / perView);
+    cur = Math.min(Math.floor(firstVisibleCard / perView), pageCount - 1);
+    buildDots(); applyTransform(); updateCounter();
+  }
+  prevBtn.addEventListener('click', () => goTo(cur - 1));
+  nextBtn.addEventListener('click', () => goTo(cur + 1));
+  let touchStartX = 0, touchStartY = 0;
+  track.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; touchStartY = e.touches[0].clientY; }, { passive: true });
+  track.addEventListener('touchend', e => {
+    const dx = touchStartX - e.changedTouches[0].clientX;
+    const dy = Math.abs(touchStartY - e.changedTouches[0].clientY);
+    if (Math.abs(dx) > 44 && dy < 60) goTo(cur + (dx > 0 ? 1 : -1));
+  }, { passive: true });
+  wrapper.addEventListener('mouseenter', () => { clearInterval(timer); progress.style.animationPlayState = 'paused'; });
+  wrapper.addEventListener('mouseleave', () => { progress.style.animationPlayState = 'running'; clearInterval(timer); timer = setInterval(() => goTo(cur + 1), INTERVAL); });
+  document.addEventListener('keydown', e => { if (e.key === 'ArrowLeft') goTo(cur - 1); if (e.key === 'ArrowRight') goTo(cur + 1); });
+  let resizeT = null;
+  window.addEventListener('resize', () => { clearTimeout(resizeT); resizeT = setTimeout(relayout, 150); });
+  buildDots(); applyTransform(); updateCounter(); startProgress();
+  timer = setInterval(() => goTo(cur + 1), INTERVAL);
+})();
+
+function startCall() {
+  document.getElementById('call-idle').style.display = 'none';
+  document.getElementById('call-waiting').style.display = 'block';
+}
+function endCall() {
+  var frame = document.getElementById('call-frame');
+  frame.src = '';
+  document.getElementById('call-waiting').style.display = 'none';
+  document.getElementById('call-idle').style.display = 'flex';
+}
+
+(function(){
+  var API_URL = 'https://script.google.com/macros/s/AKfycbwZGzzQNKJEkAQitoDYH0Nc12ZPRTFpW8Qmzaz69d1zmjpcs8H2R9SJ_aOuSePWloen/exec';
+  var MESSENGER_URL = 'https://m.me/1025453833986836';
+  var GCASH_NUMBER = '0997 990 3944';
+  var DELIVERY_FEE = 23;
+  var SERVICE_FEE = 15;
+  var MIN_ORDER = 250;
+  var RIDER_AUTOREFRESH_MS = 20000;
+  var $ = function(id){ return document.getElementById(id); };
+  var DEMO_MENU = [
+    {item:'Brown Sugar Milk Tea',price:75,category:'Milk Tea',description:'Rich brown sugar caramel swirled in creamy milk tea.',image:'https://images.unsplash.com/photo-1558857563-b0d6e29c6da4?w=400&q=70'},
+    {item:'Taro Milk Tea',price:75,category:'Milk Tea',description:'Purple taro blended into velvety milk tea.',image:'https://images.unsplash.com/photo-1587367606617-7be54ca2f716?w=400&q=70'},
+    {item:'Matcha Latte',price:80,category:'Specialty',description:'Premium ceremonial matcha with steamed milk.',image:'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&q=70'},
+    {item:'Classic Milk Tea',price:65,category:'Milk Tea',description:'Traditional Hong Kong style milk tea, smooth and bold.',image:'https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=400&q=70'},
+    {item:'Wintermelon Tea',price:70,category:'Fruit Tea',description:'Refreshing wintermelon with a delicate floral sweetness.',image:'https://images.unsplash.com/photo-1543349689-9a4d426bee8e?w=400&q=70'},
+    {item:'Strawberry Milk Tea',price:80,category:'Fruit Tea',description:'Sweet strawberry purée swirled into creamy milk tea.',image:'https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=400&q=70'}
+  ];
+  var cart = [];
+  var currentItem = null;
+  var modalQty = 1;
+  var modalSize = {label:'Regular', add:0};
+  var currentOrderNo = null;
+  var trackerPollTimer = null;
+  var riderPin = null;
+  var riderPollTimer = null;
+  var riderStatuses = ['⏳ Pending','🍳 Cooking','🛵 On the Way','✅ Delivered'];
+  var lastViewedOrderNo = null;
+  var trackedOrderNo = null;
+  var trackStatusOrder = ['⏳ Pending','🍳 Cooking','🛵 On the Way','✅ Delivered'];
+  var locationWatchId = null;
+  var latestCoords = null;
+  var locationMode = 'idle';
+
+  function openPanel(id){ $(id).classList.add('show'); $(id).scrollTop=0; $('qb-overlay').classList.add('show'); document.body.style.overflow='hidden'; }
+  function closePanel(id){ $(id).classList.remove('show'); if(!document.querySelector('.qb-panel.show')){ $('qb-overlay').classList.remove('show'); document.body.style.overflow=''; } }
+  function closeAll(){ document.querySelectorAll('.qb-panel').forEach(p=>p.classList.remove('show')); $('qb-overlay').classList.remove('show'); document.body.style.overflow=''; stopRiderPolling(); stopLocationWatch(); }
+
+  function loadMenu(){
+    fetch(API_URL+'?action=menu').then(r=>r.json()).then(d=>{ if(!d.ok) throw new Error(); $('qb-status').style.display='none'; renderMenu(d.menu||DEMO_MENU); }).catch(()=>{ $('qb-status').style.display='none'; renderMenu(DEMO_MENU); });
+  }
+  function renderMenu(items){
+    var grid=$('qb-grid');
+    grid.innerHTML=items.map((it,i)=>`
+      <div class="qb-card" data-idx="${i}">
+        <div class="qb-card-img-wrap">
+          <img class="qb-card-img" src="${it.image||'https://images.unsplash.com/photo-1558857563-b0d6e29c6da4?w=400&q=60'}" alt="${esc(it.item)}" onerror="this.src='https://images.unsplash.com/photo-1558857563-b0d6e29c6da4?w=400&q=60'">
+        </div>
+        <div class="qb-card-body">
+          ${it.category?`<div class="qb-card-cat">${esc(it.category)}</div>`:''}
+          <h3 class="qb-card-name">${esc(it.item)}</h3>
+          ${it.description?`<div class="qb-card-desc">${esc(it.description)}</div>`:''}
+          <div class="qb-card-price">₱${it.price}</div>
+          <button class="qb-card-btn">Customize & Add</button>
+        </div>
+      </div>
+    `).join('');
+    grid.querySelectorAll('.qb-card').forEach(card=>{
+      card.querySelector('.qb-card-btn').addEventListener('click',()=>{ openModal(items[Number(card.dataset.idx)]); });
+    });
+  }
+  function openModal(item){
+    currentItem=item; modalQty=1; modalSize={label:'Regular',add:0};
+    $('qb-m-img').src=item.image||'https://images.unsplash.com/photo-1558857563-b0d6e29c6da4?w=400&q=60';
+    $('qb-m-name').textContent=item.item; $('qb-m-price').textContent='₱'+item.price; $('qb-m-desc').textContent=item.description||'';
+    $('qb-sugar').value=100; $('qb-sugar-val').textContent='100%'; $('qb-ice').value=100; $('qb-ice-val').textContent='100%';
+    document.querySelectorAll('.qb-pill').forEach(p=>p.classList.remove('sel'));
+    document.querySelector('.qb-pill[data-size="Regular"]').classList.add('sel');
+    updateModalTotal(); $('qb-modal').classList.add('show'); $('qb-modal').querySelector('.qb-modal-scroll').scrollTop=0;
+    $('qb-overlay').classList.add('show'); document.body.style.overflow='hidden';
+  }
+  function closeModal(){ $('qb-modal').classList.remove('show'); if(!document.querySelector('.qb-panel.show')){ $('qb-overlay').classList.remove('show'); document.body.style.overflow=''; } }
+  function updateModalTotal(){ if(!currentItem)return; var total=(currentItem.price+modalSize.add)*modalQty; $('qb-m-qty').textContent=modalQty; $('qb-m-total').textContent='₱'+total; }
+  document.querySelectorAll('.qb-pill').forEach(pill=>{ pill.addEventListener('click',()=>{ document.querySelectorAll('.qb-pill').forEach(p=>p.classList.remove('sel')); pill.classList.add('sel'); modalSize={label:pill.dataset.size,add:Number(pill.dataset.add)}; updateModalTotal(); }); });
+  $('qb-sugar').addEventListener('input',e=>{ $('qb-sugar-val').textContent=e.target.value+'%'; });
+  $('qb-ice').addEventListener('input',e=>{ $('qb-ice-val').textContent=e.target.value+'%'; });
+  $('qb-m-minus').addEventListener('click',()=>{ if(modalQty>1)modalQty--; updateModalTotal(); });
+  $('qb-m-plus').addEventListener('click',()=>{ modalQty++; updateModalTotal(); });
+  $('qb-modal-backdrop').addEventListener('click',closeModal);
+  $('qb-modal-atc').addEventListener('click',()=>{
+    var sugar=$('qb-sugar').value, ice=$('qb-ice').value;
+    cart.push({item:currentItem.item,price:currentItem.price+modalSize.add,basePrice:currentItem.price,size:modalSize.label,sizeAdd:modalSize.add,sugar:sugar+'%',ice:ice+'%',qty:modalQty});
+    closeModal(); renderFab(); openPanel('qb-cart-panel'); renderCart();
+  });
+  function renderFab(){ var count=cart.reduce((s,l)=>s+l.qty,0); $('qb-fab-text').textContent=count+(count===1?' item':' items')+' · ₱'+cartSubtotal(); $('qb-fab').classList.toggle('show',count>0); }
+  function cartSubtotal(){ return cart.reduce((s,l)=>s+l.price*l.qty,0); }
+  function renderCart(){
+    var lines=$('qb-cart-lines');
+    if(!cart.length){ lines.innerHTML='<div class="qb-empty-cart">Your cup is empty 🧋<br>Add a drink to get started.</div>'; $('qb-checkout-btn').style.display='none'; $('qb-order-summary').innerHTML=''; return; }
+    $('qb-checkout-btn').style.display='block';
+    lines.innerHTML=cart.map((l,i)=>`<div class="qb-cart-item"><div class="qb-cart-item-info" style="flex:1"><div class="qb-cart-item-name">${esc(l.item)}</div><div class="qb-cart-item-sub">${l.size} · Sugar ${l.sugar} · Ice ${l.ice}</div><div class="qb-cart-item-price">₱${l.price} each</div><div class="qb-cart-qty"><button data-i="${i}" data-d="-1">−</button><span>${l.qty}</span><button data-i="${i}" data-d="1">+</button></div></div><div style="font-family:'Space Mono',monospace;font-size:13px;font-weight:700;color:var(--caramel)">₱${l.price*l.qty}</div></div>`).join('');
+    lines.querySelectorAll('button[data-i]').forEach(btn=>{ btn.addEventListener('click',()=>{ var i=Number(btn.dataset.i),d=Number(btn.dataset.d); cart[i].qty+=d; if(cart[i].qty<=0)cart.splice(i,1); renderCart(); renderFab(); }); });
+    renderOrderSummary('qb-order-summary');
+  }
+  function renderOrderSummary(elId){
+    var sub=cartSubtotal();
+    var isPickup=document.querySelector('input[name="qb-delivery"]:checked')&&document.querySelector('input[name="qb-delivery"]:checked').value==='Pick-up';
+    var freeDelivery=isPickup||(sub>=MIN_ORDER);
+    var delivery=isPickup?0:(freeDelivery?0:DELIVERY_FEE);
+    var serviceFee=SERVICE_FEE, grandTotal=sub+delivery+serviceFee;
+    var need=(!isPickup&&!freeDelivery)?MIN_ORDER-sub:0;
+    var deliveryRow=isPickup?'':(`<div class="qb-summary-row"><span>Standard Delivery</span>`+(freeDelivery?`<span style="color:var(--green)">FREE</span>`:`<span>₱${delivery}</span>`)+`</div>`);
+    $(elId).innerHTML=`${cart.map(l=>`<div class="qb-summary-row"><span>${esc(l.item)} ×${l.qty}</span><span>₱${l.price*l.qty}</span></div>`).join('')}<hr class="qb-div" style="margin:8px 0"><div class="qb-summary-row"><span>Subtotal</span><span>₱${sub}</span></div>${deliveryRow}<div class="qb-summary-row"><span>Service Fee</span><span>₱${serviceFee}</span></div><div class="qb-summary-row total"><span>Total</span><span>₱${grandTotal}</span></div>`;
+    if(elId==='qb-order-summary'){
+      if(isPickup) $('qb-topup-notice').innerHTML='<div class="qb-topup-notice" style="background:#e8f5ee;border-color:#2D8653;color:#1a5c38">🏪 Pick-up — no delivery fee!</div>';
+      else if(!freeDelivery) $('qb-topup-notice').innerHTML=`<div class="qb-topup-notice">🚚 Add ₱${need} more to get <strong>FREE delivery</strong> (min. ₱${MIN_ORDER})</div>`;
+      else $('qb-topup-notice').innerHTML='<div class="qb-topup-notice" style="background:#e8f5ee;border-color:#2D8653;color:#1a5c38">✅ You qualify for <strong>FREE delivery!</strong></div>';
+    }
+    return {sub,delivery,serviceFee,grandTotal};
+  }
+  $('qb-fab').addEventListener('click',()=>{ renderCart(); openPanel('qb-cart-panel'); });
+  $('qb-cart-close').addEventListener('click',closeAll);
+  $('qb-overlay').addEventListener('click',()=>{ closeModal(); closeAll(); });
+  $('qb-checkout-btn').addEventListener('click',()=>{ renderOrderSummary('qb-checkout-summary'); closePanel('qb-cart-panel'); openPanel('qb-checkout-panel'); });
+  $('qb-checkout-back').addEventListener('click',()=>{ closePanel('qb-checkout-panel'); openPanel('qb-cart-panel'); renderCart(); });
+  $('qb-checkout-close').addEventListener('click',closeAll);
+  document.querySelectorAll('.qb-radio-opt input').forEach(inp=>{ inp.addEventListener('change',()=>{ var group=inp.closest('.qb-radio-group'); group.querySelectorAll('.qb-radio-opt').forEach(o=>o.classList.remove('sel')); inp.closest('.qb-radio-opt').classList.add('sel'); if(inp.name==='qb-delivery') renderOrderSummary('qb-checkout-summary'); }); });
+  function normalizePHPhone(raw){ var digits=String(raw||'').replace(/[^\d+]/g,''); var core=null; if(/^\+?63\d{10}$/.test(digits)) core=digits.replace(/^\+?63/,''); else if(/^0\d{10}$/.test(digits)) core=digits.slice(1); else if(/^\d{10}$/.test(digits)) core=digits; if(core&&/^9\d{9}$/.test(core)) return '0'+core; return null; }
+  function isValidNamePart(s){ return /[A-Za-zÀ-ÿ]/.test(s)&&s.replace(/[^A-Za-zÀ-ÿ]/g,'').length>=2; }
+  function isValidAddress(s){ return s.length>=8&&/[A-Za-zÀ-ÿ]/.test(s); }
+  $('qb-pay-btn').addEventListener('click',()=>{
+    var fname=$('qb-fname').value.trim(),lname=$('qb-lname').value.trim(),contactRaw=$('qb-contact').value.trim(),address=$('qb-address').value.trim();
+    $('qb-checkout-error').textContent=''; $('qb-name-error').textContent=''; $('qb-contact-error').textContent=''; $('qb-address-error').textContent='';
+    if(!fname||!lname){ $('qb-name-error').textContent='Please fill in both your first and last name.'; return; }
+    if(!isValidNamePart(fname)||!isValidNamePart(lname)){ $('qb-name-error').textContent='Please enter a real first and last name.'; return; }
+    var contact=normalizePHPhone(contactRaw);
+    if(!contact){ $('qb-contact-error').textContent='That doesn\u2019t look like a valid PH mobile number.'; $('qb-contact').focus(); return; }
+    if(!address){ $('qb-address-error').textContent='Please fill in your delivery address.'; return; }
+    if(!isValidAddress(address)){ $('qb-address-error').textContent='Please enter a complete address.'; $('qb-address').focus(); return; }
+    if(!cart.length){ $('qb-checkout-error').textContent='Your cart is empty!'; return; }
+    var name=fname+' '+lname;
+    var {sub,serviceFee,grandTotal}=renderOrderSummary('qb-checkout-summary');
+    var payMethod=document.querySelector('input[name="qb-pay"]:checked').value;
+    var deliveryOption=document.querySelector('input[name="qb-delivery"]:checked').value;
+    var riderNote=$('qb-rider-note').value.trim();
+    $('qb-pay-btn').disabled=true; $('qb-pay-btn').textContent='Placing order…';
+    $('qb-success-banner').style.display='none'; $('qb-post-order').style.display='none'; $('qb-error').textContent=''; $('qb-submitting').style.display='block';
+    closePanel('qb-checkout-panel'); openPanel('qb-gcash-panel');
+    var payload={action:'order',name,contact,address,deliveryOption,paymentMethod:payMethod,gcashReference:'Sent via Messenger',riderNote,subtotal:sub,serviceFee,total:grandTotal,items:cart.map(l=>l.item+' ('+l.size+') ×'+l.qty).join('; '),sizes:cart.map(l=>l.size).join('; '),sugars:cart.map(l=>l.sugar).join('; '),ices:cart.map(l=>l.ice).join('; '),cartDetail:cart};
+    fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)}).then(r=>r.json()).then(d=>{ if(!d.ok) throw new Error(d.error||'Failed'); onOrderConfirmed(d.trackingNumber,grandTotal,payMethod); }).catch(()=>{ $('qb-submitting').style.display='none'; $('qb-error').textContent='Something went wrong placing your order (this preview may not reach your live Apps Script). Please message us on Messenger directly.'; $('qb-pay-btn').disabled=false; $('qb-pay-btn').textContent='Pay Now →'; });
+  });
+  function onOrderConfirmed(trackingNo,grandTotal,payMethod){
+    $('qb-submitting').style.display='none'; $('qb-success-banner').style.display='block'; $('qb-tracking-no').textContent='Order #'+trackingNo;
+    $('qb-gcash-body').style.display=payMethod==='GCash'?'block':'none'; $('qb-cod-body').style.display=payMethod==='Cash on Delivery'?'block':'none';
+    $('qb-gcash-number').textContent=GCASH_NUMBER; $('qb-gcash-total').textContent='₱'+grandTotal; $('qb-gcash-total2').textContent='₱'+grandTotal;
+    $('qb-cod-total').textContent='₱'+grandTotal; $('qb-messenger-btn').href=MESSENGER_URL;
+    $('qb-post-order').style.display='block'; currentOrderNo=trackingNo; cart=[]; renderFab();
+    $('qb-pay-btn').disabled=false; $('qb-pay-btn').textContent='Pay Now →';
+  }
+  $('qb-copy-num').addEventListener('click',()=>{
+    var num=GCASH_NUMBER.replace(/\s/g,'');
+    var doCopiedUI=()=>{ $('qb-copy-num').textContent='✅ Copied!'; $('qb-copy-num').classList.add('copied'); setTimeout(()=>{ $('qb-copy-num').textContent='📋 Copy Number'; $('qb-copy-num').classList.remove('copied'); },2000); };
+    if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(num).then(doCopiedUI).catch(()=>{ fallbackCopy(num); doCopiedUI(); });
+    else { fallbackCopy(num); doCopiedUI(); }
+  });
+  function fallbackCopy(text){ var ta=document.createElement('textarea'); ta.value=text; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); }catch(e){} document.body.removeChild(ta); }
+  $('qb-gcash-close').addEventListener('click',()=>{ closeAll(); if(trackerPollTimer){clearInterval(trackerPollTimer);trackerPollTimer=null;} });
+  $('qb-menu-dot').addEventListener('click',(e)=>{ e.stopPropagation(); $('qb-menu-pop').classList.toggle('show'); });
+  document.addEventListener('click',()=>{ $('qb-menu-pop').classList.remove('show'); });
+  $('qb-menu-track').addEventListener('click',(e)=>{ e.stopPropagation(); $('qb-menu-pop').classList.remove('show'); openTrackerDashboard(currentOrderNo||null); });
+  $('qb-menu-rider').addEventListener('click',(e)=>{ e.stopPropagation(); $('qb-menu-pop').classList.remove('show'); $('qb-rider-pin').value=''; $('qb-rider-login-error').textContent=''; openPanel('qb-rider-login-panel'); setTimeout(()=>$('qb-rider-pin').focus(),200); });
+  $('qb-rider-login-close').addEventListener('click',closeAll);
+  $('qb-tracker-link').addEventListener('click',()=>{ openTrackerDashboard(currentOrderNo); });
+  $('qb-rider-pin').addEventListener('keydown',e=>{ if(e.key==='Enter') $('qb-rider-login-btn').click(); });
+  $('qb-rider-login-btn').addEventListener('click',()=>{
+    var pin=$('qb-rider-pin').value.trim(); if(!pin){ $('qb-rider-login-error').textContent='Please enter your PIN.'; return; }
+    $('qb-rider-login-btn').disabled=true; $('qb-rider-login-btn').textContent='Checking…';
+    fetch(API_URL+'?action=activeOrders&pin='+encodeURIComponent(pin)).then(r=>r.json()).then(d=>{ $('qb-rider-login-btn').disabled=false; $('qb-rider-login-btn').textContent='Log In →'; if(!d.ok){ $('qb-rider-login-error').textContent=d.error==='Invalid PIN'?'Incorrect PIN. Try again.':(d.error||'Login failed.'); return; } riderPin=pin; closePanel('qb-rider-login-panel'); openPanel('qb-rider-dash-panel'); renderRiderOrders(d.orders); startRiderPolling(); }).catch(()=>{ $('qb-rider-login-btn').disabled=false; $('qb-rider-login-btn').textContent='Log In →'; $('qb-rider-login-error').textContent='Connection error. Please try again.'; });
+  });
+  $('qb-rider-logout-btn').addEventListener('click',()=>{ riderPin=null; stopRiderPolling(); closePanel('qb-rider-dash-panel'); openPanel('qb-rider-login-panel'); });
+  $('qb-rider-dash-close').addEventListener('click',()=>{ riderPin=null; closeAll(); });
+  $('qb-rider-refresh-btn').addEventListener('click',fetchRiderOrders);
+  function openTrackerDashboard(orderNo){
+    closePanel('qb-gcash-panel');
+    if(orderNo){
+      trackedOrderNo=orderNo; showTrackResult(); pollTrackDashboard();
+      if(trackerPollTimer) clearInterval(trackerPollTimer);
+      trackerPollTimer=setInterval(pollTrackDashboard,10000);
+    } else {
+      $('qb-track-lookup').style.display='block'; $('qb-track-result').style.display='none';
+      $('qb-track-orderno').value=''; $('qb-track-lookup-error').textContent='';
+      $('qb-track-back-btn').style.display=lastViewedOrderNo?'block':'none';
+    }
+    openPanel('qb-tracker-dash-panel');
+  }
+  function showTrackResult(){
+    $('qb-track-lookup').style.display='none'; $('qb-track-result').style.display='block';
+    $('qb-track-orderno-display').textContent='Order #'+trackedOrderNo;
+    resetLocationSharing();
+  }
+  $('qb-track-lookup-btn').addEventListener('click',()=>{
+    var orderNo=$('qb-track-orderno').value.trim().toUpperCase(); if(!orderNo){ $('qb-track-lookup-error').textContent='Please enter your order number.'; return; }
+    $('qb-track-lookup-btn').disabled=true; $('qb-track-lookup-btn').textContent='Looking up…';
+    fetch(API_URL+'?action=trackOrder&orderNo='+encodeURIComponent(orderNo)).then(r=>r.json()).then(d=>{ $('qb-track-lookup-btn').disabled=false; $('qb-track-lookup-btn').textContent='Track Order →'; if(!d.ok){ $('qb-track-lookup-error').textContent='Order not found. Double-check the number.'; return; } trackedOrderNo=orderNo; currentOrderNo=orderNo; lastViewedOrderNo=orderNo; showTrackResult(); renderTrackData(d); if(trackerPollTimer) clearInterval(trackerPollTimer); trackerPollTimer=setInterval(pollTrackDashboard,10000); }).catch(()=>{ $('qb-track-lookup-btn').disabled=false; $('qb-track-lookup-btn').textContent='Track Order →'; $('qb-track-lookup-error').textContent='Connection error. Please try again.'; });
+  });
+  $('qb-track-different-btn').addEventListener('click',()=>{
+    if(trackerPollTimer){clearInterval(trackerPollTimer);trackerPollTimer=null;}
+    stopLocationWatch();
+    lastViewedOrderNo=trackedOrderNo; trackedOrderNo=null;
+    $('qb-track-map-wrap').style.display='none';
+    $('qb-track-lookup').style.display='block'; $('qb-track-result').style.display='none';
+    $('qb-track-orderno').value=''; $('qb-track-lookup-error').textContent='';
+    $('qb-track-back-btn').style.display=lastViewedOrderNo?'block':'none';
+  });
+  $('qb-track-back-btn').addEventListener('click',()=>{ if(!lastViewedOrderNo)return; trackedOrderNo=lastViewedOrderNo; currentOrderNo=lastViewedOrderNo; showTrackResult(); pollTrackDashboard(); if(trackerPollTimer)clearInterval(trackerPollTimer); trackerPollTimer=setInterval(pollTrackDashboard,10000); });
+  $('qb-tracker-dash-close').addEventListener('click',()=>{ if(trackerPollTimer){clearInterval(trackerPollTimer);trackerPollTimer=null;} stopLocationWatch(); closeAll(); });
+  function pollTrackDashboard(){ if(!trackedOrderNo)return; fetch(API_URL+'?action=trackOrder&orderNo='+encodeURIComponent(trackedOrderNo)).then(r=>r.json()).then(d=>{ if(d.ok)renderTrackData(d); }).catch(()=>{}); }
+  function renderTrackData(d){
+    $('qb-track-status-line').textContent='Status: '+(d.status||'⏳ Pending');
+    var link=$('qb-track-map-link');
+    if(d.riderLink && d.riderLink.length>4){ link.href=d.riderLink; link.classList.remove('qb-disabled'); link.textContent='📍 View Rider Location'; }
+    else { link.href='#'; link.classList.add('qb-disabled'); link.textContent='📍 Rider location not shared yet'; }
+    var idx=trackStatusOrder.indexOf(d.status); if(idx===-1)idx=0;
+    var icons=['⏳','🍳','🛵','✅']; var labels=['Pending','Cooking','On the Way','Delivered'];
+    $('qb-track-timeline').innerHTML=labels.map((label,i)=>{ var cls=i<idx?'done':(i===idx?'active':''); return `<div class="qb-tl-step ${cls}"><div class="qb-tl-dot">${i<idx?'✓':icons[i]}</div><div class="qb-tl-label">${label}</div></div>`; }).join('');
+    var mapWrap=$('qb-track-map-wrap');
+    var mapFrame=$('qb-track-map-iframe');
+    var liveBadge=$('qb-track-live-badge');
+    var mapLabel=$('qb-track-map-label-text');
+    if(d.customerLat && d.customerLng){
+      var newSrc='https://maps.google.com/maps?q='+d.customerLat+','+d.customerLng+'&output=embed&z=17';
+      if(mapFrame.src!==newSrc) mapFrame.src=newSrc;
+      mapWrap.style.display='block';
+      mapLabel.textContent='📍 Your Pinned Location';
+      liveBadge.style.display='inline-block'; liveBadge.classList.remove('stale');
+    } else if(d.address && d.address.length>4){
+      var newSrc2='https://maps.google.com/maps?q='+encodeURIComponent(d.address+', Philippines')+'&output=embed&z=16';
+      if(mapFrame.src!==newSrc2) mapFrame.src=newSrc2;
+      mapWrap.style.display='block';
+      mapLabel.textContent='📍 Delivery Address';
+      liveBadge.style.display='none';
+    }
+  }
+  function setLocationButton(text, disabled){ $('qb-pin-location-btn').textContent = text; $('qb-pin-location-btn').disabled = !!disabled; }
+  function setLocationButtonSharingStyle(on){ $('qb-pin-location-btn').classList.toggle('sharing', !!on); }
+  function setLocationStatus(text, cls){ $('qb-pin-location-status').textContent = text; $('qb-pin-location-status').className = 'qb-pin-status'+(cls?(' '+cls):''); }
+  function stopLocationWatch(){ if(locationWatchId !== null && navigator.geolocation){ navigator.geolocation.clearWatch(locationWatchId); } locationWatchId = null; }
+  function resetLocationSharing(){ stopLocationWatch(); latestCoords = null; locationMode = 'idle'; setLocationButtonSharingStyle(false); setLocationButton('📍 Detect My Location', false); setLocationStatus('', ''); }
+  function startDetecting(){
+    if(!navigator.geolocation){ setLocationStatus('❌ Your browser doesn\'t support location sharing.', 'err'); return; }
+    locationMode = 'detecting'; latestCoords = null; setLocationButtonSharingStyle(false);
+    setLocationButton('📡 Detecting your location…', true);
+    setLocationStatus('Finding your GPS signal — this refines automatically…', '');
+    stopLocationWatch();
+    locationWatchId = navigator.geolocation.watchPosition(function(pos){
+      latestCoords = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+      if(locationMode === 'detecting'){ locationMode = 'ready'; setLocationButton('💾 Save My Location', false); setLocationStatus('📡 Location found — tap Save to share it with your rider.', ''); }
+    }, function(err){
+      if(locationMode === 'detecting'){
+        var msg = 'Could not get your location.';
+        if(err.code === 1) msg = 'Location permission denied — please allow location access in your browser settings.';
+        else if(err.code === 2) msg = 'Location unavailable. Try again with GPS/location services on.';
+        else if(err.code === 3) msg = 'Location request timed out. Please try again.';
+        setLocationStatus('❌ '+msg, 'err'); setLocationButton('📍 Detect My Location', false); locationMode = 'idle'; stopLocationWatch();
+      }
+    }, {enableHighAccuracy:true, timeout:15000, maximumAge:5000});
+  }
+  function saveLocation(){
+    if(!trackedOrderNo || !latestCoords) return;
+    locationMode = 'saving'; setLocationButton('💾 Saving…', true);
+    fetch(API_URL, { method: 'POST', headers: {'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify({action:'updateCustomerLocation', orderNo: trackedOrderNo, lat: latestCoords.lat, lng: latestCoords.lng}) }).then(r=>r.json()).then(function(d){
+      if(!d.ok){ locationMode = 'ready'; setLocationButton('💾 Save My Location', false); setLocationStatus('❌ '+(d.error||'Could not save your location.'), 'err'); return; }
+      locationMode = 'saved'; stopLocationWatch(); setLocationButtonSharingStyle(true); setLocationButton('🔄 Update My Location', false); setLocationStatus('✅ Location saved! Your rider can see it now.', 'ok'); pollTrackDashboard();
+    }).catch(function(){ locationMode = 'ready'; setLocationButton('💾 Save My Location', false); setLocationStatus('❌ Connection error. Please try again.', 'err'); });
+  }
+  $('qb-pin-location-btn').addEventListener('click', function(){
+    if(!trackedOrderNo) return;
+    if(locationMode === 'idle' || locationMode === 'saved'){ startDetecting(); }
+    else if(locationMode === 'ready'){ saveLocation(); }
+  });
+  function startRiderPolling(){ stopRiderPolling(); riderPollTimer=setInterval(fetchRiderOrders,RIDER_AUTOREFRESH_MS); }
+  function stopRiderPolling(){ if(riderPollTimer){clearInterval(riderPollTimer);riderPollTimer=null;} }
+  function fetchRiderOrders(){ if(!riderPin)return; fetch(API_URL+'?action=activeOrders&pin='+encodeURIComponent(riderPin)).then(r=>r.json()).then(d=>{ if(!d.ok)return; renderRiderOrders(d.orders); }).catch(()=>{}); }
+  function renderRiderOrders(orders){
+    $('qb-rider-last-updated').textContent='Updated '+new Date().toLocaleTimeString();
+    var wrap=$('qb-rider-orders');
+    if(!orders||!orders.length){ wrap.innerHTML='<div class="qb-rempty">No active orders right now 🧋<br>New orders will appear here automatically.</div>'; return; }
+    wrap.innerHTML=orders.map(o=>`
+      <div class="qb-rorder-card" data-order="${esc(o.orderNo)}">
+        <div class="qb-rorder-top"><span class="qb-rorder-no">${esc(o.orderNo)}</span><span class="qb-rorder-status">${esc(o.status)}</span></div>
+        <div class="qb-rorder-name">${esc(o.name)}</div>
+        <div class="qb-rorder-line">📞 <strong>${esc(o.contact)}</strong></div>
+        <div class="qb-rorder-line">📍 ${esc(o.address)}</div>
+        <div class="qb-rorder-line">${esc(o.deliveryOption)} · ${esc(o.paymentMethod)} · ₱${o.total}</div>
+        ${o.riderNote?`<div class="qb-rorder-line">📝 ${esc(o.riderNote)}</div>`:''}
+        <div class="qb-rorder-items">${esc(o.items)}</div>
+        <div class="qb-rorder-actions" data-actions>${riderStatuses.map(s=>`<button class="qb-rstatus-btn ${s===o.status?'active':''}" data-status="${esc(s)}">${esc(s)}</button>`).join('')}</div>
+        <a class="qb-rgetlink-btn" href="https://www.google.com/maps" target="_blank">📲 Open Google Maps to get my share link</a>
+        <div class="qb-rlink-row"><input type="text" placeholder="Paste your Google Maps share link" value="${esc(o.riderLink||'')}" data-link-input><button class="qb-rlink-save" data-save-link>Save</button></div>
+      </div>
+    `).join('');
+    wrap.querySelectorAll('.qb-rorder-card').forEach(card=>{
+      var orderNo=card.dataset.order;
+      card.querySelectorAll('.qb-rstatus-btn').forEach(btn=>{ btn.addEventListener('click',()=>{ var status=btn.dataset.status; card.querySelectorAll('.qb-rstatus-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); updateRiderOrderStatus(orderNo,status,card); }); });
+      var saveBtn=card.querySelector('[data-save-link]'); var linkInput=card.querySelector('[data-link-input]');
+      saveBtn.addEventListener('click',()=>{ var link=linkInput.value.trim(); if(!link){linkInput.focus();return;} saveRiderLink(orderNo,link,saveBtn); });
+    });
+  }
+  function updateRiderOrderStatus(orderNo,status,card){ fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'updateStatus',pin:riderPin,orderNo,status})}).then(r=>r.json()).then(d=>{ if(!d.ok){alert(d.error||'Could not update status.');return;} card.querySelector('.qb-rorder-status').textContent=status; if(status==='✅ Delivered') setTimeout(fetchRiderOrders,600); }).catch(()=>alert('Connection error updating status.')); }
+  function saveRiderLink(orderNo,link,btn){ var original=btn.textContent; btn.textContent='Saving…'; btn.disabled=true; fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'updateLink',pin:riderPin,orderNo,riderLink:link})}).then(r=>r.json()).then(d=>{ btn.disabled=false; btn.textContent=d.ok?'✅ Saved':'Save'; if(!d.ok)alert(d.error||'Could not save link.'); setTimeout(()=>{btn.textContent=original;},1500); }).catch(()=>{ btn.disabled=false; btn.textContent=original; alert('Connection error saving link.'); }); }
+  function esc(s){ return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+  renderFab(); renderCart(); loadMenu();
+})();
+</script>
+</body>
+</html>
