@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Story - Uncle Brew's</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FFF3F5;
+    --cream-2:#FFE3E9;
+    --ink:#3D0A1E;
+    --ink-soft:#7A1236;
+    --pink:#FF2D6A;
+    --pink-deep:#D70F64;
+    --blush:#FFB4C6;
+    --dark:#2A0715;
+  }
+
+  *{box-sizing:border-box;}
+
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Work Sans', sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  h1,h2,h3{
+    font-family:'Fraunces', serif;
+    margin:0;
+  }
+
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    text-transform:uppercase;
+    letter-spacing:0.16em;
+    font-size:0.72rem;
+    color:var(--pink-deep);
+    font-weight:500;
+  }
+
+  a{color:inherit;}
+  img, .frame{max-width:100%; display:block;}
+
+  /* ---------- top nav ---------- */
+  .nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:22px 6vw;
+    position:relative;
+    z-index:5;
+  }
+  .nav .brand{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:1.15rem;
+  }
+  .nav a.back{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.78rem;
+    text-decoration:none;
+    border:1px solid var(--ink);
+    padding:8px 16px;
+    border-radius:999px;
+    transition:background 0.2s ease, color 0.2s ease;
+  }
+  .nav a.back:hover{background:var(--ink); color:var(--cream);}
+
+  /* ---------- hero : big statement, milksha-style ---------- */
+  .hero{
+    position:relative;
+    background:var(--dark);
+    color:var(--cream);
+    padding:14vh 6vw 10vh;
+    overflow:hidden;
+    text-align:center;
+  }
+  .drizzle{
+    position:absolute;
+    inset:0;
+    opacity:0.5;
+    pointer-events:none;
+  }
+  .hero-inner{position:relative; z-index:1; max-width:820px; margin:0 auto;}
+  .hero .eyebrow{color:var(--blush);}
+  .hero h1{
+    font-size:clamp(2.4rem, 6vw, 4.2rem);
+    line-height:1.06;
+    font-weight:600;
+    margin-top:16px;
+  }
+  .hero p.lead{
+    margin:22px auto 0;
+    font-size:1.1rem;
+    line-height:1.6;
+    max-width:52ch;
+    color:rgba(255,243,245,0.82);
+  }
+
+  /* ---------- founder chapter (image + text, milksha layout) ---------- */
+  .chapter{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:6vw;
+    align-items:center;
+    padding:11vh 6vw;
+    max-width:1180px;
+    margin:0 auto;
+  }
+  .chapter.reverse .frame{order:2;}
+  .chapter.reverse .copy{order:1;}
+
+  .frame{
+    aspect-ratio:4/5;
+    border-radius:22px;
+    background:linear-gradient(155deg, var(--pink) 0%, var(--pink-deep) 55%, var(--dark) 100%);
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    align-items:flex-end;
+    padding:22px;
+  }
+  .frame::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+      radial-gradient(circle at 30% 20%, rgba(255,255,255,0.22), transparent 45%),
+      repeating-linear-gradient(120deg, rgba(255,255,255,0.06) 0 14px, transparent 14px 30px);
+  }
+  .frame .cap{
+    position:relative;
+    z-index:1;
+    color:var(--cream);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.72rem;
+    letter-spacing:0.06em;
+    background:rgba(42,7,21,0.35);
+    padding:8px 12px;
+    border-radius:10px;
+    backdrop-filter:blur(2px);
+  }
+
+  .copy h2{
+    font-size:clamp(1.6rem, 3vw, 2.1rem);
+    font-weight:600;
+    line-height:1.2;
+    margin:12px 0 18px;
+  }
+  .copy p{
+    margin:0 0 14px;
+    line-height:1.7;
+    color:var(--ink-soft);
+    font-size:1rem;
+  }
+  .copy p:last-child{margin-bottom:0;}
+
+  /* ---------- promise band ---------- */
+  .promise{
+    background:var(--cream-2);
+    padding:10vh 6vw;
+    text-align:center;
+  }
+  .promise-inner{max-width:680px; margin:0 auto;}
+  .promise h2{
+    font-size:clamp(1.7rem, 3.6vw, 2.4rem);
+    font-weight:600;
+    margin:14px 0 18px;
+    line-height:1.2;
+  }
+  .promise p{
+    color:var(--ink-soft);
+    line-height:1.7;
+    font-size:1.02rem;
+  }
+
+  /* ---------- delivery / CTA (milksha "available on" style) ---------- */
+  .cta{
+    padding:11vh 6vw 8vh;
+    text-align:center;
+  }
+  .cta h2{
+    font-size:clamp(1.8rem, 4vw, 2.5rem);
+    font-weight:600;
+    max-width:22ch;
+    margin:0 auto 12px;
+    line-height:1.18;
+  }
+  .cta .sub{
+    color:var(--ink-soft);
+    margin-bottom:30px;
+    font-size:0.98rem;
+  }
+  .cta a.btn{
+    display:inline-block;
+    text-decoration:none;
+    background:var(--pink-deep);
+    color:var(--cream);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.85rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    padding:16px 36px;
+    border-radius:999px;
+    transition:transform 0.2s ease, background 0.2s ease;
+  }
+  .cta a.btn:hover{background:var(--ink); transform:translateY(-2px);}
+
+  .partners{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:14px;
+    flex-wrap:wrap;
+    margin-top:36px;
+  }
+  .partners span{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.75rem;
+    letter-spacing:0.06em;
+    color:var(--ink-soft);
+    border:1px solid rgba(61,10,30,0.18);
+    padding:9px 18px;
+    border-radius:999px;
+  }
+
+  footer{
+    text-align:center;
+    padding:28px 6vw 42px;
+    font-size:0.78rem;
+    color:var(--ink-soft);
+    font-family:'IBM Plex Mono', monospace;
+  }
+
+  @media (max-width:820px){
+    .chapter{grid-template-columns:1fr; gap:28px; padding:8vh 6vw;}
+    .chapter.reverse .frame{order:1;}
+    .chapter.reverse .copy{order:2;}
+    .frame{aspect-ratio:16/10;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    * {transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="brand">Uncle Brew</div>
+  <a class="back" href="index.html">← Back to shop</a>
+</nav>
+
+<section class="hero">
+  <svg class="drizzle" viewBox="0 0 1200 500" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M-50 60 C 150 20, 250 120, 450 70 S 750 10, 950 80 S 1150 40, 1300 90" stroke="#FF2D6A" stroke-width="3" fill="none" opacity="0.3"/>
+    <path d="M-50 420 C 150 460, 300 380, 500 430 S 800 480, 1000 420 S 1200 460, 1350 410" stroke="#FF2D6A" stroke-width="3" fill="none" opacity="0.25"/>
+  </svg>
+  <div class="hero-inner">
+    <span class="eyebrow">Our Story · Est. 2012</span>
+    <h1>All We Have Is a Good Cup and Good Company</h1>
+    <p class="lead">This is how Uncle Brew began — from one small stall and a family syrup recipe, to Quix Brew, the way our neighborhood orders milk tea today.</p>
+  </div>
+</section>
+
+<section class="chapter">
+  <div class="frame">
+    <span class="cap">Uncle Rey · the first stall, 2012</span>
+  </div>
+  <div class="copy">
+    <span class="eyebrow">Humble</span>
+    <h2>It started with a stall, a shaker, and one stubborn recipe</h2>
+    <p>Uncle Brew didn't open with a grand plan. It opened with Uncle Rey, a shaker he practically wore out, and a brown sugar syrup recipe he refused to shortcut — no matter how many times someone told him powdered mix would be faster and cheaper.</p>
+    <p>He believed a good milk tea only needed a few things done properly: real tea leaves, syrup cooked low and slow, and pearls with actual bite. Everything else was just noise. That belief is still the whole business plan.</p>
+  </div>
+</section>
+
+<section class="chapter reverse">
+  <div class="frame">
+    <span class="cap">Hand-shaken, every single cup</span>
+  </div>
+  <div class="copy">
+    <span class="eyebrow">Honest</span>
+    <h2>We don't just say fresh — we actually do fresh</h2>
+    <p>A lot of milk tea brands like to say "fresh" and "homemade" on a sign. At Uncle Brew, it's just how the kitchen runs: syrup made in-house, tea brewed daily instead of stockpiled, and pearls cooked in small batches so nothing sits around losing its bite.</p>
+    <p>No shortcuts, even when shortcuts would've been cheaper and easier. If a cup has our name on it, it has to earn that name first.</p>
+  </div>
+</section>
+
+<section class="chapter">
+  <div class="frame">
+    <span class="cap">The neighborhood that grew with us</span>
+  </div>
+  <div class="copy">
+    <span class="eyebrow">Homegrown</span>
+    <h2>We grew because our neighbors told their friends</h2>
+    <p>There was no big marketing budget in the early years — just regulars who kept coming back, and kept bringing someone new with them. That's the only reason a single stall turned into a full menu, a real store, and eventually its own delivery app.</p>
+    <p>So when we built Quix Brew — our own ordering system with GCash payment and live rider tracking — it wasn't to reinvent the brand. It was to make the same cup easier to reach, for the same people who got us here.</p>
+  </div>
+</section>
+
+<section class="promise">
+  <div class="promise-inner">
+    <span class="eyebrow">Our promise</span>
+    <h2>Taste the Uncle Brew difference</h2>
+    <p>Whether you're catching up with friends, treating yourself after a long day, or just craving something sweet at 3pm — we want every cup to feel like the same one Uncle Rey handed out from that first stall. Crafted with love. Brewed with care. Every single time.</p>
+  </div>
+</section>
+
+<section class="cta">
+  <h2>Ready for the cup that started it all?</h2>
+  <p class="sub">Order through Quix Brew for live rider tracking, or find us on your favorite delivery app.</p>
+  <a class="btn" href="index.html">Order Now →</a>
+  <div class="partners">
+    <span>Quix Brew</span>
+    <span>GrabFood</span>
+    <span>foodpanda</span>
+  </div>
+</section>
+
+<footer>
+  © Copyright 2026 Uncle Brew. All Rights Reserved. Established in 2012.
+</footer>
+
+</body>
+</html>
