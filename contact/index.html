@@ -413,11 +413,11 @@
       <svg id="ub-contact-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#c2185b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="transition:transform .2s;"><polyline points="6 9 12 15 18 9"/></svg>
     </div>
     <div id="ub-contact-dropdown" style="display:none;padding-left:30px;">
-      <a href="https://tmenshs.github.io/unclebrews/contact#contact" style="display:flex;align-items:center;gap:10px;padding:10px 8px;color:#8a5a68;text-decoration:none;font-size:13.5px;">
+      <a href="https://tmenshs.github.io/unclebrews/contact/#contact" style="display:flex;align-items:center;gap:10px;padding:10px 8px;color:#8a5a68;text-decoration:none;font-size:13.5px;">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8a5a68" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .7 2.9a2 2 0 0 1-.4 2.2L8 10.2a16 16 0 0 0 6 6l1.4-1.4a2 2 0 0 1 2.2-.4c.9.4 1.9.6 2.9.7a2 2 0 0 1 1.7 2z"/></svg>
         Contact Us
       </a>
-      <a href="https://tmenshs.github.io/unclebrews/contact#franchise" style="display:flex;align-items:center;gap:10px;padding:10px 8px;color:#8a5a68;text-decoration:none;font-size:13.5px;">
+      <a href="https://tmenshs.github.io/unclebrews/contact/#franchise" style="display:flex;align-items:center;gap:10px;padding:10px 8px;color:#8a5a68;text-decoration:none;font-size:13.5px;">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8a5a68" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 20v-2a4 4 0 0 0-3-3.9"/><path d="M16 3.1a4 4 0 0 1 0 7.8"/></svg>
         Franchise
       </a>
@@ -606,14 +606,15 @@
     </div>
 
     <div class="ct-grid">
-      <!-- FORM: submits straight to your email via FormSubmit, no backend needed -->
-      <form class="ct-form" action="https://formsubmit.co/luxuryspinach@gmail.com" method="POST">
-        <!-- keeps the sender's own inbox out of spam and sets the email subject -->
-        <input type="hidden" name="_subject" value="New message from Uncle Brew website">
-        <input type="hidden" name="_template" value="table">
-        <input type="hidden" name="_captcha" value="false">
-        <!-- honeypot field to reduce spam bots -->
-        <input type="text" name="_honey" style="display:none">
+      <!-- FORM: submits straight to your email via Web3Forms, no backend needed -->
+      <form class="ct-form" action="https://api.web3forms.com/submit" method="POST">
+        <!-- your Web3Forms access key: safe to keep visible in the page, it only allows sending TO your linked inbox -->
+        <input type="hidden" name="access_key" value="f505f93c-f55b-42f0-814a-58bfd969bbec">
+        <input type="hidden" name="subject" value="New message from Uncle Brew website">
+        <input type="hidden" name="from_name" value="Uncle Brew Website">
+        <input type="hidden" name="redirect" value="https://tmenshs.github.io/unclebrews/contact/#contact">
+        <!-- honeypot: Web3Forms auto-detects and silently blocks any submission where this hidden field gets filled in by a bot -->
+        <input type="checkbox" name="botcheck" style="display:none">
 
         <div class="ct-row">
           <div class="field">
