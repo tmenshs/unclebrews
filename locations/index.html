@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Locations | Uncle Brews</title>
+<style>
+  :root{
+    --maroon:#7A1128;
+    --red:#C41E3A;
+    --hotpink:#FF4F81;
+    --blush:#FFE3EC;
+    --cream:#FFF6F2;
+    --ink:#2B0E14;
+    --line:rgba(122,17,40,0.15);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Georgia','Iowan Old Style',serif;
+    background:var(--cream);
+    color:var(--ink);
+  }
+  header{
+    background:linear-gradient(135deg,var(--maroon),var(--red) 55%,var(--hotpink));
+    color:#fff;
+    padding:70px 20px 90px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  header::after{
+    content:"";
+    position:absolute;
+    bottom:-40px;left:0;right:0;
+    height:80px;
+    background:var(--cream);
+    border-radius:50% 50% 0 0/60px 60px 0 0;
+  }
+  .eyebrow{
+    letter-spacing:.25em;
+    text-transform:uppercase;
+    font-size:.75rem;
+    font-family:Helvetica,Arial,sans-serif;
+    opacity:.85;
+    margin-bottom:14px;
+  }
+  h1{
+    font-size:clamp(2.2rem,5vw,3.4rem);
+    margin:0 0 12px;
+    font-weight:700;
+  }
+  header p{
+    font-family:Helvetica,Arial,sans-serif;
+    font-size:1.05rem;
+    max-width:520px;
+    margin:0 auto;
+    opacity:.92;
+  }
+  main{
+    max-width:900px;
+    margin:-10px auto 0;
+    padding:0 20px 60px;
+    position:relative;
+    z-index:2;
+  }
+
+  /* Add / Edit form */
+  .panel{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:28px;
+    box-shadow:0 8px 24px rgba(122,17,40,0.08);
+    margin-bottom:36px;
+  }
+  .panel h2{
+    margin:0 0 4px;
+    font-size:1.3rem;
+    color:var(--maroon);
+  }
+  .panel .sub{
+    font-family:Helvetica,Arial,sans-serif;
+    font-size:.88rem;
+    color:#8a5a66;
+    margin:0 0 20px;
+  }
+  .form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+  }
+  .form-grid .full{grid-column:1/-1;}
+  label{
+    display:block;
+    font-family:Helvetica,Arial,sans-serif;
+    font-size:.78rem;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    color:var(--red);
+    margin-bottom:6px;
+  }
+  input, textarea{
+    width:100%;
+    font-family:Helvetica,Arial,sans-serif;
+    font-size:.95rem;
+    padding:11px 13px;
+    border:1px solid var(--line);
+    border-radius:10px;
+    background:var(--cream);
+    color:var(--ink);
+    resize:vertical;
+  }
+  input:focus, textarea:focus{
+    outline:none;
+    border-color:var(--hotpink);
+    background:#fff;
+  }
+  .form-actions{
+    margin-top:20px;
+    display:flex;
+    gap:12px;
+    align-items:center;
+    flex-wrap:wrap;
+  }
+  .btn{
+    font-family:Helvetica,Arial,sans-serif;
+    font-weight:700;
+    font-size:.9rem;
+    padding:12px 26px;
+    border-radius:30px;
+    border:none;
+    cursor:pointer;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn-primary{
+    background:linear-gradient(135deg,var(--red),var(--hotpink));
+    color:#fff;
+  }
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 6px 16px rgba(196,30,58,0.3);}
+  .btn-ghost{
+    background:none;
+    color:var(--maroon);
+    border:1px solid var(--line);
+  }
+  .btn-ghost:hover{background:var(--blush);}
+  .save-msg{
+    font-family:Helvetica,Arial,sans-serif;
+    font-size:.85rem;
+    color:var(--red);
+    opacity:0;
+    transition:opacity .3s ease;
+  }
+  .save-msg.show{opacity:1;}
+
+  .section-label{
+    font-family:Helvetica,Arial,sans-serif;
+    text-transform:uppercase;
+    letter-spacing:.15em;
+    font-size:.72rem;
+    color:var(--hotpink);
+    font-weight:700;
+    margin:8px 0 16px;
+  }
+
+  #empty-state{
+    text-align:center;
+    font-family:Helvetica,Arial,sans-serif;
+    color:#8a5a66;
+    padding:40px 20px;
+    border:1px dashed var(--line);
+    border-radius:16px;
+    display:none;
+  }
+
+  .loc-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(260px,1fr));
+    gap:18px;
+  }
+  .loc-card{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:22px;
+    box-shadow:0 2px 10px rgba(122,17,40,0.05);
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+  .loc-card h3{
+    margin:0;
+    color:var(--maroon);
+    font-size:1.15rem;
+  }
+  .loc-card .tag{
+    display:inline-block;
+    font-family:Helvetica,Arial,sans-serif;
+    font-size:.68rem;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    font-weight:700;
+    color:#fff;
+    background:var(--hotpink);
+    padding:3px 10px;
+    border-radius:20px;
+    width:fit-content;
+  }
+  .loc-card p{
+    margin:0;
+    font-family:Helvetica,Arial,sans-serif;
+    font-size:.9rem;
+    line-height:1.5;
+    color:#4a2530;
+  }
+  .loc-card .hours{
+    font-size:.85rem;
+    color:#8a5a66;
+  }
+  .card-actions{
+    margin-top:auto;
+    display:flex;
+    gap:10px;
+    padding-top:6px;
+  }
+  .card-actions a, .card-actions button{
+    font-family:Helvetica,Arial,sans-serif;
+    font-size:.82rem;
+    font-weight:700;
+    text-decoration:none;
+    border:none;
+    background:none;
+    cursor:pointer;
+    padding:0;
+  }
+  .card-actions a{color:var(--red);}
+  .card-actions .edit-btn{color:var(--maroon);}
+  .card-actions .del-btn{color:#b0334a; opacity:.7;}
+  .card-actions .del-btn:hover{opacity:1;}
+
+  footer{
+    text-align:center;
+    padding:30px 20px 50px;
+    font-family:Helvetica,Arial,sans-serif;
+    font-size:.8rem;
+    color:#8a5a66;
+  }
+
+  @media (max-width:560px){
+    .form-grid{grid-template-columns:1fr;}
+    header{padding:50px 16px 80px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">Uncle Brews</div>
+  <h1>Our Locations</h1>
+  <p>Find the Uncle Brews branch nearest you, check store hours, and get directions in one tap.</p>
+</header>
+
+<main>
+
+  <div class="panel" id="admin-panel" style="display:none;">
+    <h2 id="form-title">Add a Location</h2>
+    <p class="sub">Fill this out and hit Save. It stays saved in this browser, so you can come back and edit it any time.</p>
+
+    <form id="loc-form">
+      <input type="hidden" id="loc-id">
+      <div class="form-grid">
+        <div class="full">
+          <label for="loc-name">Branch name</label>
+          <input type="text" id="loc-name" placeholder="e.g. Uncle Brews – SM North EDSA" required>
+        </div>
+        <div class="full">
+          <label for="loc-address">Full address</label>
+          <textarea id="loc-address" rows="2" placeholder="Unit / floor, building, street, barangay, city" required></textarea>
+        </div>
+        <div>
+          <label for="loc-hours">Operating hours</label>
+          <input type="text" id="loc-hours" placeholder="e.g. 10:00 AM – 9:00 PM daily">
+        </div>
+        <div>
+          <label for="loc-tag">Branch type</label>
+          <input type="text" id="loc-tag" placeholder="e.g. Flagship / Kiosk / Delivery only">
+        </div>
+        <div class="full">
+          <label for="loc-notes">Notes (optional)</label>
+          <input type="text" id="loc-notes" placeholder="e.g. Near the main entrance, beside the escalator">
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary" id="save-btn">Save Location</button>
+        <button type="button" class="btn btn-ghost" id="cancel-edit" style="display:none;">Cancel edit</button>
+        <span class="save-msg" id="save-msg">✓ Saved</span>
+      </div>
+    </form>
+  </div>
+
+  <div class="section-label">Branches</div>
+
+  <div id="empty-state">
+    No locations added yet. Use the form above to add your first Uncle Brews branch.
+  </div>
+
+  <div class="loc-grid" id="loc-grid"></div>
+
+</main>
+
+<footer>
+  © 2026 Uncle Brews. All rights reserved.
+</footer>
+
+<script>
+  const STORAGE_KEY = 'unclebrews_locations';
+  const ADMIN_KEY = 'qb-9247sec';
+
+  const params = new URLSearchParams(window.location.search);
+  const isAdmin = params.get('admin') === 'true' && params.get('key') === ADMIN_KEY;
+
+  if(isAdmin){
+    document.getElementById('admin-panel').style.display = 'block';
+  }
+
+  const form = document.getElementById('loc-form');
+  const grid = document.getElementById('loc-grid');
+  const emptyState = document.getElementById('empty-state');
+  const saveMsg = document.getElementById('save-msg');
+  const cancelBtn = document.getElementById('cancel-edit');
+  const formTitle = document.getElementById('form-title');
+  const saveBtn = document.getElementById('save-btn');
+
+  function getLocations(){
+    try{
+      return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    }catch(e){
+      return [];
+    }
+  }
+
+  function setLocations(locs){
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(locs));
+  }
+
+  function flashSaved(){
+    saveMsg.classList.add('show');
+    setTimeout(()=> saveMsg.classList.remove('show'), 1800);
+  }
+
+  function render(){
+    const locs = getLocations();
+    grid.innerHTML = '';
+    emptyState.style.display = locs.length === 0 ? 'block' : 'none';
+
+    locs.forEach(loc=>{
+      const card = document.createElement('div');
+      card.className = 'loc-card';
+
+      const mapsUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(loc.address);
+
+      card.innerHTML = `
+        ${loc.tag ? `<span class="tag">${escapeHtml(loc.tag)}</span>` : ''}
+        <h3>${escapeHtml(loc.name)}</h3>
+        <p>${escapeHtml(loc.address)}</p>
+        ${loc.hours ? `<p class="hours">🕒 ${escapeHtml(loc.hours)}</p>` : ''}
+        ${loc.notes ? `<p class="hours">📍 ${escapeHtml(loc.notes)}</p>` : ''}
+        <div class="card-actions">
+          <a href="${mapsUrl}" target="_blank" rel="noopener">Get Directions</a>
+          ${isAdmin ? `<button class="edit-btn" data-id="${loc.id}">Edit</button>` : ''}
+          ${isAdmin ? `<button class="del-btn" data-id="${loc.id}">Remove</button>` : ''}
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+
+    grid.querySelectorAll('.edit-btn').forEach(btn=>{
+      btn.addEventListener('click', ()=> startEdit(btn.dataset.id));
+    });
+    grid.querySelectorAll('.del-btn').forEach(btn=>{
+      btn.addEventListener('click', ()=> removeLocation(btn.dataset.id));
+    });
+  }
+
+  function escapeHtml(str){
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  function startEdit(id){
+    const loc = getLocations().find(l=> l.id === id);
+    if(!loc) return;
+    document.getElementById('loc-id').value = loc.id;
+    document.getElementById('loc-name').value = loc.name;
+    document.getElementById('loc-address').value = loc.address;
+    document.getElementById('loc-hours').value = loc.hours || '';
+    document.getElementById('loc-tag').value = loc.tag || '';
+    document.getElementById('loc-notes').value = loc.notes || '';
+    formTitle.textContent = 'Edit Location';
+    saveBtn.textContent = 'Update Location';
+    cancelBtn.style.display = 'inline-block';
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  function resetForm(){
+    form.reset();
+    document.getElementById('loc-id').value = '';
+    formTitle.textContent = 'Add a Location';
+    saveBtn.textContent = 'Save Location';
+    cancelBtn.style.display = 'none';
+  }
+
+  function removeLocation(id){
+    if(!confirm('Remove this location?')) return;
+    const locs = getLocations().filter(l=> l.id !== id);
+    setLocations(locs);
+    render();
+  }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    const id = document.getElementById('loc-id').value;
+    const name = document.getElementById('loc-name').value.trim();
+    const address = document.getElementById('loc-address').value.trim();
+    const hours = document.getElementById('loc-hours').value.trim();
+    const tag = document.getElementById('loc-tag').value.trim();
+    const notes = document.getElementById('loc-notes').value.trim();
+
+    if(!name || !address) return;
+
+    let locs = getLocations();
+
+    if(id){
+      locs = locs.map(l=> l.id === id ? {...l, name, address, hours, tag, notes} : l);
+    } else {
+      locs.push({
+        id: Date.now().toString(36) + Math.random().toString(36).slice(2,7),
+        name, address, hours, tag, notes
+      });
+    }
+
+    setLocations(locs);
+    resetForm();
+    render();
+    flashSaved();
+  });
+
+  cancelBtn.addEventListener('click', resetForm);
+
+  render();
+</script>
+
+</body>
+</html>
