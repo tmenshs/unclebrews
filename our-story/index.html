@@ -71,7 +71,7 @@
   }
   .nav a.back:hover{background:var(--ink); color:var(--cream);}
 
-  /* ---------- hero : big statement, milksha-style ---------- */
+  /* ---------- hero ---------- */
   .hero{
     position:relative;
     background:var(--dark);
@@ -102,7 +102,40 @@
     color:rgba(255,243,245,0.82);
   }
 
-  /* ---------- founder chapter (image + text, milksha layout) ---------- */
+  /* ---------- milestone strip ---------- */
+  .milestones{
+    display:flex;
+    justify-content:center;
+    gap:0;
+    flex-wrap:wrap;
+    max-width:900px;
+    margin:56px auto 0;
+    position:relative;
+    z-index:1;
+    border-top:1px solid rgba(255,180,198,0.25);
+    padding-top:36px;
+  }
+  .milestone{
+    flex:1 1 160px;
+    text-align:center;
+    padding:0 18px;
+  }
+  .milestone .num{
+    font-family:'Fraunces', serif;
+    font-size:2.1rem;
+    font-weight:600;
+    color:var(--pink);
+  }
+  .milestone .label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.7rem;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:rgba(255,243,245,0.65);
+    margin-top:6px;
+  }
+
+  /* ---------- founder chapter (illustration + text) ---------- */
   .chapter{
     display:grid;
     grid-template-columns:1fr 1fr;
@@ -132,10 +165,10 @@
     border-radius:50%;
     background:radial-gradient(circle at 35% 30%, rgba(255,45,106,0.28), rgba(255,45,106,0.06) 70%);
   }
-  .frame svg{
+  .frame svg.art{
     position:relative;
     z-index:1;
-    width:56%;
+    width:58%;
     height:auto;
     filter:drop-shadow(0 18px 24px rgba(61,10,30,0.22));
   }
@@ -168,6 +201,52 @@
   }
   .copy p:last-child{margin-bottom:0;}
 
+  /* ---------- ingredient pledge strip ---------- */
+  .pledge{
+    padding:8vh 6vw;
+    max-width:1100px;
+    margin:0 auto;
+  }
+  .pledge-head{
+    text-align:center;
+    max-width:600px;
+    margin:0 auto 44px;
+  }
+  .pledge-head h2{
+    font-size:clamp(1.6rem, 3vw, 2.1rem);
+    font-weight:600;
+    margin:12px 0 0;
+    line-height:1.25;
+  }
+  .pledge-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:24px;
+  }
+  .pledge-card{
+    background:#fff;
+    border-radius:18px;
+    padding:30px 24px;
+    text-align:center;
+    border:1px solid rgba(61,10,30,0.08);
+  }
+  .pledge-card .icon{
+    width:44px;
+    height:44px;
+    margin:0 auto 16px;
+  }
+  .pledge-card h3{
+    font-size:1.05rem;
+    font-weight:600;
+    margin-bottom:10px;
+  }
+  .pledge-card p{
+    font-size:0.9rem;
+    line-height:1.6;
+    color:var(--ink-soft);
+    margin:0;
+  }
+
   /* ---------- promise band ---------- */
   .promise{
     background:var(--cream-2);
@@ -187,7 +266,7 @@
     font-size:1.02rem;
   }
 
-  /* ---------- delivery / CTA (milksha "available on" style) ---------- */
+  /* ---------- CTA ---------- */
   .cta{
     padding:11vh 6vw 8vh;
     text-align:center;
@@ -250,6 +329,8 @@
     .chapter.reverse .frame{order:1;}
     .chapter.reverse .copy{order:2;}
     .frame{aspect-ratio:16/10;}
+    .pledge-grid{grid-template-columns:1fr;}
+    .milestones{gap:24px 0;}
   }
 
   @media (prefers-reduced-motion: reduce){
@@ -274,10 +355,40 @@
     <h1>All We Have Is a Good Cup and Good Company</h1>
     <p class="lead">This is how Uncle Brew began — from one small stall and a family syrup recipe, to Quix Brew, the way our neighborhood orders milk tea today.</p>
   </div>
+
+  <div class="milestones">
+    <div class="milestone">
+      <div class="num">2012</div>
+      <div class="label">One stall, one shaker</div>
+    </div>
+    <div class="milestone">
+      <div class="num">30+</div>
+      <div class="label">Drinks on the menu</div>
+    </div>
+    <div class="milestone">
+      <div class="num">0</div>
+      <div class="label">Powdered shortcuts used</div>
+    </div>
+    <div class="milestone">
+      <div class="num">100%</div>
+      <div class="label">Brewed fresh, daily</div>
+    </div>
+  </div>
 </section>
 
 <section class="chapter">
   <div class="frame">
+    <div class="backdrop"></div>
+    <svg class="art" viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg">
+      <path d="M55 40 L145 40 L136 180 Q100 198 64 180 Z" fill="#FFFFFF" stroke="#7A1236" stroke-width="4"/>
+      <rect x="55" y="30" width="90" height="18" rx="8" fill="#D70F64"/>
+      <path d="M145 55 Q178 55 178 88 Q178 116 145 112" fill="none" stroke="#7A1236" stroke-width="6" stroke-linecap="round"/>
+      <circle cx="80" cy="150" r="6" fill="#3D0A1E"/>
+      <circle cx="100" cy="162" r="6" fill="#3D0A1E"/>
+      <circle cx="120" cy="150" r="6" fill="#3D0A1E"/>
+      <circle cx="90" cy="172" r="6" fill="#3D0A1E"/>
+      <circle cx="110" cy="172" r="6" fill="#3D0A1E"/>
+    </svg>
     <span class="cap">Uncle Rey · the first stall, 2012</span>
   </div>
   <div class="copy">
@@ -290,6 +401,15 @@
 
 <section class="chapter reverse">
   <div class="frame">
+    <div class="backdrop"></div>
+    <svg class="art" viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="100" cy="170" rx="70" ry="16" fill="#FFE3E9"/>
+      <path d="M40 60 Q100 30 160 60 L150 150 Q100 172 50 150 Z" fill="#FFFFFF" stroke="#7A1236" stroke-width="4"/>
+      <path d="M55 65 Q100 45 145 65" fill="none" stroke="#D70F64" stroke-width="4" stroke-linecap="round"/>
+      <path d="M75 20 Q80 5 72 -5" fill="none" stroke="#FF2D6A" stroke-width="4" stroke-linecap="round" opacity="0.7" transform="translate(0,30)"/>
+      <path d="M100 15 Q105 0 97 -10" fill="none" stroke="#FF2D6A" stroke-width="4" stroke-linecap="round" opacity="0.7" transform="translate(0,30)"/>
+      <path d="M125 20 Q130 5 122 -5" fill="none" stroke="#FF2D6A" stroke-width="4" stroke-linecap="round" opacity="0.7" transform="translate(0,30)"/>
+    </svg>
     <span class="cap">Hand-shaken, every single cup</span>
   </div>
   <div class="copy">
@@ -302,6 +422,16 @@
 
 <section class="chapter">
   <div class="frame">
+    <div class="backdrop"></div>
+    <svg class="art" viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="60" cy="150" r="30" fill="#FFFFFF" stroke="#7A1236" stroke-width="4"/>
+      <circle cx="105" cy="130" r="38" fill="#FFE3E9" stroke="#7A1236" stroke-width="4"/>
+      <circle cx="150" cy="155" r="26" fill="#FFFFFF" stroke="#7A1236" stroke-width="4"/>
+      <path d="M60 130 L60 105 M105 92 L105 60 M150 129 L150 108" stroke="#D70F64" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="60" cy="98" r="7" fill="#FF2D6A"/>
+      <circle cx="105" cy="53" r="8" fill="#D70F64"/>
+      <circle cx="150" cy="101" r="7" fill="#FF2D6A"/>
+    </svg>
     <span class="cap">The neighborhood that grew with us</span>
   </div>
   <div class="copy">
@@ -309,6 +439,43 @@
     <h2>We grew because our neighbors told their friends</h2>
     <p>There was no big marketing budget in the early years — just regulars who kept coming back, and kept bringing someone new with them. That's the only reason a single stall turned into a full menu, a real store, and eventually its own delivery app.</p>
     <p>So when we built Quix Brew — our own ordering system with GCash payment and live rider tracking — it wasn't to reinvent the brand. It was to make the same cup easier to reach, for the same people who got us here.</p>
+  </div>
+</section>
+
+<section class="pledge">
+  <div class="pledge-head">
+    <span class="eyebrow">What we actually do</span>
+    <h2>Three rules Uncle Rey never let us break</h2>
+  </div>
+  <div class="pledge-grid">
+    <div class="pledge-card">
+      <svg class="icon" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="22" cy="22" r="20" fill="#FFE3E9"/>
+        <path d="M14 24 Q22 34 30 24" fill="none" stroke="#D70F64" stroke-width="3" stroke-linecap="round"/>
+        <path d="M14 16 Q22 10 30 16" fill="none" stroke="#D70F64" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+      <h3>Real tea, brewed daily</h3>
+      <p>Steeped fresh every morning, never stockpiled, never left sitting overnight.</p>
+    </div>
+    <div class="pledge-card">
+      <svg class="icon" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="22" cy="22" r="20" fill="#FFE3E9"/>
+        <path d="M22 10 L22 30 M14 20 L30 20" stroke="#D70F64" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="22" cy="34" r="3" fill="#D70F64"/>
+      </svg>
+      <h3>Syrup cooked low and slow</h3>
+      <p>No powdered mix, ever. Just brown sugar, patience, and a recipe Uncle Rey wouldn't change.</p>
+    </div>
+    <div class="pledge-card">
+      <svg class="icon" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="22" cy="22" r="20" fill="#FFE3E9"/>
+        <circle cx="15" cy="24" r="4" fill="#D70F64"/>
+        <circle cx="22" cy="18" r="4" fill="#D70F64"/>
+        <circle cx="29" cy="24" r="4" fill="#D70F64"/>
+      </svg>
+      <h3>Pearls with actual bite</h3>
+      <p>Small batches, cooked to order, so they never go soft or sit around losing their chew.</p>
+    </div>
   </div>
 </section>
 
