@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Locations | Uncle Brews</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css">
 <style>
   :root{
     --maroon:#7A1128;
@@ -247,6 +248,40 @@
     color:#8a5a66;
   }
 
+  #pin-map{
+    width:100%;
+    height:280px;
+    border-radius:12px;
+    border:1px solid var(--line);
+    margin-top:4px;
+  }
+  .map-hint{
+    font-family:Helvetica,Arial,sans-serif;
+    font-size:.8rem;
+    color:#8a5a66;
+    margin:6px 0 0;
+  }
+  .coord-readout{
+    font-family:Helvetica,Arial,sans-serif;
+    font-size:.82rem;
+    color:var(--maroon);
+    font-weight:700;
+    margin-top:6px;
+  }
+  .locate-btn{
+    font-family:Helvetica,Arial,sans-serif;
+    font-size:.78rem;
+    font-weight:700;
+    color:var(--red);
+    background:var(--blush);
+    border:none;
+    padding:6px 14px;
+    border-radius:20px;
+    cursor:pointer;
+    margin-bottom:8px;
+  }
+  .locate-btn:hover{background:#ffd0e0;}
+
   @media (max-width:560px){
     .form-grid{grid-template-columns:1fr;}
     header{padding:50px 16px 80px;}
@@ -290,6 +325,15 @@
           <label for="loc-notes">Notes (optional)</label>
           <input type="text" id="loc-notes" placeholder="e.g. Near the main entrance, beside the escalator">
         </div>
+        <div class="full">
+          <label>Pin the exact spot on the map</label>
+          <button type="button" class="locate-btn" id="locate-me">📍 Center on my current location</button>
+          <div id="pin-map"></div>
+          <p class="map-hint">Click or drag the pin to the store's exact spot. This is what powers "Get Directions" — if left unset, we'll fall back to searching the typed address instead.</p>
+          <p class="coord-readout" id="coord-readout">No pin set yet.</p>
+          <input type="hidden" id="loc-lat">
+          <input type="hidden" id="loc-lng">
+        </div>
       </div>
 
       <div class="form-actions">
@@ -314,6 +358,7 @@
   © 2026 Uncle Brews. All rights reserved.
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
 <script>
   const STORAGE_KEY = 'unclebrews_locations';
   const ADMIN_KEY = 'qb-9247sec';
@@ -323,6 +368,66 @@
 
   if(isAdmin){
     document.getElementById('admin-panel').style.display = 'block';
+  }
+
+  // ---- Pin-drop map (admin only) ----
+  let pinMap, pinMarker;
+  const DEFAULT_CENTER = [14.6760, 121.0437]; // Quezon City, PH default view
+  const coordReadout = document.getElementById('coord-readout');
+  const latInput = document.getElementById('loc-lat');
+  const lngInput = document.getElementById('loc-lng');
+
+  function setPin(lat, lng){
+    latInput.value = lat;
+    lngInput.value = lng;
+    coordReadout.textContent = `Pinned at ${lat.toFixed(6)}, ${lng.toFixed(6)}`;
+    if(pinMarker){
+      pinMarker.setLatLng([lat, lng]);
+    } else {
+      pinMarker = L.marker([lat, lng], {draggable:true}).addTo(pinMap);
+      pinMarker.on('dragend', ()=>{
+        const pos = pinMarker.getLatLng();
+        setPin(pos.lat, pos.lng);
+      });
+    }
+  }
+
+  function clearPin(){
+    latInput.value = '';
+    lngInput.value = '';
+    coordReadout.textContent = 'No pin set yet.';
+    if(pinMarker){
+      pinMap.removeLayer(pinMarker);
+      pinMarker = null;
+    }
+  }
+
+  if(isAdmin && document.getElementById('pin-map')){
+    pinMap = L.map('pin-map').setView(DEFAULT_CENTER, 13);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors',
+      maxZoom: 19
+    }).addTo(pinMap);
+
+    pinMap.on('click', (e)=> setPin(e.latlng.lat, e.latlng.lng));
+
+    // Panel is display:none by default in CSS; since admin just unhid it,
+    // force Leaflet to recalculate its size once the layout settles.
+    setTimeout(()=> pinMap.invalidateSize(), 200);
+
+    document.getElementById('locate-me').addEventListener('click', ()=>{
+      if(!navigator.geolocation){
+        alert('Geolocation is not supported on this device/browser.');
+        return;
+      }
+      navigator.geolocation.getCurrentPosition(
+        (pos)=>{
+          const {latitude, longitude} = pos.coords;
+          pinMap.setView([latitude, longitude], 16);
+        },
+        ()=> alert('Could not get your current location. You can still click the map to drop a pin.')
+      );
+    });
   }
 
   const form = document.getElementById('loc-form');
@@ -359,7 +464,8 @@
       const card = document.createElement('div');
       card.className = 'loc-card';
 
-      const mapsUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(loc.address);
+      const mapsQuery = (loc.lat && loc.lng) ? `${loc.lat},${loc.lng}` : loc.address;
+      const mapsUrl = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(mapsQuery);
 
       card.innerHTML = `
         ${loc.tag ? `<span class="tag">${escapeHtml(loc.tag)}</span>` : ''}
@@ -402,6 +508,14 @@
     formTitle.textContent = 'Edit Location';
     saveBtn.textContent = 'Update Location';
     cancelBtn.style.display = 'inline-block';
+
+    if(loc.lat && loc.lng && pinMap){
+      pinMap.setView([loc.lat, loc.lng], 16);
+      setPin(loc.lat, loc.lng);
+    } else {
+      clearPin();
+    }
+
     window.scrollTo({top:0, behavior:'smooth'});
   }
 
@@ -411,6 +525,8 @@
     formTitle.textContent = 'Add a Location';
     saveBtn.textContent = 'Save Location';
     cancelBtn.style.display = 'none';
+    clearPin();
+    if(pinMap) pinMap.setView(DEFAULT_CENTER, 13);
   }
 
   function removeLocation(id){
@@ -428,17 +544,19 @@
     const hours = document.getElementById('loc-hours').value.trim();
     const tag = document.getElementById('loc-tag').value.trim();
     const notes = document.getElementById('loc-notes').value.trim();
+    const lat = latInput.value ? parseFloat(latInput.value) : null;
+    const lng = lngInput.value ? parseFloat(lngInput.value) : null;
 
     if(!name || !address) return;
 
     let locs = getLocations();
 
     if(id){
-      locs = locs.map(l=> l.id === id ? {...l, name, address, hours, tag, notes} : l);
+      locs = locs.map(l=> l.id === id ? {...l, name, address, hours, tag, notes, lat, lng} : l);
     } else {
       locs.push({
         id: Date.now().toString(36) + Math.random().toString(36).slice(2,7),
-        name, address, hours, tag, notes
+        name, address, hours, tag, notes, lat, lng
       });
     }
 
