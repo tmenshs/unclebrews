@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQ | Uncle Brews</title>
+<style>
+  :root{
+    --maroon:#7A1128;
+    --red:#C41E3A;
+    --hotpink:#FF4F81;
+    --blush:#FFE3EC;
+    --cream:#FFF6F2;
+    --ink:#2B0E14;
+    --line:rgba(122,17,40,0.15);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Georgia', 'Iowan Old Style', serif;
+    background:var(--cream);
+    color:var(--ink);
+  }
+  header{
+    background:linear-gradient(135deg,var(--maroon),var(--red) 55%,var(--hotpink));
+    color:#fff;
+    padding:70px 20px 90px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  header::after{
+    content:"";
+    position:absolute;
+    bottom:-40px;left:0;right:0;
+    height:80px;
+    background:var(--cream);
+    border-radius:50% 50% 0 0/60px 60px 0 0;
+  }
+  .eyebrow{
+    letter-spacing:.25em;
+    text-transform:uppercase;
+    font-size:.75rem;
+    font-family:Helvetica, Arial, sans-serif;
+    opacity:.85;
+    margin-bottom:14px;
+  }
+  h1{
+    font-size:clamp(2.2rem,5vw,3.4rem);
+    margin:0 0 12px;
+    font-weight:700;
+  }
+  header p{
+    font-family:Helvetica, Arial, sans-serif;
+    font-size:1.05rem;
+    max-width:520px;
+    margin:0 auto;
+    opacity:.92;
+  }
+  main{
+    max-width:760px;
+    margin:-10px auto 0;
+    padding:0 20px 60px;
+    position:relative;
+    z-index:2;
+  }
+  .faq-item{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:14px;
+    margin-bottom:16px;
+    overflow:hidden;
+    box-shadow:0 2px 10px rgba(122,17,40,0.05);
+    transition:box-shadow .2s ease;
+  }
+  .faq-item.open{
+    box-shadow:0 8px 24px rgba(196,30,58,0.15);
+    border-color:var(--hotpink);
+  }
+  .faq-question{
+    width:100%;
+    text-align:left;
+    background:none;
+    border:none;
+    padding:22px 24px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+    cursor:pointer;
+    font-family:Helvetica, Arial, sans-serif;
+    font-size:1.05rem;
+    font-weight:600;
+    color:var(--maroon);
+  }
+  .faq-question .icon{
+    flex:0 0 auto;
+    width:28px;height:28px;
+    border-radius:50%;
+    background:var(--blush);
+    color:var(--red);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1.2rem;
+    line-height:1;
+    transition:transform .25s ease, background .25s ease, color .25s ease;
+  }
+  .faq-item.open .faq-question .icon{
+    background:var(--red);
+    color:#fff;
+    transform:rotate(45deg);
+  }
+  .faq-answer{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .35s ease;
+  }
+  .faq-answer-inner{
+    padding:0 24px 22px;
+    font-family:Helvetica, Arial, sans-serif;
+    font-size:.98rem;
+    line-height:1.65;
+    color:#4a2530;
+  }
+  .faq-answer-inner ul{
+    margin:8px 0 0;
+    padding-left:20px;
+  }
+  .faq-answer-inner a{
+    color:var(--red);
+    font-weight:600;
+    text-decoration:none;
+    border-bottom:1px solid var(--hotpink);
+  }
+  .category-label{
+    font-family:Helvetica, Arial, sans-serif;
+    text-transform:uppercase;
+    letter-spacing:.15em;
+    font-size:.72rem;
+    color:var(--hotpink);
+    font-weight:700;
+    margin:44px 0 16px;
+  }
+  .category-label:first-of-type{margin-top:8px;}
+  .cta{
+    margin-top:56px;
+    background:linear-gradient(135deg,var(--red),var(--hotpink));
+    border-radius:20px;
+    padding:40px 30px;
+    text-align:center;
+    color:#fff;
+  }
+  .cta h2{
+    font-size:1.5rem;
+    margin:0 0 8px;
+  }
+  .cta p{
+    font-family:Helvetica, Arial, sans-serif;
+    margin:0 0 20px;
+    opacity:.92;
+  }
+  .cta a{
+    display:inline-block;
+    background:#fff;
+    color:var(--red);
+    font-family:Helvetica, Arial, sans-serif;
+    font-weight:700;
+    padding:12px 28px;
+    border-radius:30px;
+    text-decoration:none;
+    transition:transform .2s ease;
+  }
+  .cta a:hover{transform:translateY(-2px);}
+  footer{
+    text-align:center;
+    padding:30px 20px 50px;
+    font-family:Helvetica, Arial, sans-serif;
+    font-size:.8rem;
+    color:#8a5a66;
+  }
+  @media (max-width:480px){
+    header{padding:50px 16px 80px;}
+    .faq-question{font-size:.95rem;padding:18px 18px;}
+    .faq-answer-inner{padding:0 18px 18px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">Uncle Brews</div>
+  <h1>Frequently Asked Questions</h1>
+  <p>Everything you've been meaning to ask about your favorite cup, answered.</p>
+</header>
+
+<main>
+
+  <div class="category-label">About Uncle Brews</div>
+
+  <div class="faq-item">
+    <button class="faq-question">
+      What is Uncle Brews?
+      <span class="icon">+</span>
+    </button>
+    <div class="faq-answer">
+      <div class="faq-answer-inner">
+        Uncle Brews is a homegrown coffee and milk tea brand serving specialty drinks made with quality beans, fresh milk, and house-made syrups. We're all about bringing café-level flavor to every cup, brewed with care and served with a smile.
+      </div>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question">
+      What makes Uncle Brews different?
+      <span class="icon">+</span>
+    </button>
+    <div class="faq-answer">
+      <div class="faq-answer-inner">
+        We roast and blend our own coffee, brew our teas fresh daily, and make our syrups and toppings in-house rather than buying pre-mixed concentrates. Every drink is made to order, so what you get is always fresh, never sitting around.
+      </div>
+    </div>
+  </div>
+
+  <div class="category-label">Ordering &amp; Locations</div>
+
+  <div class="faq-item">
+    <button class="faq-question">
+      Where can I find an Uncle Brews branch?
+      <span class="icon">+</span>
+    </button>
+    <div class="faq-answer">
+      <div class="faq-answer-inner">
+        Check our Locations page for the full, up-to-date list of branches near you. We're steadily expanding, so keep an eye out for new spots opening in your area.
+      </div>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question">
+      Can I order Uncle Brews online?
+      <span class="icon">+</span>
+    </button>
+    <div class="faq-answer">
+      <div class="faq-answer-inner">
+        Yes! You can order for pickup or delivery through our website, or through GrabFood and Foodpanda if you're outside our direct delivery radius. Just search "Uncle Brews" on your preferred app.
+      </div>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question">
+      Can I customize my drink?
+      <span class="icon">+</span>
+    </button>
+    <div class="faq-answer">
+      <div class="faq-answer-inner">
+        Definitely. You can adjust sweetness and ice levels, swap milk options, or add extra toppings so your drink is exactly how you like it.
+      </div>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question">
+      Do you offer dairy-free or vegan options?
+      <span class="icon">+</span>
+    </button>
+    <div class="faq-answer">
+      <div class="faq-answer-inner">
+        Yes, we offer plant-based milk alternatives for many of our drinks, plus a range of fruit teas that are naturally dairy-free and vegan-friendly.
+      </div>
+    </div>
+  </div>
+
+  <div class="category-label">Drinks &amp; Ingredients</div>
+
+  <div class="faq-item">
+    <button class="faq-question">
+      What are Uncle Brews' best sellers?
+      <span class="icon">+</span>
+    </button>
+    <div class="faq-answer">
+      <div class="faq-answer-inner">
+        Our most-loved drinks include:
+        <ul>
+          <li>Uncle's Signature Brown Sugar Milk Tea</li>
+          <li>Iced Spanish Latte</li>
+          <li>Strawberry Rose Fruit Tea</li>
+        </ul>
+        These are fan favorites, but we recommend trying our full menu to find your own go-to.
+      </div>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question">
+      How should I store my drink if I can't finish it right away?
+      <span class="icon">+</span>
+    </button>
+    <div class="faq-answer">
+      <div class="faq-answer-inner">
+        We always recommend enjoying your drink fresh for the best taste and texture. If you must save it, keep it refrigerated and consume it within a few hours. Note that toppings like pearls may change texture when chilled for too long.
+      </div>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question">
+      Are your drinks safe for people with food allergies?
+      <span class="icon">+</span>
+    </button>
+    <div class="faq-answer">
+      <div class="faq-answer-inner">
+        We take allergies seriously and aim to be transparent about our ingredients. If you have any concerns, please ask our staff in-store, or check the ingredient details on our menu. We're happy to customize your drink to help you avoid certain allergens.
+      </div>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question">
+      Are Uncle Brews drinks okay for kids?
+      <span class="icon">+</span>
+    </button>
+    <div class="faq-answer">
+      <div class="faq-answer-inner">
+        Many of our drinks are great for kids, especially our milk-based and fruit tea options. You can also request lower sugar levels. Ask our staff for kid-friendly recommendations.
+      </div>
+    </div>
+  </div>
+
+  <div class="category-label">Promotions &amp; Business</div>
+
+  <div class="faq-item">
+    <button class="faq-question">
+      Do you run promotions or discounts?
+      <span class="icon">+</span>
+    </button>
+    <div class="faq-answer">
+      <div class="faq-answer-inner">
+        Yes, we regularly run seasonal promos, bundle deals, and limited-time flavors. Follow us on our social media pages so you never miss an announcement.
+      </div>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question">
+      Can I franchise Uncle Brews?
+      <span class="icon">+</span>
+    </button>
+    <div class="faq-answer">
+      <div class="faq-answer-inner">
+        We're not offering franchising opportunities just yet, but we're growing! Follow our channels for updates in case this changes in the future.
+      </div>
+    </div>
+  </div>
+
+  <div class="cta">
+    <h2>Still have a question?</h2>
+    <p>Our crew is happy to help with anything not covered here.</p>
+    <a href="mailto:hello@unclebrews.ph">Contact Us</a>
+  </div>
+
+</main>
+
+<footer>
+  © 2026 Uncle Brews. All rights reserved.
+</footer>
+
+<script>
+  document.querySelectorAll('.faq-question').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const item = btn.parentElement;
+      const answer = item.querySelector('.faq-answer');
+      const isOpen = item.classList.contains('open');
+
+      document.querySelectorAll('.faq-item.open').forEach(openItem=>{
+        if(openItem !== item){
+          openItem.classList.remove('open');
+          openItem.querySelector('.faq-answer').style.maxHeight = null;
+        }
+      });
+
+      if(isOpen){
+        item.classList.remove('open');
+        answer.style.maxHeight = null;
+      } else {
+        item.classList.add('open');
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
