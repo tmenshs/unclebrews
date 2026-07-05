@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Franchise & Contact — Uncle Brew</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ub-cream:#fff8f9;
+    --ub-white:#ffffff;
+    --ub-pink-soft:#ffeef4;
+    --ub-pink-border:#ffd6e3;
+    --ub-magenta:#c2185b;
+    --ub-magenta-dark:#a01449;
+    --ub-plum:#4a0f28;
+    --ub-gold:#bd9038;
+    --ub-gold-soft:#f3e6c8;
+    --ub-text:#3a2530;
+    --ub-text-soft:#8a5a68;
+    --radius:16px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Inter',Arial,sans-serif;
+    color:var(--ub-text);
+    background:var(--ub-cream);
+  }
+  h1,h2,h3{
+    font-family:'Fraunces',Georgia,serif;
+    margin:0;
+    color:var(--ub-plum);
+  }
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+  .eyebrow{
+    text-transform:uppercase;
+    letter-spacing:2.5px;
+    font-size:12px;
+    font-weight:700;
+    color:var(--ub-magenta);
+    margin-bottom:10px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:18px;height:1px;background:var(--ub-magenta);
+  }
+  .wrap{max-width:1100px;margin:0 auto;padding:0 24px;}
+  .bean{
+    display:inline-block;width:9px;height:12px;border-radius:60% 60% 60% 60% / 65% 65% 35% 35%;
+    background:var(--ub-gold);position:relative;flex-shrink:0;
+  }
+
+  /* ============ FRANCHISE HERO ============ */
+  .fr-hero{
+    position:relative;
+    min-height:560px;
+    display:flex;
+    align-items:center;
+    overflow:hidden;
+    background:var(--ub-plum);
+  }
+  .fr-hero-img{
+    position:absolute;inset:0;
+    width:100%;height:100%;
+    object-fit:cover;
+    opacity:.55;
+  }
+  .fr-hero::after{
+    content:"";
+    position:absolute;inset:0;
+    background:linear-gradient(180deg, rgba(74,15,40,.35) 0%, rgba(74,15,40,.85) 100%);
+  }
+  .fr-hero-inner{
+    position:relative;z-index:2;
+    padding:100px 24px 70px;
+    max-width:1100px;margin:0 auto;
+    width:100%;
+  }
+  .fr-hero .eyebrow{color:var(--ub-gold-soft);}
+  .fr-hero .eyebrow::before{background:var(--ub-gold-soft);}
+  .fr-hero h1{
+    color:#fff;
+    font-size:clamp(34px,5.2vw,58px);
+    font-weight:500;
+    line-height:1.08;
+    max-width:680px;
+  }
+  .fr-hero h1 em{color:var(--ub-gold-soft);font-style:italic;}
+  .fr-hero p{
+    color:#f6dbe6;
+    font-size:16.5px;
+    line-height:1.7;
+    max-width:520px;
+    margin-top:18px;
+  }
+  .fr-hero-ctas{margin-top:32px;display:flex;gap:14px;flex-wrap:wrap;}
+  .btn-gold{
+    background:var(--ub-gold);
+    color:#3a2b06;
+    border:none;
+    padding:15px 28px;
+    border-radius:999px;
+    font-weight:700;
+    font-size:14.5px;
+    cursor:pointer;
+    text-decoration:none;
+    display:inline-block;
+  }
+  .btn-ghost{
+    background:transparent;
+    color:#fff;
+    border:1px solid rgba(255,255,255,.5);
+    padding:15px 28px;
+    border-radius:999px;
+    font-weight:600;
+    font-size:14.5px;
+    text-decoration:none;
+    display:inline-block;
+  }
+
+  /* ============ WHY PARTNER ============ */
+  .fr-why{padding:80px 0 20px;}
+  .fr-why-head{text-align:center;max-width:620px;margin:0 auto 50px;}
+  .fr-why-head h2{font-size:clamp(28px,4vw,38px);font-weight:500;}
+  .fr-why-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:24px;
+  }
+  .fr-why-card{
+    background:var(--ub-white);
+    border:1px solid var(--ub-pink-border);
+    border-radius:var(--radius);
+    padding:32px 26px;
+  }
+  .fr-why-card .num{
+    font-family:'Fraunces',serif;
+    font-size:15px;
+    color:var(--ub-gold);
+    font-weight:600;
+    margin-bottom:14px;
+  }
+  .fr-why-card h3{font-size:19px;font-weight:600;margin-bottom:10px;}
+  .fr-why-card p{font-size:14.5px;line-height:1.65;color:var(--ub-text-soft);margin:0;}
+
+  /* ============ PACKAGE / PRICE ============ */
+  .fr-package{
+    padding:90px 0;
+    background:var(--ub-pink-soft);
+    margin-top:80px;
+  }
+  .fr-package-head{text-align:center;max-width:600px;margin:0 auto 50px;}
+  .fr-package-head h2{font-size:clamp(28px,4vw,38px);font-weight:500;}
+  .package-card{
+    max-width:760px;
+    margin:0 auto;
+    background:var(--ub-plum);
+    border-radius:24px;
+    padding:3px;
+    background-image:linear-gradient(135deg,var(--ub-gold),var(--ub-plum) 40%,var(--ub-plum) 60%,var(--ub-gold));
+  }
+  .package-card-inner{
+    background:var(--ub-plum);
+    border-radius:22px;
+    padding:48px 40px;
+    color:#fff;
+    position:relative;
+  }
+  .package-ribbon{
+    position:absolute;top:26px;right:-6px;
+    background:var(--ub-gold);
+    color:#3a2b06;
+    font-size:11.5px;
+    font-weight:800;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    padding:7px 16px 7px 20px;
+    border-radius:6px 0 0 6px;
+  }
+  .package-name{color:var(--ub-gold-soft);font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;}
+  .package-price{
+    display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;
+    font-family:'Fraunces',serif;
+    color:#fff;
+    margin-bottom:6px;
+  }
+  .package-price .amount{font-size:clamp(38px,6vw,52px);font-weight:500;}
+  .package-price .currency{font-size:20px;font-weight:500;color:var(--ub-gold-soft);}
+  .package-price .term{font-size:14px;color:#e6c9d3;font-weight:400;font-family:'Inter',sans-serif;}
+  .package-desc{color:#e6c9d3;font-size:14.5px;line-height:1.6;margin:10px 0 30px;max-width:480px;}
+  .package-list{list-style:none;margin:0 0 34px;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:14px 24px;}
+  .package-list li{display:flex;gap:10px;align-items:flex-start;font-size:14px;line-height:1.5;color:#f3e3ea;}
+  .package-list .bean{margin-top:5px;}
+  .package-note{font-size:12.5px;color:#c9a3b1;border-top:1px solid rgba(255,255,255,.15);padding-top:20px;}
+
+  /* ============ PROCESS STEPS ============ */
+  .fr-steps{padding:90px 0;}
+  .fr-steps-head{text-align:center;max-width:600px;margin:0 auto 56px;}
+  .fr-steps-head h2{font-size:clamp(28px,4vw,38px);font-weight:500;}
+  .steps-row{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+  }
+  .step{
+    text-align:left;
+    padding:0 6px;
+  }
+  .step .step-num{
+    font-family:'Fraunces',serif;
+    font-size:34px;
+    color:var(--ub-pink-border);
+    -webkit-text-stroke:1px var(--ub-magenta);
+    color:transparent;
+    font-weight:600;
+    margin-bottom:14px;
+  }
+  .step h3{font-size:16px;font-weight:600;margin-bottom:8px;}
+  .step p{font-size:13.5px;color:var(--ub-text-soft);line-height:1.6;margin:0;}
+
+  /* ============ GALLERY (full, uncropped) ============ */
+  .fr-gallery{padding:20px 0 90px;}
+  .fr-gallery-head{text-align:center;max-width:600px;margin:0 auto 40px;}
+  .fr-gallery-head h2{font-size:clamp(28px,4vw,38px);font-weight:500;}
+  .gallery-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+  }
+  .gallery-item{
+    background:var(--ub-white);
+    border:1px solid var(--ub-pink-border);
+    border-radius:14px;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    aspect-ratio:4/5;
+  }
+  .gallery-item img{
+    width:100%;height:100%;
+    object-fit:contain; /* shows the ENTIRE photo, never cropped */
+    background:var(--ub-pink-soft);
+  }
+
+  /* ============ FRANCHISE CTA ============ */
+  .fr-cta{
+    background:var(--ub-magenta);
+    padding:60px 0;
+    text-align:center;
+  }
+  .fr-cta h2{color:#fff;font-size:clamp(24px,3.5vw,32px);font-weight:500;margin-bottom:20px;}
+  .fr-cta a{
+    background:#fff;color:var(--ub-magenta);
+    padding:15px 30px;border-radius:999px;font-weight:700;font-size:14.5px;
+    text-decoration:none;display:inline-block;
+  }
+
+  /* ============ CONTACT ============ */
+  .ct-section{padding:90px 0;}
+  .ct-head{text-align:center;max-width:600px;margin:0 auto 56px;}
+  .ct-head h2{font-size:clamp(28px,4vw,38px);font-weight:500;}
+  .ct-head p{color:var(--ub-text-soft);font-size:15px;margin-top:14px;line-height:1.6;}
+  .ct-grid{
+    display:grid;
+    grid-template-columns:1.1fr .9fr;
+    gap:36px;
+    align-items:start;
+  }
+  .ct-form{
+    background:var(--ub-white);
+    border:1px solid var(--ub-pink-border);
+    border-radius:var(--radius);
+    padding:38px;
+  }
+  .ct-form label{
+    display:block;font-size:12.5px;font-weight:700;text-transform:uppercase;
+    letter-spacing:1px;color:var(--ub-text-soft);margin-bottom:8px;
+  }
+  .ct-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:20px;}
+  .field{margin-bottom:20px;}
+  .ct-form input, .ct-form select, .ct-form textarea{
+    width:100%;
+    padding:13px 14px;
+    border:1px solid var(--ub-pink-border);
+    border-radius:10px;
+    font-family:'Inter',sans-serif;
+    font-size:14.5px;
+    color:var(--ub-text);
+    background:var(--ub-cream);
+  }
+  .ct-form textarea{resize:vertical;min-height:120px;}
+  .ct-form input:focus, .ct-form select:focus, .ct-form textarea:focus{
+    outline:2px solid var(--ub-magenta);outline-offset:1px;
+  }
+  .ct-submit{
+    width:100%;
+    background:var(--ub-magenta);
+    color:#fff;
+    border:none;
+    padding:16px;
+    border-radius:10px;
+    font-weight:700;
+    font-size:15px;
+    cursor:pointer;
+  }
+  .ct-submit:hover{background:var(--ub-magenta-dark);}
+  .ct-info-card{
+    background:var(--ub-plum);
+    color:#fff;
+    border-radius:var(--radius);
+    padding:34px 30px;
+    margin-bottom:18px;
+  }
+  .ct-info-card h3{color:#fff;font-size:19px;font-weight:500;margin-bottom:18px;}
+  .ct-info-row{
+    display:flex;gap:14px;align-items:flex-start;
+    margin-bottom:16px;font-size:14px;color:#f0dbe4;line-height:1.5;
+  }
+  .ct-info-row:last-child{margin-bottom:0;}
+  .ct-info-row .ico{
+    width:34px;height:34px;border-radius:50%;
+    background:rgba(255,255,255,.12);
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .ct-social-card{
+    background:var(--ub-pink-soft);
+    border:1px solid var(--ub-pink-border);
+    border-radius:var(--radius);
+    padding:28px 30px;
+  }
+  .ct-social-card h3{font-size:16px;font-weight:600;margin-bottom:16px;}
+  .ct-social-icons{display:flex;gap:10px;}
+  .ct-social-icons a{
+    width:38px;height:38px;border-radius:50%;
+    background:var(--ub-magenta);
+    display:flex;align-items:center;justify-content:center;
+  }
+
+  @media (max-width:860px){
+    .fr-why-grid{grid-template-columns:1fr;}
+    .steps-row{grid-template-columns:1fr 1fr;row-gap:34px;}
+    .gallery-grid{grid-template-columns:1fr 1fr;}
+    .package-list{grid-template-columns:1fr;}
+    .ct-grid{grid-template-columns:1fr;}
+    .ct-row{grid-template-columns:1fr;}
+  }
+  @media (max-width:520px){
+    .steps-row{grid-template-columns:1fr;}
+    .gallery-grid{grid-template-columns:1fr;}
+    .fr-hero-inner{padding:80px 20px 50px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= HEADER (same as your other pages) ================= -->
+<header style="position:fixed;top:0;left:0;width:100%;height:64px;background:#fff5f7;border-bottom:1px solid #ffd6e3;display:flex;align-items:center;justify-content:space-between;padding:0 16px;z-index:1001;box-sizing:border-box;">
+  <div id="ub-menu-btn" style="width:44px;height:44px;border-radius:10px;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(226,19,110,0.12);cursor:pointer;">
+    <div style="width:20px;">
+      <div style="height:3px;background:#c2185b;margin-bottom:5px;border-radius:2px;"></div>
+      <div style="height:3px;background:#c2185b;margin-bottom:5px;border-radius:2px;"></div>
+      <div style="height:3px;background:#c2185b;border-radius:2px;"></div>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px;">
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#c2185b" stroke-width="1.6">
+      <path d="M4 3h13v9a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V3z"/>
+      <path d="M17 6h2a3 3 0 0 1 0 6h-1.5"/>
+      <line x1="4" y1="20" x2="17" y2="20"/>
+    </svg>
+    <span style="color:#c2185b;font-size:19px;font-weight:800;">Uncle Brew</span>
+  </div>
+</header>
+<div style="height:64px;"></div>
+<div id="ub-menu-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:999;"></div>
+
+<div id="ub-sidebar" style="position:fixed;top:0;left:-280px;width:270px;height:100%;background:#fffbfc;z-index:1000;transition:left .3s ease;box-shadow:2px 0 20px rgba(0,0,0,.15);padding:70px 18px 20px;overflow-y:auto;box-sizing:border-box;font-family:Arial, Helvetica, sans-serif;">
+  <input type="text" placeholder="Search..." style="width:100%;padding:11px 14px;border-radius:20px;border:1px solid #ffd6e3;margin-bottom:22px;font-size:14px;box-sizing:border-box;background:#fff;">
+  <a href="https://tmenshs.github.io/unclebrews/" style="display:flex;align-items:center;gap:12px;padding:12px 10px;color:#3a2530;text-decoration:none;font-weight:600;font-size:14.5px;border-bottom:1px solid #f5e2ea;border-radius:8px;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c2185b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9 21v-6h6v6"/></svg>
+    Home
+  </a>
+  <a href="#qb-root" style="display:flex;align-items:center;gap:12px;padding:12px 10px;color:#3a2530;text-decoration:none;font-weight:600;font-size:14.5px;border-bottom:1px solid #f5e2ea;border-radius:8px;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c2185b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+    Menu
+  </a>
+  <a href="https://tmenshs.github.io/unclebrews/locations" style="display:flex;align-items:center;gap:12px;padding:12px 10px;color:#3a2530;text-decoration:none;font-weight:600;font-size:14.5px;border-bottom:1px solid #f5e2ea;border-radius:8px;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c2185b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.5 7-11.5A7 7 0 0 0 5 9.5C5 14.5 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.3"/></svg>
+    Locations
+  </a>
+  <a href="https://tmenshs.github.io/unclebrews/our-story" style="display:flex;align-items:center;gap:12px;padding:12px 10px;color:#3a2530;text-decoration:none;font-weight:600;font-size:14.5px;border-bottom:1px solid #f5e2ea;border-radius:8px;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c2185b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5v-15z"/><path d="M4 19a2.5 2.5 0 0 1 2.5-2.5H20"/></svg>
+    Our story
+  </a>
+  <a href="https://tmenshs.github.io/unclebrews/faq" style="display:flex;align-items:center;gap:12px;padding:12px 10px;color:#3a2530;text-decoration:none;font-weight:600;font-size:14.5px;border-bottom:1px solid #f5e2ea;border-radius:8px;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c2185b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.1 9a2.9 2.9 0 0 1 5.6 1c0 2-2.7 2-2.7 4"/><line x1="12" y1="17.2" x2="12" y2="17.2"/></svg>
+    FAQ
+  </a>
+  <div>
+    <div id="ub-contact-toggle" style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 10px;color:#3a2530;font-weight:600;font-size:14.5px;border-bottom:1px solid #f5e2ea;cursor:pointer;border-radius:8px;">
+      <span style="display:flex;align-items:center;gap:12px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c2185b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .7 2.9a2 2 0 0 1-.4 2.2L8 10.2a16 16 0 0 0 6 6l1.4-1.4a2 2 0 0 1 2.2-.4c.9.4 1.9.6 2.9.7a2 2 0 0 1 1.7 2z"/></svg>
+        Contact Us
+      </span>
+      <svg id="ub-contact-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#c2185b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="transition:transform .2s;"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div id="ub-contact-dropdown" style="display:none;padding-left:30px;">
+      <a href="https://tmenshs.github.io/unclebrews/contact#contact" style="display:flex;align-items:center;gap:10px;padding:10px 8px;color:#8a5a68;text-decoration:none;font-size:13.5px;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8a5a68" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .3 2 .7 2.9a2 2 0 0 1-.4 2.2L8 10.2a16 16 0 0 0 6 6l1.4-1.4a2 2 0 0 1 2.2-.4c.9.4 1.9.6 2.9.7a2 2 0 0 1 1.7 2z"/></svg>
+        Contact Us
+      </a>
+      <a href="https://tmenshs.github.io/unclebrews/contact#franchise" style="display:flex;align-items:center;gap:10px;padding:10px 8px;color:#8a5a68;text-decoration:none;font-size:13.5px;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8a5a68" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 20v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 20v-2a4 4 0 0 0-3-3.9"/><path d="M16 3.1a4 4 0 0 1 0 7.8"/></svg>
+        Franchise
+      </a>
+    </div>
+  </div>
+  <a href="https://m.me/1025453833986836" target="_blank" style="display:flex;align-items:center;gap:12px;padding:12px 10px;color:#3a2530;text-decoration:none;font-weight:600;font-size:14.5px;border-bottom:1px solid #f5e2ea;border-radius:8px;">
+    <span style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#00c6ff,#0068ff);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><path d="M12 2C6.5 2 2 6.1 2 11.2c0 2.9 1.5 5.5 3.8 7.2V22l3.5-1.9c.9.2 1.8.4 2.7.4 5.5 0 10-4.1 10-9.3S17.5 2 12 2zm1 12.5-2.6-2.8-5 2.8 5.5-5.9 2.6 2.8 5-2.8-5.5 5.9z"/></svg>
+    </span>
+    Chat on Messenger
+  </a>
+  <a href="https://facebook.com/1025453833986836" target="_blank" style="display:flex;align-items:center;gap:12px;padding:12px 10px;color:#3a2530;text-decoration:none;font-weight:600;font-size:14.5px;border-radius:8px;">
+    <span style="width:26px;height:26px;border-radius:50%;background:#1877f2;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="#fff"><path d="M13.5 21v-8h2.7l.4-3.1h-3.1V7.9c0-.9.3-1.5 1.6-1.5h1.6V3.6C15.9 3.5 15 3.4 13.9 3.4c-2.3 0-3.9 1.4-3.9 4v2.5H7.3V13H10v8h3.5z"/></svg>
+    </span>
+    Facebook Page
+  </a>
+</div>
+
+<!-- =====================================================================
+     FRANCHISE SECTION
+     Everything marked EDIT: is meant to be changed to your real info.
+     ===================================================================== -->
+<section id="franchise">
+
+  <!-- HERO -->
+  <div class="fr-hero">
+    <!-- EDIT: swap this image for your own hero photo (shop front, product, or team) -->
+    <img class="fr-hero-img" src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?q=80&w=1600&auto=format&fit=crop" alt="Uncle Brew shop">
+    <div class="fr-hero-inner">
+      <div class="eyebrow"><span class="bean"></span>Franchise with Uncle Brew</div>
+      <!-- EDIT: headline -->
+      <h1>Bring the Uncle Brew<br><em>experience</em> to your city</h1>
+      <!-- EDIT: subheading -->
+      <p>Join a growing family of Uncle Brew partners. We handle the recipe, the training, and the brand — you bring the location and the passion.</p>
+      <div class="fr-hero-ctas">
+        <a class="btn-gold" href="#package">See Investment</a>
+        <a class="btn-ghost" href="#contact">Talk to Us</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHY PARTNER -->
+  <div class="fr-why">
+    <div class="wrap">
+      <div class="fr-why-head">
+        <div class="eyebrow" style="justify-content:center;"><span class="bean"></span>Why Uncle Brew</div>
+        <!-- EDIT: section heading -->
+        <h2>A brand built on repeat customers</h2>
+      </div>
+      <div class="fr-why-grid">
+        <div class="fr-why-card">
+          <div class="num">01</div>
+          <!-- EDIT: reason 1 -->
+          <h3>Proven recipes</h3>
+          <p>Every drink and dish on the menu has been tested across our own stores before it ever reaches a partner location.</p>
+        </div>
+        <div class="fr-why-card">
+          <div class="num">02</div>
+          <!-- EDIT: reason 2 -->
+          <h3>Full training & support</h3>
+          <p>From barista training to store setup, our team is with you before, during, and after opening day.</p>
+        </div>
+        <div class="fr-why-card">
+          <div class="num">03</div>
+          <!-- EDIT: reason 3 -->
+          <h3>Marketing that travels</h3>
+          <p>You get access to our brand assets, social templates, and launch campaigns from day one.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PACKAGE / PRICE -->
+  <div class="fr-package" id="package">
+    <div class="wrap">
+      <div class="fr-package-head">
+        <div class="eyebrow" style="justify-content:center;"><span class="bean"></span>Investment</div>
+        <!-- EDIT: section heading -->
+        <h2>One package, everything included</h2>
+      </div>
+
+      <div class="package-card">
+        <div class="package-card-inner">
+          <div class="package-ribbon">Founding Partner</div>
+          <!-- EDIT: package name -->
+          <div class="package-name">Standard Franchise Package</div>
+
+          <!-- EDIT: price. Replace the amount below with your real figure -->
+          <div class="package-price">
+            <span class="currency">₱</span><span class="amount">350,000</span><span class="term">/ one-time franchise fee</span>
+          </div>
+          <!-- EDIT: short description under the price -->
+          <p class="package-desc">Covers your license to operate, full store buildout guidance, equipment package, initial ingredient stock, and staff training for up to 6 people.</p>
+
+          <ul class="package-list">
+            <!-- EDIT: each inclusion below -->
+            <li><span class="bean"></span>Brand license, 5-year renewable term</li>
+            <li><span class="bean"></span>Interior design & layout guide</li>
+            <li><span class="bean"></span>Full equipment & signage package</li>
+            <li><span class="bean"></span>Staff training, 2 weeks on-site</li>
+            <li><span class="bean"></span>Opening marketing kit</li>
+            <li><span class="bean"></span>Ongoing recipe & menu updates</li>
+          </ul>
+
+          <!-- EDIT: fine print -->
+          <div class="package-note">Excludes rent, construction, and local permits. Payment plans available on request — reach out for a full breakdown.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROCESS -->
+  <div class="fr-steps">
+    <div class="wrap">
+      <div class="fr-steps-head">
+        <div class="eyebrow" style="justify-content:center;"><span class="bean"></span>How it works</div>
+        <!-- EDIT: section heading -->
+        <h2>From application to opening day</h2>
+      </div>
+      <div class="steps-row">
+        <div class="step">
+          <div class="step-num">01</div>
+          <!-- EDIT: step 1 -->
+          <h3>Send an inquiry</h3>
+          <p>Fill out the contact form below with your preferred location and a bit about yourself.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <!-- EDIT: step 2 -->
+          <h3>Discovery call</h3>
+          <p>We walk you through the package, pricing, and answer your questions directly.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <!-- EDIT: step 3 -->
+          <h3>Site & agreement</h3>
+          <p>Once your location is confirmed, we finalize the franchise agreement together.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">04</div>
+          <!-- EDIT: step 4 -->
+          <h3>Build & train</h3>
+          <p>Our team supports your buildout and trains your staff ahead of opening day.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GALLERY (full uncropped photos) -->
+  <div class="fr-gallery">
+    <div class="wrap">
+      <div class="fr-gallery-head">
+        <div class="eyebrow" style="justify-content:center;"><span class="bean"></span>Inside a store</div>
+        <!-- EDIT: section heading -->
+        <h2>What partners are building</h2>
+      </div>
+      <div class="gallery-grid">
+        <!-- EDIT: replace each src with your own photo. object-fit:contain keeps the whole photo visible, never cropped -->
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?q=80&w=1200&auto=format&fit=crop" alt="Store interior"></div>
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?q=80&w=1200&auto=format&fit=crop" alt="Counter setup"></div>
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=1200&auto=format&fit=crop" alt="Drinks display"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="fr-cta">
+    <!-- EDIT: closing line -->
+    <h2>Ready to bring Uncle Brew to your neighborhood?</h2>
+    <a href="#contact">Start Your Application</a>
+  </div>
+</section>
+
+<!-- =====================================================================
+     CONTACT SECTION
+     ===================================================================== -->
+<section id="contact" class="ct-section">
+  <div class="wrap">
+    <div class="ct-head">
+      <div class="eyebrow" style="justify-content:center;"><span class="bean"></span>Get in touch</div>
+      <!-- EDIT: heading -->
+      <h2>We'd love to hear from you</h2>
+      <!-- EDIT: subtext -->
+      <p>Questions about a location, a franchise inquiry, or just want to say hi — send us a message and we'll get back to you soon.</p>
+    </div>
+
+    <div class="ct-grid">
+      <!-- FORM: submits straight to your email via FormSubmit, no backend needed -->
+      <form class="ct-form" action="https://formsubmit.co/luxuryspinach@gmail.com" method="POST">
+        <!-- keeps the sender's own inbox out of spam and sets the email subject -->
+        <input type="hidden" name="_subject" value="New message from Uncle Brew website">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <!-- honeypot field to reduce spam bots -->
+        <input type="text" name="_honey" style="display:none">
+
+        <div class="ct-row">
+          <div class="field">
+            <label>Full name</label>
+            <input type="text" name="Name" placeholder="Juan Dela Cruz" required>
+          </div>
+          <div class="field">
+            <label>Email</label>
+            <input type="email" name="Email" placeholder="you@email.com" required>
+          </div>
+        </div>
+        <div class="ct-row">
+          <div class="field">
+            <label>Phone</label>
+            <input type="tel" name="Phone" placeholder="09XX XXX XXXX">
+          </div>
+          <div class="field">
+            <label>Reason for message</label>
+            <select name="Reason">
+              <option>General question</option>
+              <option>Franchise inquiry</option>
+              <option>Feedback</option>
+              <option>Partnership / press</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label>Message</label>
+          <textarea name="Message" placeholder="Tell us a bit about what you need..." required></textarea>
+        </div>
+        <button class="ct-submit" type="submit">Send Message</button>
+      </form>
+
+      <!-- CONTACT INFO -->
+      <div>
+        <div class="ct-info-card">
+          <h3>Contact details</h3>
+          <div class="ct-info-row">
+            <span class="ico">📞</span>
+            <!-- EDIT: phone number -->
+            <span>+63 9XX XXX XXXX</span>
+          </div>
+          <div class="ct-info-row">
+            <span class="ico">✉️</span>
+            <!-- this is the address messages currently go to -->
+            <span>luxuryspinach@gmail.com</span>
+          </div>
+          <div class="ct-info-row">
+            <span class="ico">📍</span>
+            <!-- EDIT: office / store address -->
+            <span>Unit 000, Sample Building,<br>Quezon City, Metro Manila</span>
+          </div>
+          <div class="ct-info-row">
+            <span class="ico">🕐</span>
+            <!-- EDIT: hours -->
+            <span>Mon–Sun, 9:00 AM – 9:00 PM</span>
+          </div>
+        </div>
+
+        <div class="ct-social-card">
+          <h3>Follow us</h3>
+          <div class="ct-social-icons">
+            <a href="https://facebook.com/1025453833986836" target="_blank" aria-label="Facebook">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M13.5 21v-8h2.7l.4-3.1h-3.1V7.9c0-.9.3-1.5 1.6-1.5h1.6V3.6C15.9 3.5 15 3.4 13.9 3.4c-2.3 0-3.9 1.4-3.9 4v2.5H7.3V13H10v8h3.5z"/></svg>
+            </a>
+            <a href="https://m.me/1025453833986836" target="_blank" aria-label="Messenger">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M12 2C6.5 2 2 6.1 2 11.2c0 2.9 1.5 5.5 3.8 7.2V22l3.5-1.9c.9.2 1.8.4 2.7.4 5.5 0 10-4.1 10-9.3S17.5 2 12 2zm1 12.5-2.6-2.8-5 2.8 5.5-5.9 2.6 2.8 5-2.8-5.5 5.9z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  var ubMenuBtn = document.getElementById('ub-menu-btn');
+  var ubSidebar = document.getElementById('ub-sidebar');
+  var ubOverlay = document.getElementById('ub-menu-overlay');
+  var ubContactToggle = document.getElementById('ub-contact-toggle');
+  var ubContactDropdown = document.getElementById('ub-contact-dropdown');
+  var ubContactArrow = document.getElementById('ub-contact-arrow');
+
+  ubMenuBtn.addEventListener('click', function(){
+    ubSidebar.style.left = '0';
+    ubOverlay.style.display = 'block';
+  });
+  ubOverlay.addEventListener('click', function(){
+    ubSidebar.style.left = '-280px';
+    ubOverlay.style.display = 'none';
+  });
+  ubContactToggle.addEventListener('click', function(){
+    var isOpen = ubContactDropdown.style.display === 'block';
+    ubContactDropdown.style.display = isOpen ? 'none' : 'block';
+    ubContactArrow.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+  });
+</script>
+
+</body>
+</html>
