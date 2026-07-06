@@ -1997,6 +1997,7 @@ function endCall() {
         <div class="qb-rorder-name">${esc(o.name)}</div>
         <div class="qb-rorder-line">📞 <strong>${esc(o.contact)}</strong></div>
         <div class="qb-rorder-line">📍 ${esc(o.address)}</div>
+        ${(o.customerLat && o.customerLng) ? `<div class="qb-rnav-row"><a class="qb-rnav-btn" href="https://maps.google.com/maps?q=${o.customerLat},${o.customerLng}" target="_blank">📍 Open Client's Exact Pin</a></div>` : ''}
         <div class="qb-rorder-line">${esc(o.deliveryOption)} · ${esc(o.paymentMethod)} · ₱${o.total}</div>
         ${o.riderNote?`<div class="qb-rorder-line">📝 ${esc(o.riderNote)}</div>`:''}
         <div class="qb-rorder-items">${esc(o.items)}</div>
