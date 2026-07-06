@@ -687,7 +687,16 @@ body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--brew-cre
 </style>
 </head>
 <body>
-<!-- Fixed thin header bar: menu (left) + logo (right) -->
+<!-- ══════════════════════════════════════════════════════════
+     UNCLE BREW — SHARED HEADER + SIDEBAR (with working search)
+     Paste this ONCE, right after <body>, on every page:
+     home, locations, our-story, FAQ, contact, game, etc.
+
+     BEFORE PASTING: delete the page's OLD header/sidebar block
+     (the one that runs from <header style="position:fixed... 
+     down through the closing </script> right after it).
+     Only ONE copy of this block should exist per page.
+     ══════════════════════════════════════════════════════════ -->
 <header style="position:fixed;top:0;left:0;width:100%;height:64px;background:#fff5f7;border-bottom:1px solid #ffd6e3;display:flex;align-items:center;justify-content:space-between;padding:0 16px;z-index:1001;box-sizing:border-box;">
 
   <div id="ub-menu-btn" style="width:44px;height:44px;border-radius:10px;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(226,19,110,0.12);cursor:pointer;">
@@ -716,14 +725,15 @@ body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--brew-cre
 
 <div id="ub-sidebar" style="position:fixed;top:0;left:-280px;width:270px;height:100%;background:#fffbfc;z-index:1000;transition:left .3s ease;box-shadow:2px 0 20px rgba(0,0,0,.15);padding:70px 18px 20px;overflow-y:auto;box-sizing:border-box;font-family:Arial, Helvetica, sans-serif;">
 
-  <input type="text" placeholder="Search..." style="width:100%;padding:11px 14px;border-radius:20px;border:1px solid #ffd6e3;margin-bottom:22px;font-size:14px;box-sizing:border-box;background:#fff;">
+  <input type="text" id="ub-search-input" placeholder="Search..." autocomplete="off" style="width:100%;padding:11px 14px;border-radius:20px;border:1px solid #ffd6e3;margin-bottom:22px;font-size:14px;box-sizing:border-box;background:#fff;">
+  <div id="ub-search-results" style="display:none;position:relative;margin-top:-14px;margin-bottom:14px;background:#fff;border:1px solid #ffd6e3;border-radius:12px;overflow:hidden;box-shadow:0 4px 14px rgba(226,19,110,0.1);"></div>
 
   <a href="https://tmenshs.github.io/unclebrews/" style="display:flex;align-items:center;gap:12px;padding:12px 10px;color:#3a2530;text-decoration:none;font-weight:600;font-size:14.5px;border-bottom:1px solid #f5e2ea;border-radius:8px;">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c2185b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9 21v-6h6v6"/></svg>
     Home
   </a>
 
-  <a href="#qb-root" style="display:flex;align-items:center;gap:12px;padding:12px 10px;color:#3a2530;text-decoration:none;font-weight:600;font-size:14.5px;border-bottom:1px solid #f5e2ea;border-radius:8px;">
+  <a href="https://tmenshs.github.io/unclebrews/#qb-root" style="display:flex;align-items:center;gap:12px;padding:12px 10px;color:#3a2530;text-decoration:none;font-weight:600;font-size:14.5px;border-bottom:1px solid #f5e2ea;border-radius:8px;">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c2185b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
     Menu
   </a>
@@ -763,23 +773,47 @@ body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--brew-cre
   </div>
   </div>
 
-  <a href="https://m.me/1025453833986836" target="_blank" style="display:flex;align-items:center;gap:12px;padding:12px 10px;color:#3a2530;text-decoration:none;font-weight:600;font-size:14.5px;border-bottom:1px solid #f5e2ea;border-radius:8px;">
-    <span style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#00c6ff,#0068ff);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><path d="M12 2C6.5 2 2 6.1 2 11.2c0 2.9 1.5 5.5 3.8 7.2V22l3.5-1.9c.9.2 1.8.4 2.7.4 5.5 0 10-4.1 10-9.3S17.5 2 12 2zm1 12.5-2.6-2.8-5 2.8 5.5-5.9 2.6 2.8 5-2.8-5.5 5.9z"/></svg>
-    </span>
-    Chat on Messenger
+  <a href="https://tmenshs.github.io/unclebrews/game/" style="display:flex;align-items:center;gap:12px;padding:12px 10px;color:#3a2530;text-decoration:none;font-weight:600;font-size:14.5px;border-bottom:1px solid #f5e2ea;border-radius:8px;">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c2185b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><circle cx="8.5" cy="8.5" r="1" fill="#c2185b"/><circle cx="15.5" cy="8.5" r="1" fill="#c2185b"/><circle cx="8.5" cy="15.5" r="1" fill="#c2185b"/><circle cx="15.5" cy="15.5" r="1" fill="#c2185b"/><circle cx="12" cy="12" r="1" fill="#c2185b"/></svg>
+    Game to Drink
   </a>
 
-  <a href="https://facebook.com/1025453833986836" target="_blank" style="display:flex;align-items:center;gap:12px;padding:12px 10px;color:#3a2530;text-decoration:none;font-weight:600;font-size:14.5px;border-radius:8px;">
-    <span style="width:26px;height:26px;border-radius:50%;background:#1877f2;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="#fff"><path d="M13.5 21v-8h2.7l.4-3.1h-3.1V7.9c0-.9.3-1.5 1.6-1.5h1.6V3.6C15.9 3.5 15 3.4 13.9 3.4c-2.3 0-3.9 1.4-3.9 4v2.5H7.3V13H10v8h3.5z"/></svg>
-    </span>
-    Facebook Page
-  </a>
+  <div style="display:flex;flex-direction:column;align-items:flex-start;gap:8px;padding:10px 10px;border-radius:8px;">
+    <span style="color:#3a2530;font-weight:400;font-size:12.5px;letter-spacing:0.2px;">Follow us</span>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <a href="https://m.me/1025453833986836" target="_blank" style="width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#00c6ff 0%,#0068ff 50%,#a033ff 100%);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+        <svg width="12" height="12" viewBox="0 0 36 36" fill="#fff"><path d="M18 0C7.85 0 0 7.4 0 17.4c0 5.3 2.2 9.9 5.7 13v6.6l6.2-3.4c1.9.5 3.9.8 6.1.8 10.15 0 18-7.4 18-17.4S28.15 0 18 0zm1.8 23.4-4.6-4.9-9 4.9L16.4 12l4.7 4.9 8.9-4.9-10.2 11.4z"/></svg>
+      </a>
+      <a href="https://facebook.com/1025453833986836" target="_blank" style="width:22px;height:22px;border-radius:50%;background:#1877f2;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+        <svg width="11" height="11" viewBox="0 0 36 36" fill="#fff"><path d="M36 18c0-9.94-8.06-18-18-18S0 8.06 0 18c0 8.98 6.58 16.41 15.19 17.76V23.2h-4.57v-5.2h4.57v-3.97c0-4.51 2.69-7.01 6.81-7.01 1.97 0 4.03.35 4.03.35v4.43h-2.27c-2.24 0-2.94 1.39-2.94 2.81v3.39h5l-.8 5.2h-4.2v12.56C29.42 34.41 36 26.98 36 18z"/></svg>
+      </a>
+    </div>
+  </div>
 
 </div>
 
 <script>
+(function(){
+  // Site pages the search can find. Add more entries anytime by copying a line below.
+  var UB_PAGES = [
+    { title: "Home", url: "https://tmenshs.github.io/unclebrews/", keywords: "home main landing" },
+    { title: "Menu", url: "https://tmenshs.github.io/unclebrews/#qb-root", keywords: "menu drinks coffee milk tea food order" },
+    { title: "Jotham Sugar Milk Tea", url: "https://tmenshs.github.io/unclebrews/#qb-root", keywords: "jotham brown sugar caramel milk tea 45" },
+    { title: "Taro Milk Tea", url: "https://tmenshs.github.io/unclebrews/#qb-root", keywords: "taro purple milk tea velvety 75" },
+    { title: "Matcha Latte", url: "https://tmenshs.github.io/unclebrews/#qb-root", keywords: "matcha latte ceremonial steamed milk specialty 80" },
+    { title: "Classic Milk Tea", url: "https://tmenshs.github.io/unclebrews/#qb-root", keywords: "classic milk tea hong kong style smooth bold 65" },
+    { title: "Wintermelon Tea", url: "https://tmenshs.github.io/unclebrews/#qb-root", keywords: "wintermelon tea fruit tea refreshing floral 70" },
+    { title: "Strawberry Milk Tea", url: "https://tmenshs.github.io/unclebrews/#qb-root", keywords: "strawberry milk tea fruit tea puree creamy 80" },
+    { title: "Locations", url: "https://tmenshs.github.io/unclebrews/locations", keywords: "locations branch store address map find us" },
+    { title: "Our Story", url: "https://tmenshs.github.io/unclebrews/our-story", keywords: "our story about us history background" },
+    { title: "FAQ", url: "https://tmenshs.github.io/unclebrews/FAQ/", keywords: "faq questions help support" },
+    { title: "Game to Drink", url: "https://tmenshs.github.io/unclebrews/game/", keywords: "game to drink fun party" },
+    { title: "Contact Us", url: "https://tmenshs.github.io/unclebrews/contact#contact", keywords: "contact us email phone message reach" },
+    { title: "Franchise", url: "https://tmenshs.github.io/unclebrews/contact#franchise", keywords: "franchise business partner invest own a branch" },
+    { title: "Chat on Messenger", url: "https://m.me/1025453833986836", keywords: "messenger chat message" },
+    { title: "Facebook Page", url: "https://facebook.com/1025453833986836", keywords: "facebook fb page social" }
+  ];
+
   var ubMenuBtn = document.getElementById('ub-menu-btn');
   var ubSidebar = document.getElementById('ub-sidebar');
   var ubOverlay = document.getElementById('ub-menu-overlay');
@@ -800,6 +834,57 @@ body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:var(--brew-cre
     ubContactDropdown.style.display = isOpen ? 'none' : 'block';
     ubContactArrow.style.transform = isOpen ? 'rotate(180deg)' : 'rotate(0deg)';
   });
+
+  var input = document.getElementById("ub-search-input");
+  var resultsBox = document.getElementById("ub-search-results");
+
+  function renderResults(matches, query){
+    resultsBox.innerHTML = "";
+    if (!query){ resultsBox.style.display = "none"; return; }
+
+    if (matches.length === 0){
+      resultsBox.style.display = "block";
+      var empty = document.createElement("div");
+      empty.textContent = "No results for \"" + query + "\"";
+      empty.style.cssText = "padding:12px 14px;color:#8a5a68;font-size:13.5px;";
+      resultsBox.appendChild(empty);
+      return;
+    }
+
+    resultsBox.style.display = "block";
+    matches.forEach(function(page){
+      var a = document.createElement("a");
+      a.href = page.url;
+      a.textContent = page.title;
+      a.style.cssText = "display:block;padding:11px 14px;color:#3a2530;text-decoration:none;font-size:13.5px;font-weight:600;border-bottom:1px solid #f5e2ea;";
+      a.addEventListener("mouseenter", function(){ a.style.background = "#fff5f7"; });
+      a.addEventListener("mouseleave", function(){ a.style.background = "transparent"; });
+      resultsBox.appendChild(a);
+    });
+    var last = resultsBox.lastElementChild;
+    if (last) last.style.borderBottom = "none";
+  }
+
+  function doSearch(){
+    var query = input.value.trim().toLowerCase();
+    if (!query){ renderResults([], ""); return; }
+    var matches = UB_PAGES.filter(function(page){
+      return page.title.toLowerCase().indexOf(query) !== -1 ||
+             page.keywords.toLowerCase().indexOf(query) !== -1;
+    });
+    renderResults(matches, query);
+  }
+
+  if (input){
+    input.addEventListener("input", doSearch);
+    input.addEventListener("focus", doSearch);
+    document.addEventListener("click", function(e){
+      if (e.target !== input && !resultsBox.contains(e.target)){
+        resultsBox.style.display = "none";
+      }
+    });
+  }
+})();
 </script>
 
 <!-- everything else that was already in your body (hero section, etc.) continues below, untouched -->
