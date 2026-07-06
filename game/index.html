@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Puffer Flap - Play & Win Milk Tea</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin:0; min-height:100vh; position:relative; overflow-x:hidden;
+    background:linear-gradient(180deg,#012a4a 0%,#01497c 35%,#0288d1 70%,#4fc3f7 100%);
+    display:flex; flex-direction:column; align-items:center;
+    font-family:Arial, sans-serif; color:#fff; padding:16px;
+  }
+
+  #bgCanvas {
+    position:fixed; top:0; left:0; width:100%; height:100%; z-index:0;
+  }
+
+  h1, .subtitle, #entryScreen, #gameWrap, #resultScreen {
+    position:relative; z-index:1;
+  }
+
+  h1 {
+    font-size:26px; margin:8px 0 4px; text-align:center;
+    color:#fff176; text-shadow:0 0 12px rgba(255,241,54,0.7), 0 2px 4px rgba(0,0,0,0.4);
+    animation: floaty 3s ease-in-out infinite;
+  }
+  @keyframes floaty {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+  }
+  .subtitle {
+    font-size:14px; opacity:0.95; margin-bottom:18px; text-align:center;
+    background:rgba(255,255,255,0.12); padding:6px 14px; border-radius:20px;
+    border:1px solid rgba(255,255,255,0.3); backdrop-filter: blur(2px);
+  }
+
+  #entryScreen, #resultScreen {
+    background:rgba(10,40,65,0.75);
+    border:2px solid rgba(255,255,255,0.25);
+    border-radius:16px;
+    padding:26px; width:100%; max-width:360px; text-align:center;
+    box-shadow:0 8px 30px rgba(0,0,0,0.4), 0 0 20px rgba(79,195,247,0.25) inset;
+    backdrop-filter: blur(3px);
+    animation: popIn 0.4s ease-out;
+  }
+  @keyframes popIn {
+    0% { transform: scale(0.9); opacity:0; }
+    100% { transform: scale(1); opacity:1; }
+  }
+  #entryScreen input {
+    width:100%; padding:12px; margin:8px 0; border-radius:8px;
+    border:none; font-size:15px; text-align:center; font-weight:bold;
+    letter-spacing:0.5px;
+  }
+  #entryScreen input:focus { outline:3px solid #fdd835; }
+  #entryScreen button, #resultScreen button {
+    width:100%; padding:13px; margin-top:12px; border:none; border-radius:10px;
+    background:linear-gradient(180deg,#ffe158,#fdd835);
+    color:#0e2233; font-weight:bold; font-size:16px; cursor:pointer;
+    box-shadow:0 4px 0 #c9a600, 0 6px 12px rgba(0,0,0,0.3);
+    transition: transform 0.1s;
+  }
+  #entryScreen button:active, #resultScreen button:active {
+    transform: translateY(3px); box-shadow:0 1px 0 #c9a600;
+  }
+  #entryScreen button:disabled { opacity:0.6; }
+  #entryError { color:#ff8a80; font-size:13px; margin-top:8px; min-height:16px; font-weight:bold; }
+
+  .divider {
+    display:flex; align-items:center; gap:10px; margin:16px 0 10px;
+    font-size:12px; opacity:0.7; text-transform:uppercase; letter-spacing:1px;
+  }
+  .divider::before, .divider::after {
+    content:""; flex:1; height:1px; background:rgba(255,255,255,0.25);
+  }
+  #practiceBtn {
+    width:100%; padding:12px; border:2px dashed rgba(255,255,255,0.4);
+    border-radius:10px; background:rgba(255,255,255,0.08); color:#fff;
+    font-weight:bold; font-size:14px; cursor:pointer;
+  }
+  #practiceBtn:active { background:rgba(255,255,255,0.16); }
+  #practiceNote { font-size:11px; opacity:0.75; margin-top:6px; }
+  #practiceTag {
+    display:none; margin-top:6px; font-size:12px; color:#ffe082;
+    background:rgba(0,0,0,0.35); padding:4px 10px; border-radius:12px;
+  }
+
+  #gameWrap { display:none; flex-direction:column; align-items:center; width:100%; }
+  #hud { display:flex; justify-content:space-between; width:360px; max-width:100%; font-size:15px; margin-bottom:6px; }
+  canvas { background:linear-gradient(#4fc3f7,#0288d1); display:block; border:3px solid #01579b; border-radius:6px; max-width:100%; }
+  #msg { font-size:14px; opacity:0.8; margin-top:8px; text-align:center; }
+  #offlineBadge {
+    display:none; margin-top:6px; font-size:12px; color:#ffe082;
+    background:rgba(0,0,0,0.35); padding:4px 10px; border-radius:12px;
+  }
+
+  #resultScreen { display:none; }
+  #resultScreen.win { border-color:#4caf50; }
+  #resultScreen .big { font-size:22px; font-weight:bold; margin-bottom:6px; }
+  #resultScreen .win .big { color:#a5d6a7; }
+  #keyBox {
+    background:#0e2233; border:1px dashed #4caf50; border-radius:8px;
+    padding:10px; margin:12px 0; font-size:18px; letter-spacing:1px; color:#a5d6a7; font-weight:bold;
+  }
+</style>
+</head>
+<body>
+
+<canvas id="bgCanvas"></canvas>
+
+<h1>🐡 Puffer Flap</h1>
+<div class="subtitle">Score 23+ = FREE Milk Tea + Burger! (₱2 = 5 attempts)</div>
+
+<!-- CODE ENTRY -->
+<div id="entryScreen">
+  <input id="codeInput" type="text" placeholder="Enter your code (e.g. MT-ABC1234)" autocapitalize="characters">
+  <input id="nameInput" type="text" placeholder="Your name (first name is fine)">
+  <button id="verifyBtn" onclick="verifyCode()">Unlock Game</button>
+  <div id="entryError"></div>
+
+  <div class="divider">or</div>
+  <button id="practiceBtn" onclick="startPractice()">🎮 Practice Mode — Play Free, Anytime</button>
+  <div id="practiceNote">No code needed. Practice only — not eligible for the milk tea <span style="color:#ffe082;font-weight:bold;">prize</span> 🏆 <span style="font-size:10px; opacity:0.7;">by TechTmn</span>.</div>
+</div>
+
+<!-- GAME -->
+<div id="gameWrap">
+  <div id="hud">
+    <span id="score">Score: 0</span>
+    <span id="attempts">Attempts left: 5</span>
+  </div>
+  <canvas id="game" width="360" height="600"></canvas>
+  <div id="msg">Tap / Click / Space to puff up. Avoid the obstacles!</div>
+  <div id="offlineBadge">📡 Offline — syncing when reconnected</div>
+  <div id="practiceTag">🎮 Practice Mode — no prize, unlimited plays</div>
+</div>
+
+<!-- RESULT (win or all attempts used) -->
+<div id="resultScreen">
+  <div class="big" id="resultTitle"></div>
+  <div id="resultBody"></div>
+  <div id="keyBox" style="display:none;"></div>
+  <button onclick="location.reload()">Done</button>
+</div>
+
+<script>
+/* ======= ANIMATED EYE-CATCHING BACKGROUND (entry screen only) ======= */
+const bg = document.getElementById('bgCanvas');
+const bgx = bg.getContext('2d');
+let bgRunning = true;
+
+function resizeBg() {
+  bg.width = window.innerWidth;
+  bg.height = window.innerHeight;
+}
+resizeBg();
+window.addEventListener('resize', resizeBg);
+
+const bubbles = Array.from({length: 28}, () => ({
+  x: Math.random() * bg.width,
+  y: Math.random() * bg.height + bg.height,
+  r: Math.random() * 10 + 3,
+  speed: Math.random() * 1.2 + 0.4,
+  drift: Math.random() * 1 - 0.5
+}));
+
+const bgFish = Array.from({length: 5}, () => ({
+  x: Math.random() * -400,
+  y: Math.random() * bg.height * 0.7 + 40,
+  speed: Math.random() * 0.8 + 0.6,
+  size: Math.random() * 14 + 16,
+  color: ['#fdd835','#ff8a65','#4fc3f7','#ba68c8','#81c784'][Math.floor(Math.random()*5)]
+}));
+
+function drawBgFish(f) {
+  bgx.save();
+  bgx.translate(f.x, f.y);
+  bgx.fillStyle = f.color;
+  bgx.globalAlpha = 0.55;
+  bgx.beginPath();
+  bgx.arc(0, 0, f.size, 0, Math.PI * 2);
+  bgx.fill();
+  bgx.beginPath();
+  bgx.moveTo(-f.size, 0);
+  bgx.lineTo(-f.size - 10, -8);
+  bgx.lineTo(-f.size - 10, 8);
+  bgx.closePath();
+  bgx.fill();
+  bgx.restore();
+}
+
+function animateBg() {
+  if (!bgRunning) return;
+  bgx.clearRect(0, 0, bg.width, bg.height);
+
+  bubbles.forEach(b => {
+    b.y -= b.speed;
+    b.x += Math.sin(b.y * 0.02) * b.drift;
+    if (b.y < -20) { b.y = bg.height + 20; b.x = Math.random() * bg.width; }
+    bgx.beginPath();
+    bgx.fillStyle = "rgba(255,255,255,0.35)";
+    bgx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+    bgx.fill();
+  });
+
+  bgFish.forEach(f => {
+    f.x += f.speed;
+    if (f.x > bg.width + 60) { f.x = -60; f.y = Math.random() * bg.height * 0.7 + 40; }
+    drawBgFish(f);
+  });
+
+  requestAnimationFrame(animateBg);
+}
+animateBg();
+
+function stopBg() {
+  bgRunning = false;
+  bg.style.display = 'none';
+}
+</script>
+<script>
+/* ======= CONFIG ======= */
+const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbzw4BIMtct3Z0P3wm_5W5j-C_xfRqKTns8Ujz20NmfimLYGfXoN3Sb8pANdVjeHl5pr/exec";
+const WIN_SCORE = 23;
+const MAX_ATTEMPTS = 5;
+
+/* ======= LOCAL SESSION SIGNING (anti-tamper for offline cache) =======
+   This does NOT make offline play un-hackable (it's client JS, always
+   readable). What it DOES do:
+   1. Stops brand-new/made-up codes from ever getting free attempts offline.
+   2. Stops someone from just editing localStorage numbers in devtools,
+      since the signature won't match anymore and the session gets rejected.
+   Real fraud-proofing always requires the server (Apps Script) check,
+   which is why offline sessions can only ever *continue* an
+   already-server-verified code, never originate one.
+*/
+const SIGN_SALT = "UB-PUFFER-v2-" + "k7Qz2mLp";
+
+function simpleHash(str) {
+  let h = 0;
+  for (let i = 0; i < str.length; i++) {
+    h = (Math.imul(31, h) + str.charCodeAt(i)) | 0;
+  }
+  return (h >>> 0).toString(36);
+}
+
+function signSession(session) {
+  return simpleHash(JSON.stringify(session) + SIGN_SALT);
+}
+
+function saveSession(code, session) {
+  const record = { session, sig: signSession(session) };
+  localStorage.setItem("puffer_session_" + code, JSON.stringify(record));
+}
+
+function loadSession(code) {
+  const raw = localStorage.getItem("puffer_session_" + code);
+  if (!raw) return null;
+  try {
+    const record = JSON.parse(raw);
+    if (!record || !record.session) return null;
+    if (signSession(record.session) !== record.sig) {
+      // tampered — nuke it, treat as no session
+      localStorage.removeItem("puffer_session_" + code);
+      return null;
+    }
+    return record.session;
+  } catch (e) {
+    return null;
+  }
+}
+
+/* ======= PENDING OFFLINE SYNC QUEUE ======= */
+function queuePendingAttempt(code, attemptNumber, score) {
+  const queue = JSON.parse(localStorage.getItem("puffer_pending_sync") || "[]");
+  queue.push({ code, attemptNumber, score, ts: Date.now() });
+  localStorage.setItem("puffer_pending_sync", JSON.stringify(queue));
+}
+
+async function trySyncPending() {
+  const queue = JSON.parse(localStorage.getItem("puffer_pending_sync") || "[]");
+  if (!queue.length || !navigator.onLine) return;
+
+  const stillPending = [];
+  for (const item of queue) {
+    try {
+      await fetch(WEBAPP_URL, {
+        method: "POST",
+        body: JSON.stringify({
+          action: "submitAttempt",
+          code: item.code,
+          attemptNumber: item.attemptNumber,
+          score: item.score,
+          mode: "Offline-Synced"
+        })
+      });
+    } catch (e) {
+      stillPending.push(item);
+    }
+  }
+  localStorage.setItem("puffer_pending_sync", JSON.stringify(stillPending));
+}
+
+window.addEventListener('online', trySyncPending);
+trySyncPending(); // attempt on load too
+
+/* ======= STATE ======= */
+let currentCode = "";
+let currentName = "";
+let attemptsRemaining = MAX_ATTEMPTS;
+let attemptNumber = 0;
+let isOfflineMode = false;
+let isPracticeMode = false;
+
+/* ======= PRACTICE MODE (free, unlimited, never touches the sheet) ======= */
+function startPractice() {
+  isPracticeMode = true;
+  isOfflineMode = false;
+  currentCode = "";
+  currentName = document.getElementById('nameInput').value.trim() || "Player";
+  attemptsRemaining = Infinity;
+
+  stopBg();
+  document.getElementById('entryScreen').style.display = 'none';
+  document.getElementById('gameWrap').style.display = 'flex';
+  document.getElementById('practiceTag').style.display = 'inline-block';
+  document.getElementById('attempts').textContent = "Practice Mode";
+  resetGame();
+}
+
+/* ======= CODE VERIFICATION ======= */
+async function verifyCode() {
+  const code = document.getElementById('codeInput').value.trim().toUpperCase();
+  const name = document.getElementById('nameInput').value.trim();
+  const errEl = document.getElementById('entryError');
+  const btn = document.getElementById('verifyBtn');
+
+  if (!code) { errEl.textContent = "Please enter your code."; return; }
+
+  errEl.textContent = "";
+  btn.disabled = true;
+  btn.textContent = "Checking...";
+
+  if (navigator.onLine) {
+    try {
+      const res = await fetch(WEBAPP_URL, {
+        method: "POST",
+        body: JSON.stringify({ action: "checkCode", code: code, name: name })
+      });
+      const data = await res.json();
+
+      if (!data.ok) {
+        errEl.textContent = data.error || "Invalid code.";
+        btn.disabled = false;
+        btn.textContent = "Unlock Game";
+        return;
+      }
+
+      currentCode = code;
+      currentName = name;
+      attemptsRemaining = data.attemptsRemaining;
+      isOfflineMode = false;
+
+      // Cache a signed local copy so play can continue if connection drops mid-session
+      saveSession(code, { attemptsRemaining, scores: [], name, verifiedOnline: true });
+
+      startGameSession();
+      return;
+    } catch (err) {
+      errEl.textContent = "Connection issue. Please try again.";
+      btn.disabled = false;
+      btn.textContent = "Unlock Game";
+      return;
+    }
+  } else {
+    // OFFLINE: only allow CONTINUING a code that was already verified online.
+    // No more "unseen code = free 5 attempts" — that was the loophole.
+    const session = loadSession(code);
+    if (!session || !session.verifiedOnline) {
+      errEl.textContent = "You're offline. This code needs to connect once to verify. Please check your internet and try again.";
+      btn.disabled = false;
+      btn.textContent = "Unlock Game";
+      return;
+    }
+    if (session.attemptsRemaining <= 0) {
+      errEl.textContent = "No attempts left on this code.";
+      btn.disabled = false;
+      btn.textContent = "Unlock Game";
+      return;
+    }
+
+    currentCode = code;
+    currentName = name || session.name || "";
+    attemptsRemaining = session.attemptsRemaining;
+    isOfflineMode = true;
+    document.getElementById('offlineBadge').style.display = 'inline-block';
+    startGameSession();
+  }
+}
+
+function startGameSession() {
+  stopBg();
+  document.getElementById('entryScreen').style.display = 'none';
+  document.getElementById('gameWrap').style.display = 'flex';
+  document.getElementById('attempts').textContent = "Attempts left: " + attemptsRemaining;
+  resetGame();
+}
+
+/* ======= REPORT ATTEMPT RESULT ======= */
+async function reportAttempt(finalScore) {
+  const won = finalScore >= WIN_SCORE;
+
+  if (isPracticeMode) {
+    // Never touches the WebApp/Sheet, never counts down, never issues a claim key.
+    setTimeout(resetGame, 1200);
+    return;
+  }
+
+  attemptNumber++;
+  attemptsRemaining--;
+  document.getElementById('attempts').textContent = "Attempts left: " + Math.max(attemptsRemaining, 0);
+
+  if (navigator.onLine && !isOfflineMode) {
+    try {
+      const res = await fetch(WEBAPP_URL, {
+        method: "POST",
+        body: JSON.stringify({
+          action: "submitAttempt",
+          code: currentCode,
+          attemptNumber: attemptNumber,
+          score: finalScore,
+          mode: "Online"
+        })
+      });
+      const data = await res.json();
+
+      // keep local cache in sync in case connection drops later this session
+      saveSession(currentCode, { attemptsRemaining, scores: [], name: currentName, verifiedOnline: true });
+
+      handleAttemptOutcome(won, data.key || "");
+      return;
+    } catch (err) {
+      // network dropped mid-session — fall through to offline handling below
+      isOfflineMode = true;
+      document.getElementById('offlineBadge').style.display = 'inline-block';
+    }
+  }
+
+  // Offline path: update the already-verified cached session, queue for sync
+  const session = loadSession(currentCode) || { attemptsRemaining, scores: [], name: currentName, verifiedOnline: true };
+  session.scores.push(finalScore);
+  session.attemptsRemaining = attemptsRemaining;
+  saveSession(currentCode, session);
+  queuePendingAttempt(currentCode, attemptNumber, finalScore);
+
+  handleAttemptOutcome(won, won ? "SHOW_SCREENSHOT" : "");
+}
+
+function handleAttemptOutcome(won, key) {
+  if (won) {
+    showResult(true, key);
+  } else if (attemptsRemaining <= 0) {
+    showResult(false, "");
+  } else {
+    setTimeout(resetGame, 1200);
+  }
+}
+
+function showResult(won, key) {
+  document.getElementById('gameWrap').style.display = 'none';
+  const screen = document.getElementById('resultScreen');
+  screen.style.display = 'block';
+  screen.className = won ? 'win' : '';
+
+  if (won) {
+    document.getElementById('resultTitle').textContent = "🎉 Panalo! Libreng Milk Tea + Burger!";
+    document.getElementById('resultBody').textContent =
+      "Congrats " + (currentName || "player") + "! I-show mo ito sa counter para i-claim.";
+    const keyBox = document.getElementById('keyBox');
+    keyBox.style.display = 'block';
+    if (key === "SHOW_SCREENSHOT") {
+      keyBox.textContent = "Code: " + currentCode + " — Score: " + score;
+      document.getElementById('resultBody').textContent +=
+        " (Offline mode: i-screenshot ang screen na ito bilang proof. Awtomatikong mag-sync pag may net.)";
+    } else {
+      keyBox.textContent = "Claim Key: " + key;
+    }
+  } else {
+    document.getElementById('resultTitle').textContent = "Ubos na ang attempts!";
+    document.getElementById('resultBody').textContent =
+      "Kailangan mo ng bagong code para maglaro ulit. Bumili ng ₱2 sa counter!";
+  }
+}
+
+/* ======= SOUND (Web Audio API — no files, works fully offline) ======= */
+let audioCtx = null;
+function getAudioCtx() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  return audioCtx;
+}
+
+function playTone(freq, startTime, duration, type = "sine", gainPeak = 0.18) {
+  const ctxA = getAudioCtx();
+  const osc = ctxA.createOscillator();
+  const gain = ctxA.createGain();
+  osc.type = type;
+  osc.frequency.setValueAtTime(freq, startTime);
+  gain.gain.setValueAtTime(0, startTime);
+  gain.gain.linearRampToValueAtTime(gainPeak, startTime + 0.02);
+  gain.gain.exponentialRampToValueAtTime(0.001, startTime + duration);
+  osc.connect(gain);
+  gain.connect(ctxA.destination);
+  osc.start(startTime);
+  osc.stop(startTime + duration);
+}
+
+// Cheerful rising arpeggio (A major: A4-C#5-E5-A5) — plays once when a round starts
+function playStartSound() {
+  const ctxA = getAudioCtx();
+  if (ctxA.state === "suspended") ctxA.resume();
+  const now = ctxA.currentTime;
+  [440, 554.37, 659.25, 880].forEach((freq, i) => {
+    playTone(freq, now + i * 0.07, 0.25, "triangle", 0.15);
+  });
+}
+
+// Quick satisfying "ding" on every point — the addictive feedback loop
+function playScoreSound() {
+  const ctxA = getAudioCtx();
+  if (ctxA.state === "suspended") ctxA.resume();
+  const now = ctxA.currentTime;
+  playTone(987.77, now, 0.12, "sine", 0.12); // B5
+}
+
+function playCrashSound() {
+  const ctxA = getAudioCtx();
+  if (ctxA.state === "suspended") ctxA.resume();
+  const now = ctxA.currentTime;
+  playTone(180, now, 0.3, "sawtooth", 0.14);
+  playTone(90, now + 0.05, 0.35, "sawtooth", 0.12);
+}
+
+const canvas = document.getElementById('game');
+const ctx = canvas.getContext('2d');
+const scoreEl = document.getElementById('score');
+
+let fish = { x: 80, y: 300, r: 18, vy: 0 };
+let gravity = 0.28;
+const flapPower = -6.2;
+
+let obstacles = [];
+let gap = 220;
+let obstacleWidth = 50;
+let speed = 2.2;
+let frame = 0;
+let score = 0;
+let gameOver = false;
+let started = false;
+let reported = false;
+
+function resetGame() {
+  fish = { x: 80, y: 300, r: 18, vy: 0 };
+  obstacles = [];
+  speed = 2.2;
+  gap = 220;
+  gravity = 0.28;
+  frame = 0;
+  score = 0;
+  gameOver = false;
+  started = false;
+  reported = false;
+  scoreEl.textContent = "Score: 0";
+}
+
+function flap() {
+  if (gameOver) return;
+  if (!started) playStartSound();
+  started = true;
+  fish.vy = flapPower;
+}
+
+document.addEventListener('keydown', e => { if (e.code === 'Space') flap(); });
+canvas.addEventListener('mousedown', flap);
+canvas.addEventListener('touchstart', e => { e.preventDefault(); flap(); });
+
+function spawnObstacle() {
+  const topHeight = Math.random() * (canvas.height - gap - 100) + 40;
+  obstacles.push({ x: canvas.width, top: topHeight, passed: false });
+}
+
+function update() {
+  if (!started || gameOver) return;
+
+  frame++;
+  fish.vy += gravity;
+  fish.y += fish.vy;
+
+  if (fish.y + fish.r > canvas.height || fish.y - fish.r < 0) {
+    if (!gameOver) playCrashSound();
+    gameOver = true;
+  }
+
+  if (frame % 90 === 0) spawnObstacle();
+
+  obstacles.forEach(ob => {
+    ob.x -= speed;
+
+    if (
+      fish.x + fish.r > ob.x && fish.x - fish.r < ob.x + obstacleWidth &&
+      (fish.y - fish.r < ob.top || fish.y + fish.r > ob.top + gap)
+    ) {
+      if (!gameOver) playCrashSound();
+      gameOver = true;
+    }
+
+    if (!ob.passed && ob.x + obstacleWidth < fish.x) {
+      ob.passed = true;
+      score++;
+      scoreEl.textContent = "Score: " + score;
+      playScoreSound();
+
+      if (score <= 5) {
+        speed += 0.05;
+      } else if (score <= 15) {
+        speed += 0.25;
+        gravity += 0.01;
+        if (gap > 130) gap -= 6;
+      } else {
+        speed += 0.08;
+      }
+    }
+  });
+
+  obstacles = obstacles.filter(ob => ob.x + obstacleWidth > 0);
+
+  if (gameOver && !reported) {
+    reported = true;
+    reportAttempt(score);
+  }
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  ctx.fillStyle = "#fdd835";
+  ctx.beginPath();
+  ctx.arc(fish.x, fish.y, fish.r, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.strokeStyle = "#f57f17";
+  ctx.lineWidth = 2;
+  for (let i = 0; i < 8; i++) {
+    const angle = (i / 8) * Math.PI * 2;
+    const sx = fish.x + Math.cos(angle) * fish.r;
+    const sy = fish.y + Math.sin(angle) * fish.r;
+    const ex = fish.x + Math.cos(angle) * (fish.r + 6);
+    const ey = fish.y + Math.sin(angle) * (fish.r + 6);
+    ctx.beginPath();
+    ctx.moveTo(sx, sy);
+    ctx.lineTo(ex, ey);
+    ctx.stroke();
+  }
+  ctx.fillStyle = "#000";
+  ctx.beginPath();
+  ctx.arc(fish.x + 6, fish.y - 4, 2.5, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.fillStyle = "#6d4c41";
+  obstacles.forEach(ob => {
+    ctx.fillRect(ob.x, 0, obstacleWidth, ob.top);
+    ctx.fillRect(ob.x, ob.top + gap, obstacleWidth, canvas.height - ob.top - gap);
+  });
+
+  if (!started) {
+    ctx.fillStyle = "#fff";
+    ctx.font = "20px sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText("Tap to Start", canvas.width/2, canvas.height/2);
+  }
+
+  if (gameOver) {
+    ctx.fillStyle = "rgba(0,0,0,0.6)";
+    ctx.fillRect(0, canvas.height/2 - 60, canvas.width, 120);
+    ctx.fillStyle = "#fff";
+    ctx.font = "22px sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText("Score: " + score, canvas.width/2, canvas.height/2 - 10);
+    ctx.font = "14px sans-serif";
+    ctx.fillText(isPracticeMode ? "Practice run — tap to play again" : "Saving result...", canvas.width/2, canvas.height/2 + 20);
+  }
+}
+
+function loop() {
+  update();
+  draw();
+  requestAnimationFrame(loop);
+}
+
+loop();
+</script>
+</body>
+</html>
