@@ -2020,116 +2020,364 @@ function endCall() {
 </script>
 
 
+<!-- ════════════════════════════════════════════════════════════
+     SECTION A + SECTION B — READY TO PASTE AS-IS
+     Paste this whole block into your body, exactly where the
+     old version was (after the Quix Brew widget's closing
+     </script>, before your footer).
+     No need to move anything to <head> — this is self-contained
+     and safe to paste in one piece.
+     ════════════════════════════════════════════════════════════ -->
+
+<style>
+  /* ============ SECTION A — feature rows with click-to-zoom photos ============ */
+  .feature-row{display:flex;flex-wrap:wrap;align-items:center;gap:30px;box-sizing:border-box;}
+  .feature-photo{
+    flex:1;min-width:280px;border-radius:12px;height:300px;
+    background:#fff;box-shadow:0 8px 26px rgba(226,19,110,0.16);
+    cursor:pointer;overflow:hidden;position:relative;
+    transition:transform .35s ease, box-shadow .35s ease;
+    box-sizing:border-box;
+  }
+  .feature-photo:hover{transform:translateY(-4px);box-shadow:0 14px 34px rgba(226,19,110,.26);}
+  .feature-photo img{
+    width:100%;height:100%;object-fit:cover;object-position:center;
+    display:block;transition:transform .6s ease;
+  }
+  .feature-photo:hover img{transform:scale(1.06);}
+  .feature-text h3{color:#c2185b;font-size:26px;margin-bottom:12px;font-weight:700;}
+  .feature-text p{color:#6b4550;font-size:14px;line-height:1.6;}
+
+  /* ============ LIGHTBOX (click-to-zoom popup for Section A only) ============ */
+  .fp-lb-overlay{
+    position:fixed;inset:0;background:rgba(20,5,10,.88);
+    display:flex;align-items:center;justify-content:center;
+    z-index:9999;opacity:0;pointer-events:none;
+    transition:opacity .3s ease;padding:20px;
+  }
+  .fp-lb-overlay.active{opacity:1;pointer-events:auto;}
+  .fp-lb-overlay img{
+    max-width:92vw;max-height:88vh;border-radius:10px;
+    box-shadow:0 20px 60px rgba(0,0,0,.5);
+    transform:scale(.92);transition:transform .3s ease;
+    object-fit:contain;
+  }
+  .fp-lb-overlay.active img{transform:scale(1);}
+  .fp-lb-close{
+    position:absolute;top:18px;right:22px;
+    width:42px;height:42px;border-radius:50%;
+    background:rgba(255,255,255,.12);border:2px solid rgba(255,255,255,.4);
+    color:#fff;font-size:22px;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    transition:background .2s ease, transform .2s ease;
+  }
+  .fp-lb-close:hover{background:rgba(226,19,110,.8);transform:scale(1.08);}
+  @media(max-width:640px){
+    .fp-lb-close{width:36px;height:36px;top:12px;right:12px;font-size:18px;}
+  }
+</style>
+
 <section style="background:#fff5f7;padding:60px 20px;">
   <div style="max-width:900px;margin:0 auto;display:flex;flex-direction:column;gap:50px;">
 
-    <div style="display:flex;flex-wrap:wrap;align-items:center;gap:30px;">
-      <div class="lb-thumb" style="flex:1;min-width:280px;border-radius:8px;height:260px;background:#fff;box-shadow:0 4px 14px rgba(226,19,110,0.12);cursor:pointer;overflow:hidden;">
-        <img src="https://images.unsplash.com/photo-1558857563-b371033873b8?w=600&h=400&fit=crop" style="width:100%;height:100%;object-fit:contain;display:block;">
+    <div class="feature-row">
+      <div class="feature-photo">
+        <img src="https://images.unsplash.com/photo-1558857563-b371033873b8?w=800&h=600&fit=crop&auto=format&q=80" alt="Signature Milk Teas">
       </div>
-      <div style="flex:1;min-width:240px;text-align:center;">
-        <h3 style="color:#c2185b;font-size:26px;margin-bottom:12px;font-weight:700;">Signature Milk Teas</h3>
-        <p style="color:#6b4550;font-size:14px;line-height:1.6;">Experience our expertly crafted milk teas, blending unique flavors with premium ingredients for a truly satisfying sip.</p>
-      </div>
-    </div>
-
-    <div style="display:flex;flex-wrap:wrap;align-items:center;gap:30px;">
-      <div class="lb-thumb" style="flex:1;min-width:280px;border-radius:8px;height:260px;background:#fff;box-shadow:0 4px 14px rgba(226,19,110,0.12);cursor:pointer;overflow:hidden;">
-        <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?w=400&h=300&fit=crop" style="width:100%;height:100%;object-fit:contain;display:block;">
-      </div>
-      <div style="flex:1;min-width:240px;text-align:center;">
-        <h3 style="color:#c2185b;font-size:26px;margin-bottom:12px;font-weight:700;">Clever Shop Offerings</h3>
-        <p style="color:#6b4550;font-size:14px;line-height:1.6;">Discover our innovative shop features designed to provide convenience and a memorable shopping experience.</p>
+      <div class="feature-text" style="flex:1;min-width:240px;text-align:center;">
+        <h3>Signature Milk Teas</h3>
+        <p>Experience our expertly crafted milk teas, blending unique flavors with premium ingredients for a truly satisfying sip.</p>
       </div>
     </div>
 
-    <div style="display:flex;flex-wrap:wrap;align-items:center;gap:30px;">
-      <div class="lb-thumb" style="flex:1;min-width:280px;border-radius:8px;height:260px;background:#fff;box-shadow:0 4px 14px rgba(226,19,110,0.12);cursor:pointer;overflow:hidden;">
-        <img src="https://images.unsplash.com/photo-1553787434-dd9eb4ea4d0b?w=600&h=400&fit=crop" style="width:100%;height:100%;object-fit:contain;display:block;">
+    <div class="feature-row">
+      <div class="feature-photo">
+        <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?w=800&h=600&fit=crop&auto=format&q=80" alt="Clever Shop Offerings">
       </div>
-      <div style="flex:1;min-width:240px;text-align:center;">
-        <h3 style="color:#c2185b;font-size:26px;margin-bottom:12px;font-weight:700;">Fresh Ingredients</h3>
-        <p style="color:#6b4550;font-size:14px;line-height:1.6;">We prioritize quality with fresh, carefully selected ingredients to ensure every drink and product exceeds expectations.</p>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<section style="background:#f7dfe7;padding:60px 20px;text-align:center;">
-  <h2 style="color:#df598f;font-size:32px;margin-bottom:8px;font-weight:800;">What Our Customers Say</h2>
-  <p style="color:#a69398;margin-bottom:36px;">Hear from those who love our clever shop and delicious milk teas.</p>
-
-  <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:24px;max-width:1000px;margin:0 auto;">
-
-    <div style="background:#fff;border-radius:8px;width:260px;overflow:hidden;box-shadow:0 4px 16px rgba(226,19,110,0.10);">
-      <div class="lb-thumb" style="width:100%;height:180px;background:#fafafa;cursor:pointer;overflow:hidden;">
-        <img src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=400&h=300&fit=crop" style="width:100%;height:100%;object-fit:contain;display:block;">
-      </div>
-      <div style="padding:20px;">
-        <h3 style="color:#222;font-size:16px;margin-bottom:8px;">Delicious and Refreshing</h3>
-        <p style="color:#666;font-size:13px;line-height:1.5;margin-bottom:16px;">I've tried many milk teas, but Uncle Brew's are truly exceptional—rich flavor and perfect balance.</p>
-        <button style="background:#e2136e;color:#fff;border:none;padding:8px 16px;border-radius:4px;font-size:13px;cursor:pointer;font-weight:600;">Read More</button>
+      <div class="feature-text" style="flex:1;min-width:240px;text-align:center;">
+        <h3>Clever Shop Offerings</h3>
+        <p>Discover our innovative shop features designed to provide convenience and a memorable shopping experience.</p>
       </div>
     </div>
 
-    <div style="background:#fff;border-radius:8px;width:260px;overflow:hidden;box-shadow:0 4px 16px rgba(226,19,110,0.10);">
-      <div class="lb-thumb" style="width:100%;height:180px;background:#fafafa;cursor:pointer;overflow:hidden;">
-        <img src="https://images.unsplash.com/photo-1558857563-b371033873b8?w=400&h=300&fit=crop" style="width:100%;height:100%;object-fit:contain;display:block;">
+    <div class="feature-row">
+      <div class="feature-photo">
+        <img src="https://images.unsplash.com/photo-1553787434-dd9eb4ea4d0b?w=800&h=600&fit=crop&auto=format&q=80" alt="Fresh Ingredients">
       </div>
-      <div style="padding:20px;">
-        <h3 style="color:#222;font-size:16px;margin-bottom:8px;">Great Service</h3>
-        <p style="color:#666;font-size:13px;line-height:1.5;margin-bottom:16px;">The staff is friendly and always eager to customize drinks to my liking. Highly recommended!</p>
-        <button style="background:#e2136e;color:#fff;border:none;padding:8px 16px;border-radius:4px;font-size:13px;cursor:pointer;font-weight:600;">See Reviews</button>
-      </div>
-    </div>
-
-    <div style="background:#fff;border-radius:8px;width:260px;overflow:hidden;box-shadow:0 4px 16px rgba(226,19,110,0.10);">
-      <div class="lb-thumb" style="width:100%;height:180px;background:#fafafa;cursor:pointer;overflow:hidden;">
-        <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?w=400&h=300&fit=crop" style="width:100%;height:100%;object-fit:contain;display:block;">
-      </div>
-      <div style="padding:20px;">
-        <h3 style="color:#222;font-size:16px;margin-bottom:8px;">Innovative Shop Experience</h3>
-        <p style="color:#666;font-size:13px;line-height:1.5;margin-bottom:16px;">The clever shop features make shopping fun and convenient. A top spot for quality and creativity.</p>
-        <button style="background:#e2136e;color:#fff;border:none;padding:8px 16px;border-radius:4px;font-size:13px;cursor:pointer;font-weight:600;">Learn More</button>
+      <div class="feature-text" style="flex:1;min-width:240px;text-align:center;">
+        <h3>Fresh Ingredients</h3>
+        <p>We prioritize quality with fresh, carefully selected ingredients to ensure every drink and product exceeds expectations.</p>
       </div>
     </div>
 
   </div>
 </section>
 
-<!-- Lightbox overlay -->
-<div id="lb-overlay" style="display:none;position:fixed;inset:0;background:rgba(20,10,14,0.85);z-index:9999;align-items:center;justify-content:center;padding:24px;box-sizing:border-box;">
-  <span id="lb-close" style="position:absolute;top:20px;right:28px;color:#fff;font-size:36px;line-height:1;cursor:pointer;font-weight:300;user-select:none;">&times;</span>
-  <img id="lb-image" src="" style="max-width:90vw;max-height:90vh;object-fit:contain;border-radius:6px;box-shadow:0 10px 40px rgba(0,0,0,0.5);">
+<!-- Lightbox overlay for Section A photos -->
+<div class="fp-lb-overlay" id="fpLbOverlay">
+  <button class="fp-lb-close" id="fpLbClose" aria-label="Close">&times;</button>
+  <img id="fpLbImage" src="" alt="Zoomed photo">
 </div>
 
-<!-- Lightbox script (kept separate from footer/menu markup so it can't be corrupted by stray text) -->
 <script>
 (function(){
-  var overlay = document.getElementById('lb-overlay');
-  var lbImg = document.getElementById('lb-image');
-  var closeBtn = document.getElementById('lb-close');
+  const overlay = document.getElementById('fpLbOverlay');
+  const lbImg = document.getElementById('fpLbImage');
+  const closeBtn = document.getElementById('fpLbClose');
 
-  document.querySelectorAll('.lb-thumb img').forEach(function(img){
-    img.addEventListener('click', function(){
-      lbImg.src = img.src;
-      overlay.style.display = 'flex';
-    });
-  });
-
-  function closeLb(){
-    overlay.style.display = 'none';
-    lbImg.src = '';
+  function openLightbox(src, alt){
+    lbImg.src = src;
+    lbImg.alt = alt || '';
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox(){
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
   }
 
-  closeBtn.addEventListener('click', closeLb);
-  overlay.addEventListener('click', function(e){
-    if (e.target === overlay) closeLb();
+  document.querySelectorAll('.feature-photo img').forEach(img => {
+    img.style.cursor = 'zoom-in';
+    img.addEventListener('click', () => openLightbox(img.src, img.alt));
   });
-  document.addEventListener('keydown', function(e){
-    if (e.key === 'Escape') closeLb();
+
+  closeBtn.addEventListener('click', closeLightbox);
+  overlay.addEventListener('click', e => { if(e.target === overlay) closeLightbox(); });
+  document.addEventListener('keydown', e => { if(e.key === 'Escape') closeLightbox(); });
+})();
+</script>
+
+
+<style>
+  /* ── Testimonial carousel (scoped — tc- prefix, no clashes with your other sections) ── */
+  .tc-section{background:#f7dfe7;padding:60px 20px;text-align:center;}
+  .tc-heading{color:#df598f;font-size:32px;margin:0 0 8px;font-weight:800;}
+  .tc-sub{color:#a69398;margin:0 0 36px;font-size:15px;}
+
+  .tc-wrapper{
+    position:relative;max-width:900px;margin:0 auto;
+    border-radius:14px;overflow:hidden;
+    animation:tcWiggle 5s ease-in-out infinite;
+  }
+  @keyframes tcWiggle{
+    0%,100%{transform:translateY(0) rotate(0deg);}
+    50%{transform:translateY(-5px) rotate(0.3deg);}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .tc-wrapper{animation:none !important;}
+  }
+  .tc-track{display:flex;transition:transform .7s cubic-bezier(.33,.1,.22,1);will-change:transform;}
+
+  .tc-card{flex:0 0 100%;min-width:0;padding:0 10px;box-sizing:border-box;}
+  @media(min-width:769px){
+    .tc-card{flex:0 0 33.3333%;}
+  }
+
+  .tc-inner{
+    background:#fff;border-radius:12px;overflow:hidden;
+    box-shadow:0 6px 20px rgba(226,19,110,0.14);
+    height:100%;text-align:left;
+    transition:transform .3s ease, box-shadow .3s ease;
+  }
+  .tc-inner:hover{transform:translateY(-5px);box-shadow:0 14px 30px rgba(226,19,110,.24);}
+
+  .tc-photo{width:100%;aspect-ratio:4/3;overflow:hidden;background:#fafafa;position:relative;}
+  .tc-photo img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;transition:transform .5s ease;}
+  .tc-inner:hover .tc-photo img{transform:scale(1.05);}
+
+  .tc-body{padding:20px;}
+  .tc-body h4{color:#222;font-size:16px;margin:0 0 8px;font-weight:700;}
+  .tc-body p{color:#666;font-size:13px;line-height:1.5;margin:0 0 16px;}
+  .tc-btn{
+    display:inline-block;background:#e2136e;color:#fff;border:none;padding:8px 16px;border-radius:20px;
+    font-size:13px;cursor:pointer;font-weight:600;text-decoration:none;
+    transition:background .2s ease, transform .2s ease;
+  }
+  .tc-btn:hover{background:#c2185b;transform:translateY(-1px);color:#fff;}
+
+  .tc-btn-nav{
+    position:absolute;top:50%;transform:translateY(-50%);z-index:20;
+    background:rgba(226,19,110,.85);border:none;border-radius:50%;
+    width:42px;height:42px;cursor:pointer;color:#fff;
+    display:flex;align-items:center;justify-content:center;
+    transition:background .25s,transform .25s;
+  }
+  .tc-btn-nav:hover{background:#c2185b;transform:translateY(-50%) scale(1.1);}
+  .tc-prev{left:-6px;}
+  .tc-next{right:-6px;}
+  @media(min-width:769px){.tc-prev{left:-52px;}.tc-next{right:-52px;}}
+
+  .tc-dots{display:flex;justify-content:center;gap:9px;margin-top:22px;}
+  .tc-dot{
+    width:8px;height:8px;border-radius:50%;background:rgba(226,19,110,.25);
+    cursor:pointer;transition:background .3s,width .3s,border-radius .3s;
+  }
+  .tc-dot.active{background:#e2136e;width:22px;border-radius:4px;}
+
+  @media(max-width:640px){
+    .tc-btn-nav{width:34px;height:34px;}
+  }
+</style>
+
+<section class="tc-section">
+  <h2 class="tc-heading">What Our Customers Say</h2>
+  <p class="tc-sub">Hear from those who love our clever shop and delicious milk teas.</p>
+
+  <div class="tc-wrapper" id="tcWrapper">
+    <button class="tc-btn-nav tc-prev" id="tcPrev" aria-label="Previous">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <button class="tc-btn-nav tc-next" id="tcNext" aria-label="Next">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+    <div class="tc-track" id="tcTrack"></div>
+  </div>
+
+  <div class="tc-dots" id="tcDots"></div>
+</section>
+
+<script>
+(function(){
+  const INTERVAL = 4500;
+
+  // ═══════════════════════════════════════════════════════════
+  // EDIT ZONE — this is the ONLY part you ever need to touch.
+  //
+  // Each { ... } below is one testimonial card. You can safely edit:
+  //   name  → the bold title shown on the card
+  //   text  → the customer quote/review text
+  //   img   → the photo shown (paste any image URL)
+  //   link  → where "Read More" goes when tapped. Use '#' if you
+  //           don't have a link yet — it's safe, button just won't
+  //           go anywhere.
+  //
+  // Rules: keep the quotes ' ' or " " around your text, keep the
+  // comma after each line, keep the { } braces as they are.
+  // To add a 7th testimonial, copy one whole { ... }, block, paste
+  // it before the closing "];", and add a comma after the one above it.
+  // ═══════════════════════════════════════════════════════════
+  const testimonials = [
+    {
+      name: 'Delicious and Refreshing',
+      text: "I've tried many milk teas, but Uncle Brew's are truly exceptional—rich flavor and perfect balance.",
+      img: 'https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=600&h=450&fit=crop&auto=format&q=80',
+      link: '#'
+    },
+    {
+      name: 'Great Service',
+      text: "The staff is friendly and always eager to customize drinks to my liking. Highly recommended!",
+      img: 'https://images.unsplash.com/photo-1558857563-b371033873b8?w=600&h=450&fit=crop&auto=format&q=80',
+      link: '#'
+    },
+    {
+      name: 'Innovative Shop Experience',
+      text: "The clever shop features make shopping fun and convenient. A top spot for quality and creativity.",
+      img: 'https://images.unsplash.com/photo-1541167760496-1628856ab772?w=600&h=450&fit=crop&auto=format&q=80',
+      link: '#'
+    },
+    {
+      name: 'Perfectly Customized',
+      text: "Being able to adjust sugar and ice level exactly how I want makes every cup feel made just for me.",
+      img: 'https://images.unsplash.com/photo-1553787434-dd9eb4ea4d0b?w=600&h=450&fit=crop&auto=format&q=80',
+      link: '#'
+    },
+    {
+      name: 'Fast and Friendly Pickup',
+      text: "Ordered online and my drink was ready right on time, still fresh and perfectly made. Super convenient!",
+      img: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=600&h=450&fit=crop&auto=format&q=80',
+      link: '#'
+    },
+    {
+      name: 'Worth Every Peso',
+      text: "Affordable price but premium taste. Uncle Brew has become our go-to spot after school and work.",
+      img: 'https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=600&h=450&fit=crop&auto=format&q=80',
+      link: '#'
+    }
+  ];
+  // ═══════════════ END OF EDIT ZONE — don't touch below ═══════════════
+
+  const track = document.getElementById('tcTrack');
+  const dotsWrap = document.getElementById('tcDots');
+  const prevBtn = document.getElementById('tcPrev');
+  const nextBtn = document.getElementById('tcNext');
+  const wrapper = document.getElementById('tcWrapper');
+
+  testimonials.forEach(t => {
+    const card = document.createElement('div');
+    card.className = 'tc-card';
+    card.innerHTML =
+      `<div class="tc-inner">
+        <div class="tc-photo"><img src="${t.img}" alt="${t.name}" loading="lazy"></div>
+        <div class="tc-body">
+          <h4>${t.name}</h4>
+          <p>${t.text}</p>
+          <a class="tc-btn" href="${t.link}" target="_blank" rel="noopener">Read More</a>
+        </div>
+      </div>`;
+    track.appendChild(card);
   });
+
+  function perView(){ return window.innerWidth >= 769 ? 3 : 1; }
+  let pv = perView();
+  let pageCount = Math.ceil(testimonials.length / pv);
+  let cur = 0, timer = null, animating = false;
+
+  let dotEls = [];
+  function buildDots(){
+    dotsWrap.innerHTML = ''; dotEls = [];
+    for(let i=0;i<pageCount;i++){
+      const d = document.createElement('div');
+      d.className = 'tc-dot' + (i===cur ? ' active' : '');
+      d.addEventListener('click', () => goTo(i));
+      dotsWrap.appendChild(d); dotEls.push(d);
+    }
+  }
+
+  function applyTransform(){
+    track.style.transform = `translateX(-${cur * 100}%)`;
+  }
+
+  function goTo(idx){
+    if(animating) return;
+    animating = true;
+    cur = ((idx % pageCount) + pageCount) % pageCount;
+    applyTransform();
+    dotEls.forEach((d,i)=>d.classList.toggle('active', i===cur));
+    clearInterval(timer);
+    timer = setInterval(()=>goTo(cur+1), INTERVAL);
+    setTimeout(()=>{animating=false;}, 750);
+  }
+
+  function relayout(){
+    const newPv = perView();
+    if(newPv === pv) return;
+    pv = newPv;
+    pageCount = Math.ceil(testimonials.length / pv);
+    cur = Math.min(cur, pageCount-1);
+    buildDots(); applyTransform();
+  }
+
+  prevBtn.addEventListener('click', ()=>goTo(cur-1));
+  nextBtn.addEventListener('click', ()=>goTo(cur+1));
+
+  wrapper.addEventListener('mouseenter', ()=>clearInterval(timer));
+  wrapper.addEventListener('mouseleave', ()=>{
+    clearInterval(timer);
+    timer = setInterval(()=>goTo(cur+1), INTERVAL);
+  });
+
+  let touchStartX = 0;
+  track.addEventListener('touchstart', e=>{touchStartX = e.touches[0].clientX;}, {passive:true});
+  track.addEventListener('touchend', e=>{
+    const dx = touchStartX - e.changedTouches[0].clientX;
+    if(Math.abs(dx) > 44) goTo(cur + (dx>0?1:-1));
+  }, {passive:true});
+
+  let resizeT=null;
+  window.addEventListener('resize', ()=>{clearTimeout(resizeT); resizeT=setTimeout(relayout,150);});
+
+  buildDots(); applyTransform();
+  timer = setInterval(()=>goTo(cur+1), INTERVAL);
 })();
 </script>
 
